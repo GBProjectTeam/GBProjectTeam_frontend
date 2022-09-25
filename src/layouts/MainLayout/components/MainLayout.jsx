@@ -27,7 +27,8 @@ export const MainLayout = ({
                 component='main'
                 sx={{
                     paddingTop: !isLoginPage ? `${headerHeight}px` : 0,
-                    alignItems: 'center',
+                    mx: 2,
+                    alignItems: isLoginPage ? 'center' : 'none',
                     display: 'flex',
                     flexGrow: 1,
                     justifyContent: 'center',

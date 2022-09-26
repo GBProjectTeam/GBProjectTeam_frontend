@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 import {
     Stack,
@@ -8,7 +6,7 @@ import {
     Button,
     Paper
 } from '@mui/material'
-import ArticleIcon from '@mui/icons-material/Article';
+import { Documents } from './Documents';
 import { ApprovalTable } from './Table'
 
 const styles = {
@@ -16,19 +14,23 @@ const styles = {
         margin: 5
     },
     table: {
-        margin: 20
+        margin: 20,
+        backgroundImage: `url(${'./BackImage.png'})`,
     },
     padding: {
         padding: 20
+    },
+    status: {
+        color: '#ff3d00'
     }
-};
 
+};
 
 export const ApprovalPage = () => {
     return (
 
         <Stack spacing={2} flex={1} style={styles.table} >
-            <Typography variant='h2' align='center'>
+            <Typography variant='h2' align='center' style={styles.padding}>
                 Согласование документов
             </Typography>
             <Stack direction="row"
@@ -39,20 +41,21 @@ export const ApprovalPage = () => {
                     <Typography variant='h4' >
                         Согласование проекта:
                     </Typography>
-                    <Typography variant='subtitle1' gutterBottom>
+                    <Typography variant='subtitle1' gutterBottom variant='h3'>
                         Контракт по закупке канцелярских товаров
                     </Typography>
-                    <Button variant='outlined' startIcon={<ArticleIcon />}>Документы</Button>
+                    <Documents />
+                    {/* <Button variant='outlined' startIcon={<ArticleIcon />}>Документы</Button> */}
                 </Box>
                 <Box
                     sx={{
-                        width: 300,
+                        width: 400,
                         height: 350,
                     }}
                     component={Paper}
                     style={styles.padding}
                 >
-                    <Typography variant='h5' align='center'>
+                    <Typography variant="h5" align='center'>
                         Информация о проекте
                     </Typography>
                     <Stack direction="row">
@@ -67,7 +70,7 @@ export const ApprovalPage = () => {
                         <Typography variant='h7' >
                             Статус проекта:
                         </Typography>
-                        <Typography gutterBottom>
+                        <Typography gutterBottom style={styles.status}>
                             отклонен
                         </Typography>
                     </Stack>
@@ -75,7 +78,7 @@ export const ApprovalPage = () => {
                         <Typography variant='h7' >
                             Решение:
                         </Typography>
-                        <Typography gutterBottom>
+                        <Typography gutterBottom style={styles.status}>
                             отклонен
                         </Typography>
                     </Stack>
@@ -86,7 +89,7 @@ export const ApprovalPage = () => {
                 </Box>
             </Stack>
             <Box>
-                <Typography variant='h5' align='center'>
+                <Typography variant='h4' align='center' style={styles.padding}>
                     Лист Согласования
                 </Typography>
                 <ApprovalTable />

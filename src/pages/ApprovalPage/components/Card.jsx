@@ -1,24 +1,18 @@
-import React from "react";
+import React from 'react'
 import { Typography,
     Card,
     CardContent,
     CardActions,
-    Button } from '@mui/material'
+    Button,
+    CardHeader
+} from '@mui/material'
+import { mainUser } from './constants/mainUser'
 
-const mainUser={
-    name: 'Дмитров Иван Александрович',
-    prodStatus:'На согласовании',
-    decision: 'Отклонено'
-
-}
-
-export const InformCard =()=> {
+export const ProjectInformCard =()=> {
     return (
-        <Card sx={{ minWidth: 275,padding: '15px' }}>
+        <Card >
+            <CardHeader title='Информация о проекте' />
             <CardContent>
-                <Typography variant="h5" gutterBottom>
-                    Информация о проекте
-                </Typography>
                 <Typography >
                     Автор проекта: {mainUser.name}
                 </Typography>
@@ -29,14 +23,27 @@ export const InformCard =()=> {
                     Решение: {mainUser.decision}
                 </Typography>
             </CardContent>
-            <CardContent sx={{ minWidth: 275,padding: '15px' }} >
+            <CardContent sx={{ minWidth: 275,
+                padding: '15px',
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column' }}
+            >
                 <CardActions >
-                    <Button sx={{ borderRadius: 20,minWidth: 250 }} size="small" variant='outlined'>Изменить решение</Button>
+                    <Button sx={{ borderRadius: 20,minWidth: 250 }}
+                        size='small'
+                        variant='outlined'
+                    >
+                        Изменить решение</Button>
                 </CardActions>
                 <CardActions >
-                    <Button sx={{ borderRadius: 20, minWidth: 250 }} size="small" variant='outlined'>Изменить статус проекта</Button>
+                    <Button sx={{ borderRadius: 20, minWidth: 250 }}
+                        size='small'
+                        variant='outlined'
+                    >
+                        Изменить статус проекта</Button>
                 </CardActions>
             </CardContent>
         </Card>
-    );
-  }
+    )
+}

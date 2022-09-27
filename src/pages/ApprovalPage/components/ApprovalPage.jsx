@@ -11,7 +11,7 @@ import { ProjectInformCard } from './Card'
 export const ApprovalPage = () => {
     return (
 
-        <Stack spacing={2} flex={1} sx={{ m:'px' }} >
+        <Stack spacing={2} flex={1} sx={{ m: 'px' }} >
             <Typography variant='h2' align='center' sx={{ padding: '20px' }}>
                 Согласование документов
             </Typography>

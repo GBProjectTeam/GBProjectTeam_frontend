@@ -8,6 +8,7 @@ import {
     Stack
 } from '@mui/material'
 import ArticleIcon from '@mui/icons-material/Article'
+import { alignProperty } from '@mui/material/styles/cssUtils'
 
 const boxStyle = {
     position: 'absolute',
@@ -27,15 +28,20 @@ export const Documents = () => {
     const handleClose = () => setOpen(false)
     return (
         <Stack>
-            <Stack>
-                <Typography variant='h4' >
+            <Stack sx={{ m: '10px' }}>
+                <Typography variant='h3' >
                     Согласование проекта:
                 </Typography>
-                <Typography variant='subtitle1'>
+                <Typography variant='h4'>
                     Контракт по закупке канцелярских товаров
                 </Typography>
             </Stack>
-            <Button sx={{ borderRadius: 20 }}
+            <Button sx={{
+                borderRadius: 20,
+                align: 'center',
+                maxWidth: 200,
+                m: '10px'
+            }}
                 onClick={handleOpen}
                 variant='contained'
                 startIcon={<ArticleIcon />}

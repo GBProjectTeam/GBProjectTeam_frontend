@@ -28,7 +28,7 @@ export const Documents = () => {
     const handleClose = () => setOpen(false);
     return (
         <ButtonGroup variant="outlined" aria-label="text button group">
-            <Button onClick={handleOpen} startIcon={<ArticleIcon />}>Документы</Button>
+            <Button sx={{ borderRadius: 20 }} onClick={handleOpen} startIcon={<ArticleIcon />}>Документы</Button>
             <Modal
                 open={open}
                 onClose={handleClose}

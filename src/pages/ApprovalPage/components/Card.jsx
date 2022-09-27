@@ -1,14 +1,15 @@
 import React from 'react'
-import { Typography,
+import {
+    Typography,
     Card,
     CardContent,
     CardActions,
     Button,
     CardHeader
 } from '@mui/material'
-import { mainUser } from './constants/mainUser'
+import { mainUser } from '../constants/mainUser'
 
-export const ProjectInformCard =()=> {
+export const ProjectInformCard = () => {
     return (
         <Card >
             <CardHeader title='Информация о проекте' />
@@ -23,14 +24,16 @@ export const ProjectInformCard =()=> {
                     Решение: {mainUser.decision}
                 </Typography>
             </CardContent>
-            <CardContent sx={{ minWidth: 275,
+            <CardContent sx={{
+                minWidth: 275,
                 padding: '15px',
                 display: 'flex',
                 alignItems: 'center',
-                flexDirection: 'column' }}
+                flexDirection: 'column'
+            }}
             >
                 <CardActions >
-                    <Button sx={{ borderRadius: 20,minWidth: 250 }}
+                    <Button sx={{ borderRadius: 20, minWidth: 250 }}
                         size='small'
                         variant='outlined'
                     >

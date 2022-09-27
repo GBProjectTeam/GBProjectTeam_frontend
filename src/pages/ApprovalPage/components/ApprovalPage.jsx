@@ -4,10 +4,10 @@ import {
     Box,
     Typography,
     Button,
-    Paper
 } from '@mui/material'
 import { Documents } from './Documents';
 import { ApprovalTable } from './Table'
+import { InformCard } from './Card';
 
 const styles = {
     button: {
@@ -45,48 +45,8 @@ export const ApprovalPage = () => {
                         Контракт по закупке канцелярских товаров
                     </Typography>
                     <Documents />
-                    {/* <Button variant='outlined' startIcon={<ArticleIcon />}>Документы</Button> */}
                 </Box>
-                <Box
-                    sx={{
-                        width: 400,
-                        height: 350,
-                    }}
-                    component={Paper}
-                    style={styles.padding}
-                >
-                    <Typography variant="h5" align='center'>
-                        Информация о проекте
-                    </Typography>
-                    <Stack direction="row">
-                        <Typography variant='h7' >
-                            Управляющий проектом:
-                        </Typography>
-                        <Typography gutterBottom>
-                            Иванов Иван Иванович
-                        </Typography>
-                    </Stack>
-                    <Stack direction="row">
-                        <Typography variant='h7' >
-                            Статус проекта:
-                        </Typography>
-                        <Typography gutterBottom style={styles.status}>
-                            отклонен
-                        </Typography>
-                    </Stack>
-                    <Stack direction="row">
-                        <Typography variant='h7' >
-                            Решение:
-                        </Typography>
-                        <Typography gutterBottom style={styles.status}>
-                            отклонен
-                        </Typography>
-                    </Stack>
-                    <Stack>
-                        <Button variant='outlined' style={styles.button}>Изменение решения</Button>
-                        <Button variant='outlined' >Изменение статуса проекта</Button>
-                    </Stack>
-                </Box>
+                <InformCard />
             </Stack>
             <Box>
                 <Typography variant='h4' align='center' style={styles.padding}>
@@ -96,7 +56,8 @@ export const ApprovalPage = () => {
             </Box>
             <Stack direction="row" justifyContent="end">
                 <Button variant='outlined'
-                    sx={{ width: 300 }}
+                    sx={{ width: 300,
+                        borderRadius: 20 }}
                     style={styles.answerButton}>Ответить на комментарий</Button>
             </Stack>
         </Stack>

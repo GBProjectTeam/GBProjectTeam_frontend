@@ -13,7 +13,10 @@ import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from '@mui/icons-material/Add'
+import SearchIcon from '@mui/icons-material/Search'
+import { styled, alpha } from '@mui/material/styles'
+import InputBase from '@mui/material/InputBase'
 
 // const pages = ['ПРОЕКТЫ', 'АРХИВ', 'СОЗДАТЬ НОВЫЙ']
 // const settings = ['Личный кабинет', 'Выйти']
@@ -35,6 +38,48 @@ export const Header = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
     }
+
+    const Search = styled('div')(({ theme }) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(1),
+            width: 'auto',
+        },
+    }))
+
+    const SearchIconWrapper = styled('div')(({ theme }) => ({
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }))
+
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+        color: 'inherit',
+        '& .MuiInputBase-input': {
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                width: '12ch',
+                '&:focus': {
+                    width: '20ch',
+                },
+            },
+        },
+    }))
 
     return (
 
@@ -72,9 +117,21 @@ export const Header = () => {
                                 key={'projects'}
                                 onClick={() => navigate('/projects')}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
+                                variant='outlined'
                             >
                                 {'ПРОЕКТЫ'}
                             </Button>
+                            <Search
+                                sx={{ flexGrow: 0.4, my: 2 }}
+                            >
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder='Поиск по проектам'
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </Search>
                             <Button
                                 key={'archive'}
                                 onClick={() => navigate('/archive')}

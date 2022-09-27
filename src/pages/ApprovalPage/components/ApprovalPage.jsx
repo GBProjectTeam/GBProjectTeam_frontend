@@ -5,13 +5,16 @@ import {
     Typography,
 } from '@mui/material'
 import { Documents } from './Documents'
-import { ApprovalTable } from './Table'
-import { ProjectInformCard } from './Card'
+import { ApprovalTable } from './ApprovalTable'
+import { ProjectInformCard } from './ProjectInfoCard'
 
 export const ApprovalPage = () => {
     return (
-
-        <Stack spacing={2} flex={1} sx={{ m: 'px' }} >
+        <Stack
+            spacing={2}
+            flex={1}
+            justifyContent='space-beetwen'
+        >
             <Typography variant='h2' align='center' sx={{ padding: '20px' }}>
                 Согласование документов
             </Typography>
@@ -24,9 +27,7 @@ export const ApprovalPage = () => {
                 </Box>
                 <ProjectInformCard />
             </Stack>
-            <Box>
-                <ApprovalTable />
-            </Box>
+            <ApprovalTable />
         </Stack>
     )
 }

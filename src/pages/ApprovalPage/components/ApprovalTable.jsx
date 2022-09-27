@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import React from 'react'
 import {
     TableContainer,
@@ -12,31 +12,14 @@ import {
     Button,
     Typography
 } from '@mui/material'
+import { rows } from '../constants/Rows'
 
-const rows = [
-    {
-        id: '01',
-        name: 'Петров Виктор Фёдорович',
-        status: 'Отклонено',
-        comment: 'Пункт 3.1: Изменить количество закупаемого товара с 5 до 10'
-    },
-    {
-        id: '02',
-        name: 'Колмагорская Екатерина Викторовна',
-        status: 'Согласовано',
-        comment: ' '
-    },
-    {
-        id: '03',
-        name: 'Евсюков Дмитрий Анатольевич',
-        status: 'Согласовано',
-        comment: ' '
-    }
-]
 export const ApprovalTable = () => {
     return (
-        <Stack>
-            <Typography variant='h4' align='center' sx={{ padding: '20px' }}>
+        <Stack
+            spacing={2}
+            justifyContent='space-around'>
+            <Typography variant='h4' align='center' >
                 Лист Согласования
             </Typography>
             <TableContainer component={Paper}>
@@ -98,7 +81,7 @@ export const ApprovalTable = () => {
                         m: '10px'
                     }}
                 >
-                    Ответить на комментарий</Button>
+                    Открыть на комментарии</Button>
             </Stack>
         </Stack>
     )

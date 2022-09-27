@@ -32,7 +32,7 @@ export const Documents = () => {
                 <Typography variant='h3' >
                     Согласование проекта:
                 </Typography>
-                <Typography variant='h4'>
+                <Typography variant='h2' sx={{ fontWeight: 'bold' }}>
                     Контракт по закупке канцелярских товаров
                 </Typography>
             </Stack>

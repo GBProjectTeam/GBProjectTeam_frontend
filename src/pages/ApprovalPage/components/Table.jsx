@@ -72,7 +72,7 @@ export const ApprovalTable = () => {
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>{row.name}</TableCell>
+                                <TableCell align='center' >{row.name}</TableCell>
 
                                 <TableCell align='center'>
                                     <Typography

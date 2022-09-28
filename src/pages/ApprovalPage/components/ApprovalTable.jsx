@@ -1,4 +1,3 @@
-
 import React from 'react'
 import {
     TableContainer,
@@ -13,15 +12,18 @@ import {
     Typography
 } from '@mui/material'
 import { rows } from '../constants/Rows'
+import { green, red } from '@mui/material/colors'
 
 export const ApprovalTable = () => {
     return (
         <Stack
             spacing={2}
-            justifyContent='space-around'>
+            justifyContent='space-evenly'
+        >
             <Typography variant='h4' align='center' >
                 Лист Согласования
             </Typography>
+
             <TableContainer component={Paper}>
                 <Table aria-label='simple table'>
                     <TableHead>
@@ -33,7 +35,9 @@ export const ApprovalTable = () => {
                                     fontSize: 20
                                 }}
                             >
-                                Согласующий</TableCell>
+                                Согласующий
+                            </TableCell>
+
                             <TableCell align='center'
                                 width={700}
                                 sx={{
@@ -49,9 +53,11 @@ export const ApprovalTable = () => {
                                     fontSize: 20
                                 }}
                             >
-                                Комментарий</TableCell>
+                                Комментарий
+                            </TableCell>
                         </TableRow>
                     </TableHead>
+
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow key={row.id}>
@@ -59,30 +65,29 @@ export const ApprovalTable = () => {
 
                                 <TableCell align='center'>
                                     <Typography
-                                        sx={{ fontWeight: 'bold' }}
-                                        color={row.status !== 'Отклонено' ? 'green' : 'red'}
+                                        fontWeight='fontWeightBold'
+                                        color={row.status !== 'Отклонено' ? green[500] : red[500]}
                                     >
                                         {row.status}
                                     </Typography>
                                 </TableCell>
 
                                 <TableCell align='center'>{row.comment}</TableCell>
-
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Stack direction='row' justifyContent='end'>
-                <Button variant='outlined'
-                    sx={{
-                        width: 300,
-                        borderRadius: 20,
-                        m: '10px'
-                    }}
-                >
-                    Открыть на комментарии</Button>
-            </Stack>
+
+            <Button variant='outlined'
+                sx={{
+                    width: 300,
+                    borderRadius: 20,
+                    alignSelf: 'flex-end'
+                }}
+            >
+                Открыть комментарии
+            </Button>
         </Stack>
     )
 }

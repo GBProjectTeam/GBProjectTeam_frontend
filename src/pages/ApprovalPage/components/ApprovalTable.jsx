@@ -60,7 +60,7 @@ export const ApprovalTable = () => {
                                 <TableCell align='center'>
                                     <Typography
                                         sx={{ fontWeight: 'bold' }}
-                                        color={row.status !== 'Отклонено' ? '#4caf50' : '#ff3d00'}
+                                        color={row.status !== 'Отклонено' ? 'green' : 'red'}
                                     >
                                         {row.status}
                                     </Typography>

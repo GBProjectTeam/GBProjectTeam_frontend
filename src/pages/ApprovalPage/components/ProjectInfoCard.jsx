@@ -8,23 +8,59 @@ import {
     CardHeader
 } from '@mui/material'
 import { mainUser } from '../constants/mainUser'
+import { margin } from '@mui/system'
 
 export const ProjectInfoCard = () => {
     return (
         <Card >
+            
             <CardHeader title='Информация о проекте' />
             <CardContent>
-
-                <Typography >
-                    Автор проекта: {mainUser.name}
+                <Typography
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}
+                >
+                    Автор проекта:
+                    
+                    <Typography
+                        fontWeight='fontWeightBold'
+                    >
+                        {mainUser.name}
+                    </Typography>
+                
                 </Typography>
 
-                <Typography >
-                    Статус проекта: {mainUser.prodStatus}
+                <Typography
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}>
+                    Статус проекта:
+                    
+                    <Typography
+                        fontWeight='fontWeightBold'
+                    >
+                        {mainUser.prodStatus}
+                    </Typography>
+                
                 </Typography>
 
-                <Typography >
-                    Решение: {mainUser.decision}
+                <Typography
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}>
+                    Решение:
+                    
+                    <Typography
+                        fontWeight='fontWeightBold'
+                        color={mainUser.decision !== 'Отклонено' ? 'green' : 'red'}
+                    >
+                        {mainUser.decision}
+                    </Typography>
+                
                 </Typography>
 
             </CardContent>
@@ -38,23 +74,33 @@ export const ProjectInfoCard = () => {
                     flexDirection: 'column'
                 }}
             >
-                <CardActions >
-                    <Button sx={{ borderRadius: 20, minWidth: 250 }}
+                <CardActions
+                    // sx={{
+                    //     display:'flex',
+                    //     flexDirection:'column',
+                    //     margin: '0'
+                    // }}
+                >
+            
+                    <Button
+                        sx={{ borderRadius: 20, minWidth: 250 }}
                         size='small'
                         variant='outlined'
                     >
                         Изменить решение
                     </Button>
-                </CardActions>
-                <CardActions >
-                    <Button sx={{ borderRadius: 20, minWidth: 250 }}
+                
+                    <Button
+                        sx={{ borderRadius: 20, minWidth: 250 }}
                         size='small'
                         variant='outlined'
                     >
                         Изменить статус проекта
                     </Button>
+                
                 </CardActions>
             </CardContent>
+        
         </Card>
     )
 }

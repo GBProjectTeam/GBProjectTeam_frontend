@@ -25,14 +25,17 @@ export const Documents = () => {
     const handleClose = () => setOpen(false)
 
     return (
-        <Stack>
+        <>
             <Stack spacing={2}>
+                
                 <Typography variant='h4' >
                     Согласование проекта:
                 </Typography>
+                
                 <Typography variant='h3' sx={{ fontWeight: 'bold' }}>
                     Контракт по закупке канцелярских товаров
                 </Typography>
+                
                 <Button
                     sx={{
                         borderRadius: 20,
@@ -46,6 +49,7 @@ export const Documents = () => {
                 >
                     Документы
                 </Button>
+            
             </Stack>
 
             <Modal
@@ -55,11 +59,14 @@ export const Documents = () => {
                 aria-describedby='modal-modal-description'
             >
                 <Stack sx={boxStyle} >
+                    
                     <Link href='#'>ГК-2018-1</Link>
 
                     <Link href='#'>ДГ-2019-3</Link>
+                
                 </Stack>
+            
             </Modal>
-        </Stack >
+        </>
     )
 }

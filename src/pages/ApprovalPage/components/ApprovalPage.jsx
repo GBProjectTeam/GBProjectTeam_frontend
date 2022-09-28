@@ -9,11 +9,10 @@ import { ApprovalTable } from './ApprovalTable'
 
 export const ApprovalPage = () => {
     return (
-        
         <Stack
             spacing={2}
             flex={1}
-            justifyContent='space-between'
+            justifyContent='space-around'
         >
             <Typography
                 variant='h2'
@@ -22,22 +21,18 @@ export const ApprovalPage = () => {
             >
                 Согласование документов
             </Typography>
-            
+
             <Stack
                 direction='row'
-                justifyContent='space-around'
+                justifyContent='space-evenly'
                 alignItems='center'
                 spacing={2}
             >
-                
                 <Documents />
-                
                 <ProjectInfoCard />
-            
             </Stack>
-            
+
             <ApprovalTable />
-        
         </Stack>
     )
 }

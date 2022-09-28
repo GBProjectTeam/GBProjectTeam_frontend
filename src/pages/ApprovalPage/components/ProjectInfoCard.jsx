@@ -5,83 +5,60 @@ import {
     CardContent,
     CardActions,
     Button,
-    CardHeader
+    CardHeader,
+    Stack
 } from '@mui/material'
-import { mainUser } from '../constants/mainUser'
-import { margin } from '@mui/system'
+import { projectInfo } from '../constants/projectInfo.js'
+import { getValue } from '../utils/getValue.js'
+import { getColor } from '../utils/getColor.js'
 
 export const ProjectInfoCard = () => {
-    return (
-        <Card >
-            
-            <CardHeader title='Информация о проекте' />
-            <CardContent>
-                <Typography
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row'
-                    }}
-                >
-                    Автор проекта:
-                    
-                    <Typography
-                        fontWeight='fontWeightBold'
-                    >
-                        {mainUser.name}
-                    </Typography>
-                
-                </Typography>
-
-                <Typography
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row'
-                    }}>
-                    Статус проекта:
-                    
-                    <Typography
-                        fontWeight='fontWeightBold'
-                    >
-                        {mainUser.prodStatus}
-                    </Typography>
-                
-                </Typography>
-
-                <Typography
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row'
-                    }}>
-                    Решение:
-                    
-                    <Typography
-                        fontWeight='fontWeightBold'
-                        color={mainUser.decision !== 'Отклонено' ? 'green' : 'red'}
-                    >
-                        {mainUser.decision}
-                    </Typography>
-                
-                </Typography>
-
-            </CardContent>
-
-            <CardContent
+    const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
+        <Stack direction='row'>
+            <Typography
                 sx={{
-                    minWidth: 275,
-                    padding: '15px',
                     display: 'flex',
-                    alignItems: 'center',
-                    flexDirection: 'column'
+                    flexDirection: 'row'
                 }}
             >
-                <CardActions
-                    // sx={{
-                    //     display:'flex',
-                    //     flexDirection:'column',
-                    //     margin: '0'
-                    // }}
-                >
-            
+                {attribute}:&nbsp;
+            </Typography>
+
+            <Typography
+                fontWeight='fontWeightBold'
+                color={isColored ? getColor(value) : 'none'}
+            >
+                {getValue(value, agreedTitle, notAgreedTitle)}
+            </Typography>
+        </Stack>
+    )
+
+    return (
+        <Card sx={{ width: '25%' }}>
+            <CardHeader title='Информация о проекте' />
+
+            <CardContent>
+                {renderAttribute('Автор проекта', projectInfo.author)}
+
+                {renderAttribute(
+                    'Статус проекта',
+                    projectInfo.projectIsNotAgreed,
+                    'На согласовании',
+                    'Закрыт',
+                    true
+                )}
+
+                {renderAttribute(
+                    'Решение',
+                    projectInfo.userDecisionIsAgreed,
+                    'Согласовано',
+                    'Отклонено',
+                    true
+                )}
+            </CardContent>
+
+            <CardActions>
+                <Stack spacing={1} alignItems='center' flex={1}>
                     <Button
                         sx={{ borderRadius: 20, minWidth: 250 }}
                         size='small'
@@ -89,7 +66,7 @@ export const ProjectInfoCard = () => {
                     >
                         Изменить решение
                     </Button>
-                
+
                     <Button
                         sx={{ borderRadius: 20, minWidth: 250 }}
                         size='small'
@@ -97,10 +74,8 @@ export const ProjectInfoCard = () => {
                     >
                         Изменить статус проекта
                     </Button>
-                
-                </CardActions>
-            </CardContent>
-        
+                </Stack>
+            </CardActions>
         </Card>
     )
 }

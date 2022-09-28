@@ -5,13 +5,12 @@ import {
 } from 'react-router-dom'
 import {
     ApprovalPage,
-    LoginPage
+    LoginPage,
+    ArchivePage,
+    CreateProjectPage,
+    PersonalArea,
+    ProjectsPage
 } from './pages'
-
-import { ArchivelPage } from './pages/ArchivePage/components/ArchivePage'
-import { ProjectsPage } from './pages/ProjectsPage/components/ProjectsPage'
-import { CreateProjectPage } from './pages/CreateProjectPage/components/CreateProjectPage'
-import { PersonalArea } from './pages/PersonalArea/components/PersonalArea'
 
 export const Routes = () => (
     <Switch>
@@ -33,7 +32,7 @@ export const Routes = () => (
         />
         <Route
             path='/archive'
-            element={<ArchivelPage />}
+            element={<ArchivePage />}
         />
         <Route
             path='/createProject'

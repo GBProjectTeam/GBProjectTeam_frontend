@@ -17,9 +17,8 @@ export const MainLayout = ({
             sx={{
                 height: '100vh',
                 width: '100vw',
-                // display: 'flex',
-                flex: 1,
-                flexDirection: 'row'
+                display: 'flex',
+                flex: 1
             }}
         >
             {!isLoginPage && <Header />}

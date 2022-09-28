@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { Article } from '@mui/icons-material'
 
-const boxStyle = {
+const stackStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -27,21 +27,19 @@ export const Documents = () => {
     return (
         <>
             <Stack spacing={2}>
-                
-                <Typography variant='h4' >
+                <Typography variant='h4'>
                     Согласование проекта:
                 </Typography>
-                
-                <Typography variant='h3' sx={{ fontWeight: 'bold' }}>
+
+                <Typography variant='h3' fontWeight='fontWeightBold'>
                     Контракт по закупке канцелярских товаров
                 </Typography>
-                
+
                 <Button
                     sx={{
                         borderRadius: 20,
                         align: 'center',
                         maxWidth: 200,
-                        m: '10px'
                     }}
                     onClick={handleOpen}
                     variant='contained'
@@ -49,23 +47,16 @@ export const Documents = () => {
                 >
                     Документы
                 </Button>
-            
             </Stack>
 
             <Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby='modal-modal-title'
-                aria-describedby='modal-modal-description'
             >
-                <Stack sx={boxStyle} >
-                    
+                <Stack sx={stackStyle} >
                     <Link href='#'>ГК-2018-1</Link>
-
                     <Link href='#'>ДГ-2019-3</Link>
-                
                 </Stack>
-            
             </Modal>
         </>
     )

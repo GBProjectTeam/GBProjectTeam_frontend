@@ -12,7 +12,8 @@ import {
 import {
     Add,
     Search,
-    AccountCircle
+    AccountCircle,
+    NotificationsNone
 } from '@mui/icons-material'
 
 export const Header = () => {
@@ -102,19 +103,33 @@ export const Header = () => {
                 Создать новый
             </Button>
 
-            <Button
-                variant='outlined'
-                startIcon={<AccountCircle />}
-                onClick={handleClick}
+            <Box
                 sx={{
-                    margin: 1,
+                    display: 'flex',
                     marginLeft: 'auto',
-                    borderRadius: 20,
-
+                    alignItems: 'center'
                 }}
             >
-                Василий Пупкин
-            </Button>
+                <NotificationsNone
+                    sx={{
+                        margin: 1,
+                    }}
+                ></NotificationsNone>
+
+                <Button
+                    variant='outlined'
+                    startIcon={<AccountCircle />}
+                    onClick={handleClick}
+                    sx={{
+                        margin: 1,
+                        // marginLeft: 'auto',
+                        borderRadius: 20,
+
+                    }}
+                >
+                    Василий Пупкин
+                </Button>
+            </Box>
 
             <Menu
                 anchorEl={anchorEl}

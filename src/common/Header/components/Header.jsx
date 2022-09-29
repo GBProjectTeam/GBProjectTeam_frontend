@@ -13,7 +13,9 @@ import {
     Add,
     Search,
     AccountCircle,
-    NotificationsNone
+    NotificationsNone,
+    PermContactCalendar,
+    ExitToApp
 } from '@mui/icons-material'
 
 export const Header = () => {
@@ -40,7 +42,6 @@ export const Header = () => {
                 alignItems: 'flex-start'
             }}
         >
-
             <Typography
                 variant='h4'
                 sx={{
@@ -70,12 +71,11 @@ export const Header = () => {
                         <InputAdornment position='start'>
                             <Search />
                         </InputAdornment>
-                    ),
+                    )
                 }}
                 variant='outlined'
                 sx={{
-                    // borderRadius: 20,
-                    margin: 1,
+                    margin: 1
                 }}
             />
 
@@ -96,7 +96,7 @@ export const Header = () => {
                 startIcon={<Add />}
                 sx={{
                     margin: 1,
-                    borderRadius: 20,
+                    borderRadius: 20
 
                 }}
             >
@@ -112,9 +112,9 @@ export const Header = () => {
             >
                 <NotificationsNone
                     sx={{
-                        margin: 1,
+                        margin: 1
                     }}
-                ></NotificationsNone>
+                />
 
                 <Button
                     variant='outlined'
@@ -122,8 +122,7 @@ export const Header = () => {
                     onClick={handleClick}
                     sx={{
                         margin: 1,
-                        // marginLeft: 'auto',
-                        borderRadius: 20,
+                        borderRadius: 20
 
                     }}
                 >
@@ -136,10 +135,29 @@ export const Header = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => navigate('/personalArea')}>Личный кабинет</MenuItem>
-                <MenuItem onClick={() => navigate('/exit')}>Выйти</MenuItem>
+                <MenuItem
+                    onClick={() => navigate('/personalArea')}
+                >
+                    Личный кабинет
+                    <PermContactCalendar
+                        sx={{
+                            marginLeft: 'auto'
+                        }}
+                    />
+                </MenuItem>
+
+                <MenuItem
+                    onClick={() => navigate('/exit')}
+                >
+                    Выйти
+                    <ExitToApp
+                        sx={{
+                            marginLeft: 'auto'
+                        }}
+                    />
+                </MenuItem>
             </Menu>
 
-        </Box>
+        </Box >
     )
 }

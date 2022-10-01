@@ -1,13 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
+    AppBar,
     Box,
     Menu,
     MenuItem,
     Typography,
     Button,
     TextField,
-    InputAdornment
+    InputAdornment,
+    IconButton,
+    Badge
 } from '@mui/material'
 import {
     Add,
@@ -36,16 +39,18 @@ export const Header = () => {
 
     return (
 
-        <Box
+        <AppBar
             sx={{
-                display: 'flex',
-                alignItems: 'flex-start'
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                background: 'white',
+                color: 'black',
             }}
         >
             <Typography
                 variant='h4'
                 sx={{
-                    margin: 1
+                    m: 1
                 }}
             >
                 DocsApproval
@@ -55,15 +60,15 @@ export const Header = () => {
                 variant='outlined'
                 onClick={() => navigate('/projects')}
                 sx={{
-                    borderRadius: 10,
-                    margin: 1
+                    borderRadius: 20,
+                    m: '12px',
+                    color: 'black'
                 }}
             >
                 Проекты
             </Button>
 
             <TextField
-                id='outlined-basic'
                 placeholder='Поиск по проектам'
                 size='small'
                 InputProps={{
@@ -75,7 +80,7 @@ export const Header = () => {
                 }}
                 variant='outlined'
                 sx={{
-                    margin: 1
+                    m: '10px'
                 }}
             />
 
@@ -84,7 +89,8 @@ export const Header = () => {
                 onClick={() => navigate('/archive')}
                 sx={{
                     borderRadius: 20,
-                    margin: 1
+                    m: '12px',
+                    color: 'black'
                 }}
             >
                 Архив
@@ -95,9 +101,8 @@ export const Header = () => {
                 onClick={() => navigate('/createProject')}
                 startIcon={<Add />}
                 sx={{
-                    margin: 1,
+                    m: '12px',
                     borderRadius: 20
-
                 }}
             >
                 Создать новый
@@ -110,19 +115,24 @@ export const Header = () => {
                     alignItems: 'center'
                 }}
             >
-                <NotificationsNone
-                    sx={{
-                        margin: 1
-                    }}
-                />
+                <IconButton
+                    size='large'
+                    aria-label='show 17 new notifications'
+                    color='inherit'
+                >
+                    <Badge badgeContent={3} color='error'>
+                        <NotificationsNone />
+                    </Badge>
+                </IconButton>
 
                 <Button
                     variant='outlined'
                     startIcon={<AccountCircle />}
                     onClick={handleClick}
                     sx={{
-                        margin: 1,
-                        borderRadius: 20
+                        m: '12px',
+                        borderRadius: 20,
+                        color: 'black'
 
                     }}
                 >
@@ -158,6 +168,7 @@ export const Header = () => {
                 </MenuItem>
             </Menu>
 
-        </Box >
+        </AppBar >
+
     )
 }

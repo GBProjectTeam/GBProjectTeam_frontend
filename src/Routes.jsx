@@ -42,9 +42,5 @@ export const Routes = () => (
             path='/personalArea'
             element={<PersonalArea />}
         />
-        <Route
-            path='/exit'
-            element={<LoginPage />}
-        />
     </Switch>
 )

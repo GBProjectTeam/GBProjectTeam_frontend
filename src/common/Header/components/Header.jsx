@@ -157,7 +157,7 @@ export const Header = () => {
                 </MenuItem>
 
                 <MenuItem
-                    onClick={() => navigate('/exit')}
+                    onClick={() => navigate('/login')}
                 >
                     Выйти
                     <ExitToApp

@@ -133,7 +133,6 @@ export const Header = () => {
                         m: '12px',
                         borderRadius: 20,
                         color: 'black'
-
                     }}
                 >
                     Василий Пупкин

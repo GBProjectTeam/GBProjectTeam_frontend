@@ -12,6 +12,8 @@ export const MainLayout = ({
 
     const isLoginPage = location.pathname === '/login'
 
+    const bgGradient = 'linear-gradient(135deg, rgba(105,35,255,1) 0%, rgba(127,77,232,1) 50%, rgba(144,112,211,1) 100%)'
+
     return (
         <Box
             sx={{
@@ -19,6 +21,7 @@ export const MainLayout = ({
                 width: '100vw',
                 display: 'flex',
                 flex: 1,
+                background: bgGradient
             }}
         >
             {!isLoginPage && <Header />}

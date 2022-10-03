@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
     AppBar,
-    Box,
     Menu,
     MenuItem,
     Typography,
@@ -10,8 +9,10 @@ import {
     TextField,
     InputAdornment,
     IconButton,
-    Badge
+    Badge,
+    Stack
 } from '@mui/material'
+import { grey } from '@mui/material/colors'
 import {
     Add,
     Search,
@@ -22,7 +23,6 @@ import {
 } from '@mui/icons-material'
 
 export const Header = () => {
-
     const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = React.useState(null)
@@ -38,136 +38,166 @@ export const Header = () => {
     }
 
     return (
-
         <AppBar
             sx={{
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                background: 'white',
-                color: 'black',
+                background: grey[50]
             }}
         >
-            <Typography
-                variant='h4'
-                sx={{
-                    m: 1
-                }}
+            <Stack
+                direction='row'
+                marginTop='0.5%'
+                marginBottom='0.5%'
             >
-                DocsApproval
-            </Typography>
-
-            <Button
-                variant='outlined'
-                onClick={() => navigate('/projects')}
-                sx={{
-                    borderRadius: 20,
-                    m: '12px',
-                    color: 'black'
-                }}
-            >
-                Проекты
-            </Button>
-
-            <TextField
-                placeholder='Поиск по проектам'
-                size='small'
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position='start'>
-                            <Search />
-                        </InputAdornment>
-                    )
-                }}
-                variant='outlined'
-                sx={{
-                    m: '10px'
-                }}
-            />
-
-            <Button
-                variant='outlined'
-                onClick={() => navigate('/archive')}
-                sx={{
-                    borderRadius: 20,
-                    m: '12px',
-                    color: 'black'
-                }}
-            >
-                Архив
-            </Button>
-
-            <Button
-                variant='contained'
-                onClick={() => navigate('/createProject')}
-                startIcon={<Add />}
-                sx={{
-                    m: '12px',
-                    borderRadius: 20
-                }}
-            >
-                Создать новый
-            </Button>
-
-            <Box
-                sx={{
-                    display: 'flex',
-                    marginLeft: 'auto',
-                    alignItems: 'center'
-                }}
-            >
-                <IconButton
-                    size='large'
-                    aria-label='show 17 new notifications'
-                    color='inherit'
+                <Stack
+                    direction='row'
+                    spacing={2}
+                    flex={2}
+                    justifyContent='center'
+                    alignItems='center'
                 >
-                    <Badge badgeContent={3} color='error'>
-                        <NotificationsNone />
-                    </Badge>
-                </IconButton>
-
-                <Button
-                    variant='outlined'
-                    startIcon={<AccountCircle />}
-                    onClick={handleClick}
-                    sx={{
-                        m: '12px',
-                        borderRadius: 20,
-                        color: 'black'
-                    }}
-                >
-                    Василий Пупкин
-                </Button>
-            </Box>
-
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-            >
-                <MenuItem
-                    onClick={() => navigate('/personalArea')}
-                >
-                    Личный кабинет
-                    <PermContactCalendar
+                    <Typography
+                        variant='h4'
                         sx={{
-                            marginLeft: 'auto'
+                            color: grey[900]
+                        }}
+                    >
+                        DocsApproval
+                    </Typography>
+
+                    <Button
+                        variant='outlined'
+                        onClick={() => navigate('/projects')}
+                        sx={{
+                            borderRadius: 20
+                        }}
+                    >
+                        Проекты
+                    </Button>
+
+                    <TextField
+                        placeholder='Поиск по проектам'
+                        size='small'
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position='start'>
+                                    <Search />
+                                </InputAdornment>
+                            )
+                        }}
+                        variant='outlined'
+                        sx={{
+                            width: '30%'
                         }}
                     />
-                </MenuItem>
 
-                <MenuItem
-                    onClick={() => navigate('/')}
-                >
-                    Выйти
-                    <ExitToApp
+                    <Button
+                        variant='outlined'
+                        onClick={() => navigate('/archive')}
                         sx={{
-                            marginLeft: 'auto'
+                            borderRadius: 20
                         }}
-                    />
-                </MenuItem>
-            </Menu>
+                    >
+                        Архив
+                    </Button>
 
+                    <Button
+                        variant='contained'
+                        onClick={() => navigate('/createProject')}
+                        startIcon={<Add />}
+                        sx={{
+                            borderRadius: 20
+                        }}
+                    >
+                        Создать новый
+                    </Button>
+                </Stack>
+
+                <Stack
+                    direction='row'
+                    spacing={2}
+                    flex={1}
+                    justifyContent='flex-end'
+                    alignItems='center'
+                    marginRight='2%'
+                >
+                    <IconButton
+                    >
+                        <Badge
+                            badgeContent={3}
+                            color='error'
+                        >
+                            <NotificationsNone />
+                        </Badge>
+                    </IconButton>
+
+                    <Button
+                        variant='outlined'
+                        startIcon={<AccountCircle />}
+                        onClick={handleClick}
+                        sx={{
+                            borderRadius: 20
+                        }}
+                    >
+                        Василий Пупкин
+                    </Button>
+                </Stack>
+
+                <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <MenuItem
+                        onClick={() => navigate('/personalArea')}
+                    >
+                        <Stack
+                            direction='row'
+                            flex={1}
+                        >
+                            <Stack
+                                direction='row'
+                                flex={1}
+                                justifyContent='flex-start'
+                            >
+                                Личный кабинет
+                            </Stack>
+
+                            <Stack
+                                direction='row'
+                                flex={1}
+                                justifyContent='flex-end'
+                            >
+                                <PermContactCalendar />
+                            </Stack>
+                        </Stack>
+                    </MenuItem>
+
+                    <MenuItem
+                        onClick={() => navigate('/')}
+                    >
+                        <Stack
+                            direction='row'
+                            flex={1}
+                        >
+                            <Stack
+                                direction='row'
+                                flex={1}
+                                justifyContent='flex-start'
+                            >
+                                Выйти
+                            </Stack>
+
+                            <Stack
+                                direction='row'
+                                flex={1}
+                                justifyContent='flex-end'
+                            >
+                                <ExitToApp />
+                            </Stack>
+                        </Stack>
+                    </MenuItem>
+                </Menu>
+            </Stack>
         </AppBar >
-
     )
 }

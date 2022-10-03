@@ -37,81 +37,77 @@ export const Header = () => {
         setAnchorEl(null)
     }
 
-    return (
-        <AppBar
-            sx={{
-                background: grey[50]
-            }}
-        >
+    const renderInputs = () => {
+        return (
             <Stack
                 direction='row'
-                marginTop='0.5%'
-                marginBottom='0.5%'
+                spacing={2}
+                flex={2}
+                justifyContent='center'
+                alignItems='center'
             >
-                <Stack
-                    direction='row'
-                    spacing={2}
-                    flex={2}
-                    justifyContent='center'
-                    alignItems='center'
+                <Typography
+                    variant='h4'
+                    sx={{
+                        color: grey[900]
+                    }}
                 >
-                    <Typography
-                        variant='h4'
-                        sx={{
-                            color: grey[900]
-                        }}
-                    >
-                        DocsApproval
-                    </Typography>
+                    DocsApproval
+                </Typography>
 
-                    <Button
-                        variant='outlined'
-                        onClick={() => navigate('/projects')}
-                        sx={{
-                            borderRadius: 20
-                        }}
-                    >
-                        Проекты
-                    </Button>
+                <Button
+                    variant='outlined'
+                    onClick={() => navigate('/projects')}
+                    sx={{
+                        borderRadius: 20
+                    }}
+                >
+                    Проекты
+                </Button>
 
-                    <TextField
-                        placeholder='Поиск по проектам'
-                        size='small'
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position='start'>
-                                    <Search />
-                                </InputAdornment>
-                            )
-                        }}
-                        variant='outlined'
-                        sx={{
-                            width: '30%'
-                        }}
-                    />
+                <TextField
+                    placeholder='Поиск по проектам'
+                    size='small'
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position='start'>
+                                <Search />
+                            </InputAdornment>
+                        )
+                    }}
+                    variant='outlined'
+                    sx={{
+                        width: '30%'
+                    }}
+                />
 
-                    <Button
-                        variant='outlined'
-                        onClick={() => navigate('/archive')}
-                        sx={{
-                            borderRadius: 20
-                        }}
-                    >
-                        Архив
-                    </Button>
+                <Button
+                    variant='outlined'
+                    onClick={() => navigate('/archive')}
+                    sx={{
+                        borderRadius: 20
+                    }}
+                >
+                    Архив
+                </Button>
 
-                    <Button
-                        variant='contained'
-                        onClick={() => navigate('/createProject')}
-                        startIcon={<Add />}
-                        sx={{
-                            borderRadius: 20
-                        }}
-                    >
-                        Создать новый
-                    </Button>
-                </Stack>
+                <Button
+                    variant='contained'
+                    onClick={() => navigate('/createProject')}
+                    startIcon={<Add />}
+                    sx={{
+                        borderRadius: 20
+                    }}
+                >
+                    Создать новый
+                </Button>
+            </Stack>
+        )
+    }
 
+    const renderMenu = () => {
+        return (
+            <>
                 <Stack
                     direction='row'
                     spacing={2}
@@ -141,7 +137,6 @@ export const Header = () => {
                         Василий Пупкин
                     </Button>
                 </Stack>
-
                 <Menu
                     anchorEl={anchorEl}
                     open={open}
@@ -197,6 +192,23 @@ export const Header = () => {
                         </Stack>
                     </MenuItem>
                 </Menu>
+            </>
+        )
+    }
+
+    return (
+        <AppBar
+            sx={{
+                background: grey[50]
+            }}
+        >
+            <Stack
+                direction='row'
+                marginTop='0.5%'
+                marginBottom='0.5%'
+            >
+                {renderInputs()}
+                {renderMenu()}
             </Stack>
         </AppBar >
     )

@@ -7,6 +7,7 @@ import {
     Stack
 } from '@mui/material'
 import { Article } from '@mui/icons-material'
+import { ButtonModal } from '../../../common/Modal/components/ButtonModal'
 
 const stackStyle = {
     position: 'absolute',
@@ -58,6 +59,8 @@ export const Documents = () => {
                     <Link href='#'>ДГ-2019-3</Link>
                 </Stack>
             </Modal>
+
+            <ButtonModal button='edit' />
         </>
     )
 }

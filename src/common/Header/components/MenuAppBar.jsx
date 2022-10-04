@@ -7,7 +7,7 @@ import {
     IconButton,
     Badge,
     Stack,
-    TextField
+    Typography
 } from '@mui/material'
 import {
     AccountCircle,
@@ -16,7 +16,7 @@ import {
     ExitToApp
 } from '@mui/icons-material'
 
-export const RenderMenu = () => {
+export const MenuAppBar = () => {
     const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = React.useState(null)
@@ -59,6 +59,7 @@ export const RenderMenu = () => {
                     Василий Пупкин
                 </Button>
             </Stack>
+
             <Menu
                 anchorEl={anchorEl}
                 open={open}
@@ -69,12 +70,11 @@ export const RenderMenu = () => {
                         direction='row'
                         spacing={2}
                         flex={1}
+                        justifyContent='space-between'
                     >
-                        <TextField
-                            variant='outlined'
-                            value='Личный кабинет'
-                        >
-                        </TextField>
+                        <Typography>
+                            Личный кабинет
+                        </Typography>
                         <PermContactCalendar />
                     </Stack>
                 </MenuItem>
@@ -84,12 +84,11 @@ export const RenderMenu = () => {
                         direction='row'
                         spacing={2}
                         flex={1}
+                        justifyContent='space-between'
                     >
-                        <TextField
-                            variant='outlined'
-                            value='Выйти'
-                        >
-                        </TextField>
+                        <Typography>
+                            Выйти
+                        </Typography>
                         <ExitToApp />
                     </Stack>
                 </MenuItem>

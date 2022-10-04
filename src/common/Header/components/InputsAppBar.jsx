@@ -13,7 +13,7 @@ import {
     Search
 } from '@mui/icons-material'
 
-export const RenderInputs = () => {
+export const InputsAppBar = () => {
     const navigate = useNavigate()
     return (
         <Stack

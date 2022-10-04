@@ -4,8 +4,8 @@ import {
     Stack
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import { RenderInputs } from './/RenderInputs'
-import { RenderMenu } from './RenderMenu'
+import { InputsAppBar } from './InputsAppBar'
+import { MenuAppBar } from './MenuAppBar'
 
 export const Header = () => {
     return (
@@ -16,8 +16,8 @@ export const Header = () => {
                 justifyContent='space-between'
                 flex={1}
             >
-                {RenderInputs()}
-                {RenderMenu()}
+                <InputsAppBar />
+                <MenuAppBar />
             </Stack>
         </AppBar >
     )

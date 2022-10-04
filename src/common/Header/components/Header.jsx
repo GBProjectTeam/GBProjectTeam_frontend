@@ -4,8 +4,8 @@ import {
     Stack
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import { RenderInputs } from '../constants/RenderInputs'
-import { RenderMenu } from '../constants/RenderMenu'
+import { RenderInputs } from './/RenderInputs'
+import { RenderMenu } from './RenderMenu'
 
 export const Header = () => {
     return (

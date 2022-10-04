@@ -9,15 +9,12 @@ import { RenderMenu } from '../constants/RenderMenu'
 
 export const Header = () => {
     return (
-        <AppBar
-            sx={{
-                background: grey[50]
-            }}
-        >
+        <AppBar sx={{ background: grey[50] }}>
             <Stack
                 direction='row'
-                marginTop='0.5%'
-                marginBottom='0.5%'
+                m='0.5%'
+                justifyContent='space-between'
+                flex={1}
             >
                 {RenderInputs()}
                 {RenderMenu()}

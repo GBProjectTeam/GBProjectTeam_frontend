@@ -6,7 +6,8 @@ import {
     Button,
     IconButton,
     Badge,
-    Stack
+    Stack,
+    TextField
 } from '@mui/material'
 import {
     AccountCircle,
@@ -35,13 +36,10 @@ export const RenderMenu = () => {
             <Stack
                 direction='row'
                 spacing={2}
-                flex={1}
                 justifyContent='flex-end'
                 alignItems='center'
-                marginRight='2%'
             >
-                <IconButton
-                >
+                <IconButton>
                     <Badge
                         badgeContent={3}
                         color='error'
@@ -66,53 +64,33 @@ export const RenderMenu = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem
-                    onClick={() => navigate('/personalArea')}
-                >
+                <MenuItem onClick={() => navigate('/personalArea')}>
                     <Stack
                         direction='row'
+                        spacing={2}
                         flex={1}
                     >
-                        <Stack
-                            direction='row'
-                            flex={1}
-                            justifyContent='flex-start'
+                        <TextField
+                            variant='outlined'
+                            value='Личный кабинет'
                         >
-                            Личный кабинет
-                        </Stack>
-
-                        <Stack
-                            direction='row'
-                            flex={1}
-                            justifyContent='flex-end'
-                        >
-                            <PermContactCalendar />
-                        </Stack>
+                        </TextField>
+                        <PermContactCalendar />
                     </Stack>
                 </MenuItem>
 
-                <MenuItem
-                    onClick={() => navigate('/')}
-                >
+                <MenuItem onClick={() => navigate('/')}>
                     <Stack
                         direction='row'
+                        spacing={2}
                         flex={1}
                     >
-                        <Stack
-                            direction='row'
-                            flex={1}
-                            justifyContent='flex-start'
+                        <TextField
+                            variant='outlined'
+                            value='Выйти'
                         >
-                            Выйти
-                        </Stack>
-
-                        <Stack
-                            direction='row'
-                            flex={1}
-                            justifyContent='flex-end'
-                        >
-                            <ExitToApp />
-                        </Stack>
+                        </TextField>
+                        <ExitToApp />
                     </Stack>
                 </MenuItem>
             </Menu>

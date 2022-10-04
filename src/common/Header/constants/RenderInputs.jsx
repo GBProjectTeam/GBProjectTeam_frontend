@@ -20,7 +20,7 @@ export const RenderInputs = () => {
             direction='row'
             spacing={2}
             flex={2}
-            justifyContent='center'
+            justifyContent='flex-start'
             alignItems='center'
         >
             <Typography
@@ -50,7 +50,8 @@ export const RenderInputs = () => {
                         <InputAdornment position='start'>
                             <Search />
                         </InputAdornment>
-                    )
+                    ),
+                    sx: { borderRadius: '20px' }
                 }}
                 variant='outlined'
                 sx={{

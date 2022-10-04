@@ -5,22 +5,42 @@ import {
 } from 'react-router-dom'
 import {
     ApprovalPage,
-    LoginPage
+    LoginPage,
+    ArchivePage,
+    CreateProjectPage,
+    PersonalArea,
+    ProjectsPage
 } from './pages'
 
 export const Routes = () => (
     <Switch>
         <Route
             path='/login'
-            element={ <LoginPage /> }
+            element={<LoginPage />}
         />
         <Route
             path='/'
-            element={ <ApprovalPage /> }
+            element={<ApprovalPage />}
         />
         <Route
             path='/approval'
-            element={ <ApprovalPage /> }
+            element={<ApprovalPage />}
+        />
+        <Route
+            path='/projects'
+            element={<ProjectsPage />}
+        />
+        <Route
+            path='/archive'
+            element={<ArchivePage />}
+        />
+        <Route
+            path='/createProject'
+            element={<CreateProjectPage />}
+        />
+        <Route
+            path='/personalArea'
+            element={<PersonalArea />}
         />
     </Switch>
 )

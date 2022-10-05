@@ -1,10 +1,18 @@
 import React from 'react'
 import {
     Typography,
-    Stack
+    Stack,
+    Link
 } from '@mui/material'
 import { Article } from '@mui/icons-material'
 import { Modal } from '../../../common/Modal/components/Modal'
+
+const stackStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+}
 
 export const Documents = () => {
     const [open, setOpen] = React.useState(false)
@@ -29,7 +37,12 @@ export const Documents = () => {
                     icon={<Article />}
                     label='Документы'
 
-                />
+                >
+                    <Stack sx={stackStyle} >
+                        <Link href='#'>ГК-2018-1</Link>
+                        <Link href='#'>ДГ-2019-3</Link>
+                    </Stack>
+                </Modal >
             </Stack>
 
         </>

@@ -1,44 +1,63 @@
-import { React } from 'react'
+import React from 'react'
 import {
     Button,
     Dialog,
     DialogTitle,
+    DialogContent,
     Typography,
     IconButton
 } from '@mui/material'
 import { Close, Check } from '@mui/icons-material'
 import PropTypes from 'prop-types'
 
-export const ButtonModal = (props) => {
+export const Modal = (props) => {
     const {
         isOpen,
         disabled,
         allowSubmit,
         label,
         icon,
-        onOpen=() =>null,
-        onClose =() =>null,
-        onSubmit =() =>null,
+        onOpen = () => null,
+        onClose = () => null,
+        onSubmit = () => null,
         title,
         button,
-        isOutlintedVariant
+        isOutlintedVariant,
+        children
     } = props
 
     const getButton = () => {
         if (button === 'label') {
             return (
-                
+
                 <Button
-                    startIcon={icon ? { icon } : 'none'}
+                    startIcon={icon ? icon : 'none'}
                     variant={isOutlintedVariant ? 'outlined' : 'contained'}
                     size='small'
                     onClick={onOpen}
                     disabled={disabled}
-                    sx={{ borderRadius: '20px' }}
+                    sx={{
+                        borderRadius: '20px',
+                        align: 'center',
+                        maxWidth: 200,
+                    }}
                 >
                     {label}
                 </Button>
             )
+        }
+
+        if (allowSubmit) {
+
+            <IconButton
+                edge='end'
+                disabled={!allowSubmit}
+                size='small'
+                onClick={() => onSubmit()}
+                color='info'
+            >
+                <Check />
+            </IconButton>
         }
 
         return (
@@ -80,7 +99,7 @@ export const ButtonModal = (props) => {
 
                     <Typography
                         noWrap
-                        sx={{ textTransform: 'uppercase', fontWeight: 'bold'}}
+                        sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}
                     >
                         {title}
                     </Typography>
@@ -95,21 +114,25 @@ export const ButtonModal = (props) => {
                         <Check />
                     </IconButton>
                 </DialogTitle>
+                <DialogContent>
+                    {children}
+                </DialogContent>
             </Dialog>
         </>
     )
 }
 
-ButtonModal.propTypes = {
+Modal.propTypes = {
     isOpen: PropTypes.bool,
-    disabled:PropTypes.bool,
-    allowSubmit:PropTypes.bool,
+    disabled: PropTypes.bool,
+    allowSubmit: PropTypes.bool,
     label: PropTypes.string,
-    icon: PropTypes.node,
+    icon: PropTypes.node.isRequired,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     onSubmit: PropTypes.func,
     title: PropTypes.string,
-    button: PropTypes.oneOf(['icon' | 'label']),
-    isOutlintedVariant: PropTypes.bool
+    button: PropTypes.oneOf(['icon', 'label']),
+    isOutlintedVariant: PropTypes.bool,
+    children: PropTypes.node
 }

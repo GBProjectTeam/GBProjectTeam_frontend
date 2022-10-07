@@ -8,7 +8,7 @@ import {
     ApprovalPage,
     LoginPage,
     ArchivePage,
-    CreateProjectPage,
+    NewProjectPage,
     PersonalArea,
     ProjectsPage
 } from './pages'
@@ -36,8 +36,8 @@ export const Routes = () => (
             element={<ArchivePage />}
         />
         <Route
-            path='/createProject'
-            element={<CreateProjectPage />}
+            path='/new-project'
+            element={<NewProjectPage />}
         />
         <Route
             path='/personalArea'

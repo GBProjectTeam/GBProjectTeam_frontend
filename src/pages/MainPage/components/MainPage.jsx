@@ -13,6 +13,7 @@ export const MainPage = () => {
             justifyContent='center'
             spacing={10}
             sx={{ width: '100%' }}
+            alignItems='center'
         >
             <Paper
                 sx={{
@@ -25,7 +26,6 @@ export const MainPage = () => {
                 }}
                 elevation={3}
             >
-
                 <Paper
                     elevation={3}
                     sx={{
@@ -35,10 +35,8 @@ export const MainPage = () => {
                         height: '30%'
                     }}
                 >
-                    <Box
-                        sx={{ height: '40%' }}
-                    >
-                        <img src='src/pages/MainPage/assets/main-page-image.jpg' />
+                    <Box sx={{ height: '40%' }}>
+                        <img src='src/pages/MainPage/assets/main-page-image.jpg' alt='Фрагмент согласуемого документа' />
                     </Box>
                 </Paper>
 

@@ -15,6 +15,8 @@ export const MainLayout = ({ children }) => {
     const bgGradient =
     'linear-gradient(135deg, rgba(105,35,255,1) 0%, rgba(127,77,232,1) 50%, rgba(144,112,211,1) 100%)'
 
+    const isNonAuthPage = isLoginPage || isIndexPage
+
     return (
         <Box
             sx={{
@@ -25,12 +27,12 @@ export const MainLayout = ({ children }) => {
                 background: isIndexPage ? bgGradient : '',
             }}
         >
-            {!isLoginPage && <Header />}
+            {!isNonAuthPage && <Header />}
 
             <Box
                 component='main'
                 sx={{
-                    paddingTop: !isLoginPage ? `${headerHeight}px` : 0,
+                    paddingTop: !isNonAuthPage ? `${headerHeight}px` : 0,
                     mx: 2,
                     alignItems: isLoginPage ? 'center' : 'none',
                     display: 'flex',
@@ -45,5 +47,5 @@ export const MainLayout = ({ children }) => {
 }
 
 MainLayout.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
 }

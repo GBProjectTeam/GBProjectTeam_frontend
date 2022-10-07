@@ -79,9 +79,10 @@ export const ApprovalTable = () => {
                 </Table>
             </TableContainer>
 
-            <Button variant='outlined'
+            <Button
+                variant='outlined'
                 sx={{
-                    width: 300,
+                    width: 'fit-content',
                     borderRadius: 20,
                     alignSelf: 'flex-end'
                 }}

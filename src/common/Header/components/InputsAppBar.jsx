@@ -15,6 +15,9 @@ import {
 
 export const InputsAppBar = () => {
     const navigate = useNavigate()
+
+    const isNewProjectPage = location.pathname === '/new-project'
+
     return (
         <Stack
             direction='row'
@@ -25,9 +28,7 @@ export const InputsAppBar = () => {
         >
             <Typography
                 variant='h4'
-                sx={{
-                    color: grey[900]
-                }}
+                sx={{ color: grey[900] }}
             >
                 DocsApproval
             </Typography>
@@ -35,9 +36,7 @@ export const InputsAppBar = () => {
             <Button
                 variant='outlined'
                 onClick={() => navigate('/projects')}
-                sx={{
-                    borderRadius: 20
-                }}
+                sx={{ borderRadius: 20 }}
             >
                 Проекты
             </Button>
@@ -54,28 +53,23 @@ export const InputsAppBar = () => {
                     sx: { borderRadius: '20px' }
                 }}
                 variant='outlined'
-                sx={{
-                    width: '30%'
-                }}
+                sx={{ width: '30%' }}
             />
 
             <Button
                 variant='outlined'
                 onClick={() => navigate('/archive')}
-                sx={{
-                    borderRadius: 20
-                }}
+                sx={{ borderRadius: 20 }}
             >
                 Архив
             </Button>
 
             <Button
                 variant='contained'
-                onClick={() => navigate('/createProject')}
+                onClick={() => navigate('/new-project')}
                 startIcon={<Add />}
-                sx={{
-                    borderRadius: 20
-                }}
+                sx={{ borderRadius: 20 }}
+                disabled={isNewProjectPage}
             >
                 Создать новый
             </Button>

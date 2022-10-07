@@ -47,19 +47,6 @@ export const Modal = (props) => {
             )
         }
 
-        if (allowSubmit) {
-
-            <IconButton
-                edge='end'
-                disabled={!allowSubmit}
-                size='small'
-                onClick={() => onSubmit()}
-                color='info'
-            >
-                <Check />
-            </IconButton>
-        }
-
         return (
             <IconButton
                 aria-label='edit'
@@ -93,6 +80,7 @@ export const Modal = (props) => {
                         edge='end'
                         size='small'
                         onClick={onClose}
+                        color='error'
                     >
                         <Close />
                     </IconButton>
@@ -104,7 +92,7 @@ export const Modal = (props) => {
                         {title}
                     </Typography>
 
-                    <IconButton
+                    {allowSubmit &&(<IconButton
                         edge='end'
                         disabled={!allowSubmit}
                         size='small'
@@ -112,7 +100,7 @@ export const Modal = (props) => {
                         color='info'
                     >
                         <Check />
-                    </IconButton>
+                    </IconButton>)}
                 </DialogTitle>
                 <DialogContent>
                     {children}
@@ -123,16 +111,16 @@ export const Modal = (props) => {
 }
 
 Modal.propTypes = {
-    isOpen: PropTypes.bool,
+    isOpen: PropTypes.bool.isRequired,
     disabled: PropTypes.bool,
     allowSubmit: PropTypes.bool,
     label: PropTypes.string,
-    icon: PropTypes.node.isRequired,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func,
+    icon: PropTypes.node,
+    onOpen: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func,
-    title: PropTypes.string,
-    button: PropTypes.oneOf(['icon', 'label']),
+    title: PropTypes.string.isRequired,
+    button: PropTypes.oneOf(['icon', 'label']).isRequired,
     isOutlintedVariant: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node.isRequired
 }

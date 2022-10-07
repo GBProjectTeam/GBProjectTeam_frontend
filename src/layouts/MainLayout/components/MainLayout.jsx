@@ -5,14 +5,15 @@ import { useLocation } from 'react-router-dom'
 import { Box } from '@mui/material'
 import { headerHeight } from '../../../common/Header/constants/headerHeight.js'
 
-export const MainLayout = ({
-    children,
-}) => {
+export const MainLayout = ({ children }) => {
     const location = useLocation()
 
     const isLoginPage = location.pathname === '/login'
 
-    const bgGradient = 'linear-gradient(135deg, rgba(105,35,255,1) 0%, rgba(127,77,232,1) 50%, rgba(144,112,211,1) 100%)'
+    const isIndexPage = location.pathname === '/'
+
+    const bgGradient =
+    'linear-gradient(135deg, rgba(105,35,255,1) 0%, rgba(127,77,232,1) 50%, rgba(144,112,211,1) 100%)'
 
     return (
         <Box
@@ -21,7 +22,7 @@ export const MainLayout = ({
                 width: '100vw',
                 display: 'flex',
                 flex: 1,
-                background: bgGradient
+                background: isIndexPage ? bgGradient : '',
             }}
         >
             {!isLoginPage && <Header />}

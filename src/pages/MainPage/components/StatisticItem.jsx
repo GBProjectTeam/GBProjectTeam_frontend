@@ -4,23 +4,28 @@ import { Box, Typography } from '@mui/material'
 
 export const StatisticItem = ({ itemData }) => {
     return (
-        <Box sx={{ marginBottom: '40px' }}>
+        <Box>
             <Typography
                 variant='h2'
-                fontWeight={200}
-                color={'#979797'}
-                fontFamily={'serif'}
-                fontSize={28}
-            >{itemData.text}</Typography>
+                fontWeight='200'
+                color='#979797'
+                fontFamily='serif'
+                fontSize='28px'
+            >
+                {itemData.text}
+            </Typography>
+
             <Typography
                 variant='p'
-                fontFamily={'serif'}
-                fontSize={48}
-            >{itemData.number}</Typography>
+                fontFamily='serif'
+                fontSize='48px'
+            >
+                {itemData.number}
+            </Typography>
         </Box>
     )
 }
 
-StatisticItem.PropTypes = {
+StatisticItem.propTypes = {
     itemData: PropTypes.object
 }

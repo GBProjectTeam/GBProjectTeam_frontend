@@ -5,9 +5,8 @@ import { ThumbDown, ThumbUp } from '@mui/icons-material'
 
 export const CommentCard = ({ cardData }) => {
     return (
-        <Card sx={{ marginTop: '20px' }}>
+        <Card>
             <CardHeader
-                sx={{ padding: '15px 15px 5px' }}
                 avatar={
                     <Avatar src={cardData.avatar} />
                 }
@@ -15,17 +14,22 @@ export const CommentCard = ({ cardData }) => {
                 subheader={cardData.date}
                 action={
                     <ButtonGroup>
-                        <IconButton>
+                        <IconButton disabled>
                             <ThumbUp />
                         </IconButton>
-                        <IconButton>
+
+                        <IconButton disabled>
                             <ThumbDown />
                         </IconButton>
                     </ButtonGroup>
                 }
             />
-            <CardContent sx={{ padding: '5px 15px 10px !important' }}>
-                <Typography variant='body2' color='000'>
+
+            <CardContent>
+                <Typography
+                    variant='body2'
+                    color='black'
+                >
                     {cardData.text}
                 </Typography>
             </CardContent>

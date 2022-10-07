@@ -38,5 +38,5 @@ export const CommentCard = ({ cardData }) => {
 }
 
 CommentCard.propTypes = {
-    cardData: PropTypes.object,
+    cardData: PropTypes.object.isRequired
 }

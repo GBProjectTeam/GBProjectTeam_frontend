@@ -27,5 +27,5 @@ export const StatisticItem = ({ itemData }) => {
 }
 
 StatisticItem.propTypes = {
-    itemData: PropTypes.object
+    itemData: PropTypes.object.isRequired
 }

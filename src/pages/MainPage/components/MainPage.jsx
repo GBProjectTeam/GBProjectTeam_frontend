@@ -2,7 +2,9 @@ import { Paper, Stack, Typography, Box, Button } from '@mui/material'
 import React from 'react'
 import { CommentCard } from './CommentCard'
 import { StatisticItem } from './StatisticItem'
-import { authButtons, fakeComments, fakeStatistic } from '../constatnts'
+import { fakeComments } from '../constants/fakeComments'
+import { fakeStatistic } from '../constants/fakeStatistics'
+import { authButtons } from '../constants/authButtons'
 
 export const MainPage = () => {
     return (
@@ -34,9 +36,7 @@ export const MainPage = () => {
                     }}
                 >
                     <Box
-                        sx={{
-                            height: '40%'
-                        }}
+                        sx={{ height: '40%' }}
                     >
                         <img src='src/pages/MainPage/assets/main-page-image.jpg' />
                     </Box>
@@ -89,9 +89,9 @@ export const MainPage = () => {
 
                 <Stack
                     alignItems='center'
+                    spacing={1}
                     sx={{
                         width: '30%',
-                        height: '10%',
                         justifyContent: 'space-between'
                     }}
                 >

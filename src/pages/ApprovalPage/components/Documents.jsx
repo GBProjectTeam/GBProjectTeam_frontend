@@ -20,7 +20,6 @@ export const Documents = () => {
     return (
         <>
             <Stack spacing={2}>
-
                 <Typography variant='h4'>
                     Согласование проекта:
                 </Typography>
@@ -36,7 +35,6 @@ export const Documents = () => {
                     onClose={() => setOpen(false)}
                     icon={<Article />}
                     label='Документы'
-
                 >
                     <Stack sx={stackStyle} >
                         <Link href='#'>ГК-2018-1</Link>
@@ -44,7 +42,6 @@ export const Documents = () => {
                     </Stack>
                 </Modal >
             </Stack>
-
         </>
     )
 }

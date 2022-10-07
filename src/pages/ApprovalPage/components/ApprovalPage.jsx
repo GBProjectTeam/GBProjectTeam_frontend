@@ -30,7 +30,6 @@ export const ApprovalPage = () => {
             >
                 <Documents />
                 <ProjectInfoCard />
-
             </Stack>
 
             <ApprovalTable />

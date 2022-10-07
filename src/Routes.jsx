@@ -4,6 +4,7 @@ import {
     Route,
 } from 'react-router-dom'
 import {
+    MainPage,
     ApprovalPage,
     LoginPage,
     ArchivePage,
@@ -15,12 +16,12 @@ import {
 export const Routes = () => (
     <Switch>
         <Route
-            path='/login'
-            element={<LoginPage />}
+            path='/'
+            element={ <MainPage /> }
         />
         <Route
-            path='/'
-            element={<ApprovalPage />}
+            path='/login'
+            element={<LoginPage />}
         />
         <Route
             path='/approval'

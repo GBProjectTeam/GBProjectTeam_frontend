@@ -29,7 +29,6 @@ export const Modal = (props) => {
     const getButton = () => {
         if (button === 'label') {
             return (
-
                 <Button
                     startIcon={icon ? icon : 'none'}
                     variant={isOutlintedVariant ? 'outlined' : 'contained'}
@@ -92,16 +91,20 @@ export const Modal = (props) => {
                         {title}
                     </Typography>
 
-                    {allowSubmit &&(<IconButton
-                        edge='end'
-                        disabled={!allowSubmit}
-                        size='small'
-                        onClick={() => onSubmit()}
-                        color='info'
-                    >
-                        <Check />
-                    </IconButton>)}
+                    {allowSubmit && (
+
+                        <IconButton
+                            edge='end'
+                            disabled={!allowSubmit}
+                            size='small'
+                            onClick={() => onSubmit()}
+                            color='info'
+                        >
+                            <Check />
+                        </IconButton>
+                    )}
                 </DialogTitle>
+
                 <DialogContent>
                     {children}
                 </DialogContent>

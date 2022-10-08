@@ -86,23 +86,25 @@ export const Modal = (props) => {
 
                     <Typography
                         noWrap
-                        sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}
+                        sx={{
+                            textTransform: 'uppercase',
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        }}
                     >
                         {title}
                     </Typography>
 
-                    {allowSubmit && (
-
-                        <IconButton
-                            edge='end'
-                            disabled={!allowSubmit}
-                            size='small'
-                            onClick={() => onSubmit()}
-                            color='info'
-                        >
-                            <Check />
-                        </IconButton>
-                    )}
+                    <IconButton
+                        edge='end'
+                        disabled={!allowSubmit}
+                        size='small'
+                        onClick={() => onSubmit()}
+                        color='info'
+                        sx={{ visibility: !allowSubmit ? 'hidden' : 'none' }}
+                    >
+                        <Check />
+                    </IconButton>
                 </DialogTitle>
 
                 <DialogContent>

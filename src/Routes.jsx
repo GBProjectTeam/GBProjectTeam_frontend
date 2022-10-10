@@ -24,8 +24,12 @@ export const Routes = () => (
         />
         <Route
             path='/approval'
-            element={<ApprovalPage />}
-        />
+            element={<ApprovalPage />}>
+            <Route
+                path=':id'
+                element={<ApprovalPage />}
+            />
+        </Route>
         <Route
             path='/projects'
             element={<ProjectsPage />}

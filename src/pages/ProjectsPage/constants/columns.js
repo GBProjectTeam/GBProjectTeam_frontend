@@ -1,0 +1,42 @@
+export const columns = [
+    {
+        field: 'col1',
+        headerName: 'Проект',
+        sortable: false,
+        editable: false,
+        headerAlign: 'center',
+        flex: 1,
+        headerClassName: 'header-class-name',
+        cellClassName: 'cell-class-name',
+    },
+    {
+        field: 'col2',
+        headerName: 'Дедлайн',
+        sortable: false,
+        editable: false,
+        headerAlign: 'center',
+        flex: 1,
+        headerClassName: 'header-class-name',
+        cellClassName: 'cell-class-name',
+    },
+    {
+        field: 'col3',
+        headerName: 'Автор проекта',
+        sortable: false,
+        editable: false,
+        headerAlign: 'center',
+        flex: 1,
+        headerClassName: 'header-class-name',
+        cellClassName: 'cell-class-name',
+    },
+    {
+        field: 'col4',
+        headerName: 'Статус',
+        sortable: false,
+        editable: false,
+        headerAlign: 'center',
+        flex: 1,
+        headerClassName: 'header-class-name',
+        cellClassName: 'cell-class-name',
+    }
+]

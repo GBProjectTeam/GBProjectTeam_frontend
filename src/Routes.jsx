@@ -10,14 +10,15 @@ import {
     ArchivePage,
     NewProjectPage,
     PersonalArea,
-    ProjectsPage
+    ProjectsPage,
+    NotFoundPage
 } from './pages'
 
 export const Routes = () => (
     <Switch>
         <Route
             path='/'
-            element={ <MainPage /> }
+            element={<MainPage />}
         />
         <Route
             path='/login'
@@ -42,6 +43,14 @@ export const Routes = () => (
         <Route
             path='/personalArea'
             element={<PersonalArea />}
+        />
+        <Route
+            path='not-found'
+            element={<NotFoundPage />}
+        />
+        <Route
+            path='*'
+            element={<NotFoundPage />}
         />
     </Switch>
 )

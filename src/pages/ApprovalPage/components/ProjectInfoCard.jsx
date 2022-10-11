@@ -59,7 +59,6 @@ export const ProjectInfoCard = () => {
                     'Закрыт',
                     true
                 )}
- 
             </CardContent>
 
             <CardActions>

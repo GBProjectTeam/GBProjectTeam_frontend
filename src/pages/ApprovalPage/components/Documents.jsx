@@ -3,7 +3,7 @@ import {
     Typography,
     Stack,
     Link,
-    IconButton
+    Button
 } from '@mui/material'
 import { Article } from '@mui/icons-material'
 import CreateIcon from '@mui/icons-material/Create'
@@ -38,16 +38,16 @@ export const Documents = () => {
                     </Stack>
                 </Modal>
                 
-                <IconButton
-                    variant='contained'
-                    sx={{
-                        borderRadius: '5px',
+                <Button
+                    variant='outlined'
+                    startIcon={<CreateIcon />}
+                    sx={{ borderRadius: '20px',
                         align: 'center',
-                        maxWidth: 40,
+                        maxWidth: 400,
                     }}
                 >
-                    <CreateIcon />
-                </IconButton>
+                    Редактировать проект
+                </Button>
             </Stack>
         </Stack>
     )

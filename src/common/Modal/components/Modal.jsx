@@ -38,7 +38,7 @@ export const Modal = (props) => {
                     sx={{
                         borderRadius: '20px',
                         align: 'center',
-                        maxWidth: 200,
+                        width: 'fit-content',
                     }}
                 >
                     {label}

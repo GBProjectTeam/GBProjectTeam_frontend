@@ -41,20 +41,25 @@ export const ProjectInfoCard = () => {
                 {renderAttribute('Автор проекта', projectInfo.author)}
 
                 {renderAttribute(
-                    'Статус проекта',
-                    projectInfo.projectIsNotAgreed,
-                    'На согласовании',
-                    'Закрыт',
-                    true
-                )}
-
-                {renderAttribute(
                     'Решение',
                     projectInfo.userDecisionIsAgreed,
                     'Согласовано',
                     'Отклонено',
                     true
                 )}
+                {renderAttribute(
+                    'Дедлайн',
+                    projectInfo.projectTimeEnd
+                )}
+
+                {renderAttribute(
+                    'Статус проекта',
+                    projectInfo.projectIsNotAgreed,
+                    'На согласовании',
+                    'Закрыт',
+                    true
+                )}
+ 
             </CardContent>
 
             <CardActions>

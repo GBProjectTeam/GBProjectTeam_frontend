@@ -6,8 +6,6 @@ export const columns = [
         editable: false,
         headerAlign: 'center',
         flex: 1,
-        headerClassName: 'header-class-name',
-        cellClassName: 'cell-class-name',
     },
     {
         field: 'col2',
@@ -16,8 +14,6 @@ export const columns = [
         editable: false,
         headerAlign: 'center',
         flex: 1,
-        headerClassName: 'header-class-name',
-        cellClassName: 'cell-class-name',
     },
     {
         field: 'col3',
@@ -26,8 +22,6 @@ export const columns = [
         editable: false,
         headerAlign: 'center',
         flex: 1,
-        headerClassName: 'header-class-name',
-        cellClassName: 'cell-class-name',
     },
     {
         field: 'col4',
@@ -36,7 +30,5 @@ export const columns = [
         editable: false,
         headerAlign: 'center',
         flex: 1,
-        headerClassName: 'header-class-name',
-        cellClassName: 'cell-class-name',
     }
 ]

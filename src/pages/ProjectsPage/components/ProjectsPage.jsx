@@ -16,19 +16,7 @@ export const ProjectsPage = () => {
     return (
         <Stack
             flexDirection='column'
-            direction='flex'
             flex={1}
-            sx={{
-                '& .header-class-name': {
-                    fontWeight: 'bold',
-                    backgroundColor: grey[300],
-                    border: 1,
-                    fontSize: '150%',
-                },
-                '& .cell-class-name': {
-                    border: 1,
-                },
-            }}
         >
             <Typography
                 variant='h2'
@@ -42,8 +30,18 @@ export const ProjectsPage = () => {
                 rows={rows}
                 columns={columns}
                 hideFooter={true}
+                disableVirtualization={true}
                 sx={{
-                    borderTop: 1
+                    '& .MuiDataGrid-columnHeader': {
+                        backgroundColor: grey[300],
+                    },
+                    '& .MuiDataGrid-columnHeaderTitle': {
+                        fontWeight: 'bold',
+                        fontSize: '150%'
+                    },
+                    '& .MuiDataGrid-cell': {
+                        justifyContent: 'center',
+                    }
                 }}
                 onRowClick={(params) => navigate(`/approval/${params.id}`)}
             />

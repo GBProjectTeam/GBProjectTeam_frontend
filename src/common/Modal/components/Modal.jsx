@@ -30,7 +30,7 @@ export const Modal = (props) => {
         if (button === 'label') {
             return (
                 <Button
-                    startIcon={icon ? icon : 'none'}
+                    startIcon={icon ? icon : ''}
                     variant={isOutlintedVariant ? 'outlined' : 'contained'}
                     size='small'
                     onClick={onOpen}

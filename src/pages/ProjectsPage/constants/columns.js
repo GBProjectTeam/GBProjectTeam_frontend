@@ -1,34 +1,30 @@
 export const columns = [
     {
-        field: 'col1',
+        field: 'project',
         headerName: 'Проект',
-        sortable: false,
-        editable: false,
         headerAlign: 'center',
+        align: 'left',
         flex: 1,
     },
     {
-        field: 'col2',
+        field: 'deadline',
         headerName: 'Дедлайн',
-        sortable: false,
-        editable: false,
         headerAlign: 'center',
+        align: 'center',
         flex: 1,
     },
     {
-        field: 'col3',
+        field: 'author',
         headerName: 'Автор проекта',
-        sortable: false,
-        editable: false,
         headerAlign: 'center',
+        align: 'center',
         flex: 1,
     },
     {
-        field: 'col4',
+        field: 'status',
         headerName: 'Статус',
-        sortable: false,
-        editable: false,
         headerAlign: 'center',
+        align: 'center',
         flex: 1,
     }
 ]

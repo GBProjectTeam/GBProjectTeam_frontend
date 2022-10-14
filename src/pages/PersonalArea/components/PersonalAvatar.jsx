@@ -5,8 +5,7 @@ import {
     Stack
 } from '@mui/material'
 
-export const PersonlAvatar = () =>{
-
+export const PersonalAvatar = () =>{
     return(
         <Stack
             sx={{
@@ -18,8 +17,9 @@ export const PersonlAvatar = () =>{
         >
             <Avatar
                 alt='Remy Sharp'
-                sx={{ width: 500, height: 500 }}
+                sx={{ width: '50vh', height: '50vh' }}
             />
+
             <Button
                 variant='outlined'
                 component='label'

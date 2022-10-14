@@ -98,16 +98,16 @@ export const Modal = (props) => {
                     <IconButton
                         edge='end'
                         disabled={!allowSubmit}
+                        sx={{ visibility: !allowSubmit ? 'hidden' : 'none' }}
                         size='small'
                         onClick={() => onSubmit()}
                         color='info'
-                        sx={{ visibility: !allowSubmit ? 'hidden' : 'none' }}
                     >
                         <Check />
                     </IconButton>
                 </DialogTitle>
 
-                <DialogContent>
+                <DialogContent fullWidth>
                     {children}
                 </DialogContent>
             </Dialog>
@@ -127,5 +127,5 @@ Modal.propTypes = {
     title: PropTypes.string.isRequired,
     button: PropTypes.oneOf(['icon', 'label']).isRequired,
     isOutlintedVariant: PropTypes.bool,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
 }

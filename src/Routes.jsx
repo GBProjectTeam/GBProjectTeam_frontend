@@ -9,7 +9,7 @@ import {
     LoginPage,
     ArchivePage,
     NewProjectPage,
-    PersonalArea,
+    PersonalPage,
     ProjectsPage,
     NotFoundPage
 } from './pages'
@@ -41,8 +41,8 @@ export const Routes = () => (
             element={<NewProjectPage />}
         />
         <Route
-            path='/personalArea'
-            element={<PersonalArea />}
+            path='/personal-page'
+            element={<PersonalPage />}
         />
         <Route
             path='not-found'

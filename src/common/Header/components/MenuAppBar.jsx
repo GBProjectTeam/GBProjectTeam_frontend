@@ -65,7 +65,7 @@ export const MenuAppBar = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => navigate('/personalArea')}>
+                <MenuItem onClick={() => navigate('/personal-page')}>
                     <Stack
                         direction='row'
                         spacing={2}

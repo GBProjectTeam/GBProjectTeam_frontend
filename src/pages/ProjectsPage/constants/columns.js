@@ -5,6 +5,7 @@ export const columns = [
         headerAlign: 'center',
         align: 'left',
         flex: 1,
+        sortable: false
     },
     {
         field: 'deadline',

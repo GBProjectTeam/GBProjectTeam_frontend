@@ -3,7 +3,7 @@ import {
     Stack,
     Typography
 } from '@mui/material'
-import { PersonlAvatar } from './PersonlAvatar'
+import { PersonalAvatar } from './PersonalAvatar'
 import { Mail } from './Mail'
 
 export const PersonalArea = () => {
@@ -15,14 +15,14 @@ export const PersonalArea = () => {
                 variant='h2'
                 align='center'
                 sx={{ padding: '20px' }}
-                fontWeight='fontWeightBold'
             >
                 Личный кабинет
             </Typography>
-        
-            <Typography variant='h3' align='center'>
+
+            <Typography variant='h4' align='center'>
                 Василий Пупкин
             </Typography>
+
             <Stack
                 sx={{
                     display: 'flex',
@@ -31,12 +31,10 @@ export const PersonalArea = () => {
                     justifyContent: 'space-around',
                 }}
             >
-                <PersonlAvatar />
+                <PersonalAvatar />
 
                 <Mail />
-
             </Stack>
-
         </Stack>
     )
 }

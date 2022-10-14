@@ -39,26 +39,25 @@ export const ProjectsPage = () => {
                 rows={rows}
                 columns={columns}
                 hideFooter={true}
-                disableColumnMenu={true}
                 sx={{
                     '& .MuiDataGrid-columnHeader': {
                         backgroundColor: grey[300],
                     },
                     '& .MuiDataGrid-columnHeaderTitle': {
                         fontWeight: 'bold',
-                        fontSize: '150%'
                     },
-                    '& .my-status-if-agreeing': {
+                    '& .status-to-be-agreed': {
                         color: green[500],
                         fontWeight: 'bold',
                     },
-                    '& .my-status-agreeing-else': {
+                    '& .status-frozen': {
+                        color: grey[400],
                         fontWeight: 'bold',
                     },
                 }}
                 getCellClassName={(params) => {
                     if (params.field === 'status' && params.value !== null) {
-                        return params.value === 'На согласовании' ? 'my-status-if-agreeing' : 'my-status-agreeing-else'
+                        return params.value === 'На согласовании' ? 'status-to-be-agreed' : 'status-frozen'
                     }
                     return ''
                 }}

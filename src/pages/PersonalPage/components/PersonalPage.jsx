@@ -6,11 +6,9 @@ import {
 import { PersonalAvatar } from './PersonalAvatar'
 import { Mail } from './Mail'
 
-export const PersonalArea = () => {
+export const PersonalPage = () => {
     return (
-        <Stack
-            flex={1}
-        >
+        <Stack flex={1}>
             <Typography
                 variant='h2'
                 align='center'
@@ -32,7 +30,6 @@ export const PersonalArea = () => {
                 }}
             >
                 <PersonalAvatar />
-
                 <Mail />
             </Stack>
         </Stack>

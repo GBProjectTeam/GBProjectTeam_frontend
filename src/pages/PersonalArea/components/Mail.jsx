@@ -19,14 +19,14 @@ export const Mail = () =>{
             spacing={5}
         >
             <Stack >
-                <Typography variant='h3'>
+                <Typography variant='h4'>
                     Почта:
                 </Typography>
+
                 <Typography variant='h4' fontWeight='fontWeightBold'>
                     vasiliy-pupkin@gmail.com
                 </Typography>
             </Stack>
-            
 
             <Modal
                 button='label'
@@ -34,14 +34,15 @@ export const Mail = () =>{
                 isOpen={open}
                 onOpen={() => setOpen(true)}
                 onClose={() => setOpen(false)}
-                label='Изменение данных'
+                label='Изменить данные'
                 allowSubmit
                 title='Изменить данные'
             >
                 <TextField
                     id='outlined-basic'
-                    label='Mail'
+                    label='Почта'
                     variant='outlined'
+                    fullWidth
                 />
             </Modal>
         </Stack>

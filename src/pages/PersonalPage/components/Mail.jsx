@@ -6,7 +6,7 @@ import {
 } from '@mui/material'
 import { Modal } from '../../../common/Modal/components/Modal'
 
-export const Mail = () =>{
+export const Mail = () => {
     const [open, setOpen] = React.useState(false)
 
     return (
@@ -35,7 +35,7 @@ export const Mail = () =>{
                 onOpen={() => setOpen(true)}
                 onClose={() => setOpen(false)}
                 label='Изменить данные'
-                allowSubmit
+                showCheck
                 title='Изменить данные'
             >
                 <TextField

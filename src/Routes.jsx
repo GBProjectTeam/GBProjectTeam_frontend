@@ -41,7 +41,7 @@ export const Routes = () => (
             element={<NewProjectPage />}
         />
         <Route
-            path='/personal-page'
+            path='/personal'
             element={<PersonalPage />}
         />
         <Route

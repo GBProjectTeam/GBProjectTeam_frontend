@@ -14,10 +14,12 @@ export const MainLayout = ({ children }) => {
 
     const isNotFoundPage = location.pathname === '/not-found'
 
+    const isRegistrationPage = location.pathname === '/registration'
+
     const bgGradient =
     'linear-gradient(135deg, rgba(105,35,255,1) 0%, rgba(127,77,232,1) 50%, rgba(144,112,211,1) 100%)'
 
-    const isAuthPage = !isLoginPage && !isIndexPage && !isNotFoundPage
+    const isAuthPage = !isLoginPage && !isIndexPage && !isNotFoundPage && !isRegistrationPage
 
     return (
         <Box

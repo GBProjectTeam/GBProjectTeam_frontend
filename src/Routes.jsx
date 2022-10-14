@@ -11,7 +11,8 @@ import {
     NewProjectPage,
     PersonalArea,
     ProjectsPage,
-    NotFoundPage
+    NotFoundPage,
+    RegistrationPage,
 } from './pages'
 
 export const Routes = () => (
@@ -23,6 +24,10 @@ export const Routes = () => (
         <Route
             path='/login'
             element={<LoginPage />}
+        />
+        <Route
+            path='/registration'
+            element={<RegistrationPage />}
         />
         <Route
             path='/approval'

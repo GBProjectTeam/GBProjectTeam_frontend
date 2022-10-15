@@ -1,5 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import {
+    useNavigate
+} from 'react-router-dom'
 import {
     Stack,
     Typography,
@@ -7,28 +9,24 @@ import {
 import {
     DataGrid
 } from '@mui/x-data-grid'
-import { grey } from '@mui/material/colors'
-import { rows } from '../constants/rows'
-import { columns } from '../constants/columns'
+import {
+    grey,
+    green,
+    red
+} from '@mui/material/colors'
+import {
+    rows
+} from '../constants/rows'
+import {
+    columns
+} from '../constants/columns'
 
 export const ArchivePage = () => {
     const navigate = useNavigate()
     return (
         <Stack
             flexDirection='column'
-            direction='flex'
             flex={1}
-            sx={{
-                '& .header-class-name': {
-                    fontWeight: 'bold',
-                    backgroundColor: grey[300],
-                    border: 1,
-                    fontSize: '150%',
-                },
-                '& .cell-class-name': {
-                    border: 1,
-                },
-            }}
         >
             <Typography
                 variant='h2'
@@ -43,7 +41,26 @@ export const ArchivePage = () => {
                 columns={columns}
                 hideFooter={true}
                 sx={{
-                    borderTop: 1
+                    '& .MuiDataGrid-columnHeader': {
+                        backgroundColor: grey[300],
+                    },
+                    '& .MuiDataGrid-columnHeaderTitle': {
+                        fontWeight: 'bold',
+                    },
+                    '& .status-agreed': {
+                        color: green[500],
+                        fontWeight: 'bold',
+                    },
+                    '& .status-not-agreed': {
+                        color: red[500],
+                        fontWeight: 'bold',
+                    },
+                }}
+                getCellClassName={(params) => {
+                    if (params.field === 'status' && params.value !== null) {
+                        return params.value === 'Согласован' ? 'status-agreed' : 'status-not-agreed'
+                    }
+                    return ''
                 }}
                 onRowClick={(params) => navigate(`/approval/${params.id}`)}
             />

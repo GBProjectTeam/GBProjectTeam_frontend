@@ -2,7 +2,7 @@ export const columns = [
     {
         field: 'project',
         headerName: 'Проект',
-        headerAlign: 'center',
+        headerAlign: 'left',
         align: 'left',
         flex: 1,
         sortable: false
@@ -10,22 +10,22 @@ export const columns = [
     {
         field: 'deadline',
         headerName: 'Дедлайн',
-        headerAlign: 'center',
-        align: 'center',
+        headerAlign: 'left',
+        align: 'left',
         flex: 1,
     },
     {
         field: 'author',
         headerName: 'Автор проекта',
-        headerAlign: 'center',
-        align: 'center',
+        headerAlign: 'left',
+        align: 'left',
         flex: 1,
     },
     {
         field: 'status',
         headerName: 'Статус',
-        headerAlign: 'center',
-        align: 'center',
+        headerAlign: 'left',
+        align: 'left',
         flex: 1,
     }
 ]

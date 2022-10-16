@@ -23,15 +23,15 @@ export const loginSlice = createSlice({
         },
     },
 
-    // extraReducers(builder) {
-    //     builder.addMatcher(
-    //         api.endpoints.signin.matchFulfilled,
-    //         (state, { payload }) => {
-    //             state.email = payload.email
-    //             state.token = payload.token
-    //         },
-    //     )
-    // },
+    extraReducers(builder) {
+        builder.addMatcher(
+            api.endpoints.login.matchFulfilled,
+            (state, { payload }) => {
+                state.email = payload.email
+                state.token = payload.token
+            },
+        )
+    },
 })
 
 export const { loggedOut, doRememberMe } = loginSlice.actions

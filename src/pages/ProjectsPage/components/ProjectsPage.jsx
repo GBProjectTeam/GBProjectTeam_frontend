@@ -51,7 +51,7 @@ export const ProjectsPage = () => {
                         fontWeight: 'bold',
                     },
                     '& .status-frozen': {
-                        color: grey[400],
+                        color: grey[500],
                         fontWeight: 'bold',
                     },
                 }}

@@ -15,6 +15,7 @@ export const NewProjectPage = () => {
             direction='row'
             divider={<Divider orientation='vertical' flexItem />}
             flex={1}
+            spacing={2}
         >
             <Grid item xs={4} display='flex' flex={1}>
                 <CommonInfoNewProject />

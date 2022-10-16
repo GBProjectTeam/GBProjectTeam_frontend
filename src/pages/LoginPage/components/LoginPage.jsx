@@ -11,7 +11,8 @@ import {
     Stack,
     TextField,
     Typography,
-    FilledInput
+    FilledInput,
+    Link,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
@@ -68,46 +69,38 @@ export const LoginPage = () => {
 
         login({
             email,
-            passcode: password,
+            password,
         })
     }
 
-    return (
-        <Stack justifyContent='space-evenly' component={Paper} height='70%' width='30%'>
-            <Typography
-                variant='h4'
-                sx={{
-                    textAlign: 'center',
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                }}
-                mx={10}
-            >
-                Авторизация
-            </Typography>
+    const formLogin = () => (
+        <Stack
+            component='form'
+            onSubmit={onSubmit}
+            method='POST'
+            alignItems='flex-end'
+            mx={10}
+            spacing={4}
+        >
+            <TextField
+                variant='filled'
+                autoFocus
+                margin='dense'
+                type='email'
+                placeholder='pochta@pochta.com'
+                label='Почта'
+                required
+                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
 
-            <Stack
-                component='form'
-                onSubmit={onSubmit}
-                method='POST'
-                alignItems='flex-end'
-                mx={10}
-                spacing={4}
-            >
-                <TextField
+            <Stack width='100%' spacing={1}>
+                <FormControl
                     variant='filled'
-                    autoFocus
-                    margin='dense'
-                    type='email'
-                    placeholder='pochta@pochta.com'
-                    label='Почта'
+                    fullWidth sx={{ bgcolor: '#e8f1fe' }}
                     required
-                    fullWidth
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <FormControl variant='filled' fullWidth sx={{ bgcolor: '#e8f1fe' }} required>
+                >
                     <InputLabel htmlFor='filled-adornment-password'>Пароль</InputLabel>
                     <FilledInput
                         id='filled-adornment-password'
@@ -130,26 +123,91 @@ export const LoginPage = () => {
                     />
                 </FormControl>
 
-                <Button
-                    type='submit'
-                    variant='contained'
-                    sx={{ borderRadius: '20px' }}
-                    fullWidth
-                >
-                    Войти
-                </Button>
+                <Stack direction='row' spacing={0.5}>
+                    <Typography variant='caption'>
+                        Забыли пароль?
+                    </Typography>
 
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={isAnotherComp}
-                            onChange={handleChange}
-                        />
-                    }
-                    label='Чужой компьютер'
-                    sx={{ alignSelf: 'flex-start' }}
-                />
+                    <Link
+                        variant='caption'
+                        href='#'
+                        underline='always'
+                    >
+                        Восстановить
+                    </Link>
+                </Stack>
             </Stack>
+
+            <Button
+                type='submit'
+                variant='contained'
+                sx={{ borderRadius: '20px' }}
+                fullWidth
+                disabled={!email || !password}
+                color='secondary'
+            >
+                Войти
+            </Button>
+
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={isAnotherComp}
+                        onChange={handleChange}
+                    />
+                }
+                label='Чужой компьютер'
+                sx={{ alignSelf: 'flex-start' }}
+            />
+        </Stack>
+    )
+
+    const additionalButtons = () => (
+        <Stack
+            direction='row'
+            spacing={1}
+            justifyContent='center'
+            mx={10}
+        >
+            <Button
+                variant='outlined'
+                sx={{ borderRadius: '20px' }}
+                fullWidth
+                onClick={() => navigate('/registration')}
+                color='secondary'
+            >
+                Зарегистрироваться
+            </Button>
+
+            <Button
+                variant='outlined'
+                sx={{ borderRadius: '20px' }}
+                fullWidth
+                onClick={() => navigate('/')}
+                color='secondary'
+            >
+                На главную
+            </Button>
+        </Stack>
+    )
+
+    return (
+        <Stack justifyContent='space-evenly' component={Paper} height='70%' width='30%'>
+            <Typography
+                variant='h4'
+                sx={{
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    fontWeight: 'bold',
+                }}
+                mx={10}
+            >
+                Авторизация
+            </Typography>
+
+            {formLogin()}
+
+            {additionalButtons()}
         </Stack>
     )
 }

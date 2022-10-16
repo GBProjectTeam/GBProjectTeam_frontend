@@ -3,6 +3,7 @@ import {
     Routes as Switch,
     Route,
 } from 'react-router-dom'
+import { PrivateRoute } from './common/index.js'
 import {
     MainPage,
     ApprovalPage,
@@ -31,23 +32,43 @@ export const Routes = () => (
         />
         <Route
             path='/approval'
-            element={<ApprovalPage />}
+            element={
+                <PrivateRoute>
+                    <ApprovalPage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='/projects'
-            element={<ProjectsPage />}
+            element={
+                <PrivateRoute>
+                    <ProjectsPage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='/archive'
-            element={<ArchivePage />}
+            element={
+                <PrivateRoute>
+                    <ArchivePage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='/new-project'
-            element={<NewProjectPage />}
+            element={
+                <PrivateRoute>
+                    <NewProjectPage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='/personalArea'
-            element={<PersonalArea />}
+            element={
+                <PrivateRoute>
+                    <PersonalArea />
+                </PrivateRoute>
+            }
         />
         <Route
             path='not-found'

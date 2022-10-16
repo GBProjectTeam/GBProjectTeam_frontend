@@ -19,7 +19,7 @@ const baseQueryWithReauth = async (
     const loginState = api.getState().login
 
     let result
-        = args.url === '/auth/signin'
+        = args.url === '/auth/signin' || args.url === '/auth/signup'
             ? await baseQuery(args, api, extraOptions)
             : await baseQuery(
                 {
@@ -78,10 +78,18 @@ export const api = createApi({
                 body: credentials,
             }),
         }),
+        registration: builder.mutation({
+            query: (dataNewUser) => ({
+                url: '/auth/signup',
+                method: 'POST',
+                body: dataNewUser,
+            }),
+        }),
     }),
 })
 
 export const {
     endpoints,
     useLoginMutation,
+    useRegistrationMutation,
 } = api

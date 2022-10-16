@@ -1,25 +1,17 @@
 import React from 'react'
-import {
-    useNavigate
-} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
     Stack,
     Typography,
 } from '@mui/material'
-import {
-    DataGrid
-} from '@mui/x-data-grid'
+import { DataGrid } from '@mui/x-data-grid'
 import {
     grey,
     green,
     red
 } from '@mui/material/colors'
-import {
-    rows
-} from '../constants/rows'
-import {
-    columns
-} from '../constants/columns'
+import { rows } from '../constants/rows'
+import { columns } from '../constants/columns'
 
 export const ArchivePage = () => {
     const navigate = useNavigate()

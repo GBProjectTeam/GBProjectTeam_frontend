@@ -1,8 +1,21 @@
 import React from 'react'
-// eslint-disable-next-line max-len
-import { Avatar, Button, FormControl, IconButton, InputLabel, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Paper, Select, Stack } from '@mui/material'
+import {
+    Avatar,
+    Button,
+    FormControl,
+    IconButton,
+    InputLabel,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    MenuItem,
+    Select,
+    Stack
+} from '@mui/material'
 import { Add, EditOutlined } from '@mui/icons-material'
 import { fakeMembers } from '../constants/fakeMembers'
+import { fakeRoles } from '../constants/fakeRoles'
 
 export const MembersNewProject = () => {
     return (
@@ -12,7 +25,10 @@ export const MembersNewProject = () => {
         >
             <Stack spacing={3} alignItems='center'>
                 <FormControl fullWidth>
-                    <InputLabel id='age-select-label'>ФИО</InputLabel>
+                    <InputLabel id='age-select-label'>
+                        ФИО
+                    </InputLabel>
+
                     <Select
                         labelId='age-select-label'
                         id='age-select'
@@ -32,14 +48,17 @@ export const MembersNewProject = () => {
                 </FormControl>
 
                 <FormControl fullWidth>
-                    <InputLabel id='role-select-label'>Роль</InputLabel>
+                    <InputLabel id='role-select-label'>
+                        Роль
+                    </InputLabel>
+
                     <Select
                         labelId='role-select-label'
                         id='role-select'
                         label='Роль'
-                        value='name'
+                        value='role'
                     >
-                        {fakeMembers.map((item) =>
+                        {fakeRoles.map((item) =>
                             <MenuItem
                                 value={item.role}
                                 key={item.id}
@@ -54,7 +73,6 @@ export const MembersNewProject = () => {
                 <Button
                     variant='outlined'
                     startIcon={<Add />}
-                    color='secondary'
                     sx={{ borderRadius: '20px' }}
                 >
                     добавить участника
@@ -66,28 +84,15 @@ export const MembersNewProject = () => {
                     <ListItem
                         key={item.id}
                         secondaryAction={
-                            <Paper
-                                elevation='5'
-                                sx={{
-                                    backgroundColor: '#FFFBFE',
-                                    borderRadius: '16px',
-                                    height: '56px',
-                                    width: '56px',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}
-                            >
-                                <IconButton>
-                                    <EditOutlined color='secondary' />
-                                </IconButton>
-                            </Paper>
-
+                            <IconButton>
+                                <EditOutlined />
+                            </IconButton>
                         }
                     >
                         <ListItemAvatar>
                             <Avatar src={item.avatar} />
                         </ListItemAvatar>
+
                         <ListItemText
                             primary={item.name}
                             secondary={item.role}

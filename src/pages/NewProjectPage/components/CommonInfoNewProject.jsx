@@ -1,7 +1,9 @@
 import React from 'react'
 import { Stack, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import ru from 'date-fns/locale/ru'
+
 export const CommonInfoNewProject = () => {
     const [deadlineValue, setDeadlineValue] = React.useState(null)
 
@@ -13,17 +15,22 @@ export const CommonInfoNewProject = () => {
             <TextField
                 variant='outlined'
                 fullWidth
-                label='Название проекта*'
+                label='Название проекта'
+                required
             />
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                adapterLocale={ru}
+            >
                 <DatePicker
-                    label='Дедлайн*'
+                    label='Дедлайн'
+                    disablePast
                     value={deadlineValue}
                     onChange={(newValue) => {
                         setDeadlineValue(newValue)
                     }}
-                    mask=''
+                    mask='__.__.____'
                     renderInput={(params) =>
                         <TextField {...params} />
                     }

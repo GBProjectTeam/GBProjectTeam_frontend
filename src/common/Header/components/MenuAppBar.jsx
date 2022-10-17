@@ -15,11 +15,15 @@ import {
     PermContactCalendar,
     ExitToApp
 } from '@mui/icons-material'
+import { useDispatch } from 'react-redux'
+import { loggedOut } from '../../../pages/LoginPage/loginSlice.js'
 
 export const MenuAppBar = () => {
     const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const dispatch = useDispatch()
 
     const open = Boolean(anchorEl)
 
@@ -31,6 +35,13 @@ export const MenuAppBar = () => {
         setAnchorEl(null)
     }
 
+    const handleExit = () => {
+        navigate('/')
+        dispatch(
+            loggedOut(),
+        )
+    }    
+        
     const handleClickPersonal = () => {
         navigate('/personal')
         setAnchorEl(null)
@@ -82,7 +93,7 @@ export const MenuAppBar = () => {
                     </Stack>
                 </MenuItem>
 
-                <MenuItem onClick={() => navigate('/')}>
+                <MenuItem onClick={handleExit}>
                     <Stack
                         direction='row'
                         spacing={2}

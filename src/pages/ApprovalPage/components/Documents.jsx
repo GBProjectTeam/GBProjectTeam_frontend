@@ -5,9 +5,8 @@ import {
     Link,
     Button
 } from '@mui/material'
-import { Article } from '@mui/icons-material'
-import { Create } from '@mui/icons-material'
-import { Modal } from '../../../common/Modal/components/Modal'
+import { Article, Create } from '@mui/icons-material'
+import { Modal } from '../../../common/index.js'
 
 export const Documents = () => {
     const [open, setOpen] = React.useState(false)

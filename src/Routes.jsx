@@ -3,6 +3,7 @@ import {
     Routes as Switch,
     Route,
 } from 'react-router-dom'
+import { PrivateRoute } from './common/index.js'
 import {
     MainPage,
     ApprovalPage,
@@ -11,7 +12,8 @@ import {
     NewProjectPage,
     PersonalPage,
     ProjectsPage,
-    NotFoundPage
+    NotFoundPage,
+    RegistrationPage,
 } from './pages'
 
 export const Routes = () => (
@@ -25,29 +27,57 @@ export const Routes = () => (
             element={<LoginPage />}
         />
         <Route
+            path='/registration'
+            element={<RegistrationPage />}
+        />
+        <Route
             path='/approval'
-            element={<ApprovalPage />}
+            element={
+                <PrivateRoute>
+                    <ApprovalPage />
+                </PrivateRoute>
+            }
         >
             <Route
                 path=':id'
-                element={<ApprovalPage />}
+                element={
+                    <PrivateRoute>
+                        <ApprovalPage />
+                    </PrivateRoute>
+                }
             />
         </Route>
         <Route
             path='/projects'
-            element={<ProjectsPage />}
+            element={
+                <PrivateRoute>
+                    <ProjectsPage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='/archive'
-            element={<ArchivePage />}
+            element={
+                <PrivateRoute>
+                    <ArchivePage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='/new-project'
-            element={<NewProjectPage />}
+            element={
+                <PrivateRoute>
+                    <NewProjectPage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='/personal'
-            element={<PersonalPage />}
+            element={
+                <PrivateRoute>
+                    <PersonalPage />
+                </PrivateRoute>
+            }
         />
         <Route
             path='not-found'

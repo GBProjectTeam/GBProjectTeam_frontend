@@ -10,7 +10,7 @@ import {
     LoginPage,
     ArchivePage,
     NewProjectPage,
-    PersonalArea,
+    PersonalPage,
     ProjectsPage,
     NotFoundPage,
     RegistrationPage,
@@ -37,7 +37,16 @@ export const Routes = () => (
                     <ApprovalPage />
                 </PrivateRoute>
             }
-        />
+        >
+            <Route
+                path=':id'
+                element={
+                    <PrivateRoute>
+                        <ApprovalPage />
+                    </PrivateRoute>
+                }
+            />
+        </Route>
         <Route
             path='/projects'
             element={
@@ -63,10 +72,10 @@ export const Routes = () => (
             }
         />
         <Route
-            path='/personalArea'
+            path='/personal'
             element={
                 <PrivateRoute>
-                    <PersonalArea />
+                    <PersonalPage />
                 </PrivateRoute>
             }
         />

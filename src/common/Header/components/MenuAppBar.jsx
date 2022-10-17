@@ -40,6 +40,11 @@ export const MenuAppBar = () => {
         dispatch(
             loggedOut(),
         )
+    }    
+        
+    const handleClickPersonal = () => {
+        navigate('/personal')
+        setAnchorEl(null)
     }
 
     return (
@@ -63,9 +68,7 @@ export const MenuAppBar = () => {
                     variant='outlined'
                     startIcon={<AccountCircle />}
                     onClick={handleClick}
-                    sx={{
-                        borderRadius: 20
-                    }}
+                    sx={{ borderRadius: 20 }}
                 >
                     Василий Пупкин
                 </Button>
@@ -76,7 +79,7 @@ export const MenuAppBar = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => navigate('/personalArea')}>
+                <MenuItem onClick={handleClickPersonal}>
                     <Stack
                         direction='row'
                         spacing={2}

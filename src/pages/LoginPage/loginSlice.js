@@ -27,8 +27,11 @@ export const loginSlice = createSlice({
         builder.addMatcher(
             api.endpoints.login.matchFulfilled,
             (state, { payload }) => {
-                state.email = payload.email
+                state.email = payload.user.email
                 state.token = payload.token
+                state.lastname = payload.user.lastName
+                state.firstName = payload.user.firstName
+                state.patronymicName = payload.user?.patronymicName || ''
             },
         )
     },

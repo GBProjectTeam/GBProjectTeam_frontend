@@ -4,9 +4,13 @@ import {
     Typography
 } from '@mui/material'
 import { PersonalAvatar } from './PersonalAvatar'
-import { Mail } from './Mail'
+import { ModalUpdateUserInfo } from './ModalUpdateUserInfo'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
 
 export const PersonalPage = () => {
+    const { lastName, firstName, patronymicName, email } = useSelector(loginSelector)
+
     return (
         <Stack flex={1}>
             <Typography
@@ -18,7 +22,7 @@ export const PersonalPage = () => {
             </Typography>
 
             <Typography variant='h4' align='center'>
-                Василий Пупкин
+                {lastName} {firstName} {patronymicName}
             </Typography>
 
             <Stack
@@ -30,7 +34,27 @@ export const PersonalPage = () => {
                 }}
             >
                 <PersonalAvatar />
-                <Mail />
+
+                <Stack
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                    spacing={5}
+                >
+                    <Stack >
+                        <Typography variant='h4'>
+                            Почта:
+                        </Typography>
+
+                        <Typography variant='h4' fontWeight='fontWeightBold'>
+                            {email}
+                        </Typography>
+                    </Stack>
+
+                    <ModalUpdateUserInfo />
+                </Stack>
             </Stack>
         </Stack>
     )

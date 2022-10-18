@@ -24,16 +24,26 @@ export const loginSlice = createSlice({
     },
 
     extraReducers(builder) {
-        builder.addMatcher(
-            api.endpoints.login.matchFulfilled,
-            (state, { payload }) => {
-                state.email = payload.user.email
-                state.token = payload.token
-                state.lastname = payload.user.lastName
-                state.firstName = payload.user.firstName
-                state.patronymicName = payload.user?.patronymicName || ''
-            },
-        )
+        builder
+            .addMatcher(
+                api.endpoints.login.matchFulfilled,
+                (state, { payload }) => {
+                    state.email = payload.user.email
+                    state.token = payload.token
+                    state.lastName = payload.user.lastName
+                    state.firstName = payload.user.firstName
+                    state.patronymicName = payload.user?.patronymicName || ''
+                },
+            )
+            .addMatcher(
+                api.endpoints.updateUser.matchFulfilled,
+                (state, { payload }) => {
+                    state.email = payload.email
+                    state.lastName = payload.lastName
+                    state.firstName = payload.firstName
+                    state.patronymicName = payload?.patronymicName || ''
+                },
+            )
     },
 })
 

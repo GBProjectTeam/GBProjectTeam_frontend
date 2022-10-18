@@ -98,7 +98,8 @@ export const LoginPage = () => {
             <Stack width='100%' spacing={1}>
                 <FormControl
                     variant='filled'
-                    fullWidth sx={{ bgcolor: '#e8f1fe' }}
+                    fullWidth
+                    sx={{ bgcolor: '#e8f1fe' }}
                     required
                 >
                     <InputLabel htmlFor='filled-adornment-password'>Пароль</InputLabel>

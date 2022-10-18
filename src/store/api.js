@@ -72,6 +72,13 @@ export const api = createApi({
                 body: dataNewUser,
             }),
         }),
+        updateUser: builder.mutation({
+            query: (dataUpdatedUser) => ({
+                url: '/users',
+                method: 'PATCH',
+                body: dataUpdatedUser,
+            }),
+        }),
     }),
 })
 
@@ -79,4 +86,5 @@ export const {
     endpoints,
     useLoginMutation,
     useRegistrationMutation,
+    useUpdateUserMutation,
 } = api

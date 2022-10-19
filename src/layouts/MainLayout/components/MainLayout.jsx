@@ -4,6 +4,13 @@ import { Header } from '../../../common/index.js'
 import { useLocation } from 'react-router-dom'
 import { Box } from '@mui/material'
 import { headerHeight } from '../../../common/Header/constants/headerHeight.js'
+import {
+    bgApproval,
+    bgArchive,
+    bgNewProject,
+    bgPersonal,
+    bgProjects,
+} from '../assets'
 
 export const MainLayout = ({ children }) => {
     const location = useLocation()
@@ -31,18 +38,18 @@ export const MainLayout = ({ children }) => {
 
     const isAuthPage = !isLoginPage && !isIndexPage && !isNotFoundPage && !isRegistrationPage
 
-    const getBackgroundImage =(page)=>{
-        switch(page){
+    const getBackgroundImage = () => {
+        switch(true) {
         case isApprovalPage:
-            return 'url(/assets/bg-image-approval-page.jpg)'
+            return `url(${bgApproval})`
         case isProjectsPage:
-            return 'url(./assets/bg-image-projects-page.jpg)'
+            return `url(${bgProjects})`
         case isArchivePage:
-            return 'url(./assets/bg-image-archive-page.jpg)'
+            return `url(${bgArchive})`
         case isNewProjectPage:
-            return 'url(./assets/bg-image-create-new-project-page.jpg)'
+            return `url(${bgNewProject})`
         case isPersonalPage:
-            return 'url(./assets/bg-image-personal-page.jpg)'
+            return `url(${bgPersonal})`
         }
     }
 
@@ -53,7 +60,11 @@ export const MainLayout = ({ children }) => {
                 width: '100vw',
                 display: 'flex',
                 flex: 1,
-                background: !isAuthPage ? bgGradient : getBackgroundImage(location.pathname),
+                background: !isAuthPage ? bgGradient : '',
+                backgroundImage: !isAuthPage
+                    ? ''
+                    : `linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.85)), ${getBackgroundImage()}`,
+                backgroundSize: !isAuthPage ? 'none' : '100%',
             }}
         >
             {isAuthPage && <Header />}

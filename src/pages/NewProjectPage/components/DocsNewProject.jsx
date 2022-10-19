@@ -14,6 +14,10 @@ import { Add, ArticleOutlined, EditOutlined, FileDownloadOutlined } from '@mui/i
 import { fakeDocs } from '../constants/fakeDocs'
 
 export const DocsNewProject = () => {
+    const onSubmit = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <Stack
             width='100%'
@@ -21,14 +25,19 @@ export const DocsNewProject = () => {
         >
             <Stack spacing={3} alignItems='center'>
                 <Stack
+                    component='form'
+                    onSubmit={onSubmit}
+                    method='POST'
                     direction='row'
                     justifyContent='start'
                     alignItems='center'
                     width='100%'
+                    my={0.5}
                     spacing={3}
                 >
-                    <IconButton>
+                    <IconButton component='label' size='large'>
                         <FileDownloadOutlined />
+                        <input hidden accept='.doc, .docs, .pdf' multiple type='file' />
                     </IconButton>
 
                     <Typography>Text.pdf</Typography>
@@ -42,6 +51,7 @@ export const DocsNewProject = () => {
                 />
 
                 <Button
+                    type='submit'
                     variant='outlined'
                     startIcon={<Add />}
                     sx={{ borderRadius: '20px' }}

@@ -18,21 +18,31 @@ import { fakeMembers } from '../constants/fakeMembers'
 import { fakeRoles } from '../constants/fakeRoles'
 
 export const MembersNewProject = () => {
+    const onSubmit = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <Stack
             width='100%'
             spacing={3}
         >
-            <Stack spacing={3} alignItems='center'>
-                <FormControl fullWidth>
+            <Stack
+                component='form'
+                onSubmit={onSubmit}
+                method='POST'
+                spacing={3}
+                alignItems='center'
+            >
+                <FormControl fullWidth required>
                     <InputLabel id='age-select-label'>
-                        ФИО
+                        Участник
                     </InputLabel>
 
                     <Select
                         labelId='age-select-label'
                         id='age-select'
-                        label='ФИО'
+                        label='Участник'
                         value='name'
                     >
                         {fakeMembers.map((item) =>
@@ -43,11 +53,10 @@ export const MembersNewProject = () => {
                                 {item.name}
                             </MenuItem>
                         )}
-
                     </Select>
                 </FormControl>
 
-                <FormControl fullWidth>
+                <FormControl fullWidth required>
                     <InputLabel id='role-select-label'>
                         Роль
                     </InputLabel>
@@ -66,11 +75,11 @@ export const MembersNewProject = () => {
                                 {item.role}
                             </MenuItem>
                         )}
-
                     </Select>
                 </FormControl>
 
                 <Button
+                    type='submit'
                     variant='outlined'
                     startIcon={<Add />}
                     sx={{ borderRadius: '20px' }}

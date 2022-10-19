@@ -23,7 +23,7 @@ export const MainLayout = ({ children }) => {
 
     const isRegistrationPage = location.pathname === '/registration'
 
-    const isApprovalPage = location.pathname === '/approval'
+    const isApprovalPage = location.pathname.includes('/approval')
 
     const isProjectsPage = location.pathname ==='/projects'
 

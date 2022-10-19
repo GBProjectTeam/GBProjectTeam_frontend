@@ -1,12 +1,14 @@
-import { Paper, Stack, Typography, Box, Button } from '@mui/material'
 import React from 'react'
+import { Paper, Stack, Typography, Box, Button } from '@mui/material'
 import { CommentCard } from './CommentCard'
 import { StatisticItem } from './StatisticItem'
 import { fakeComments } from '../constants/fakeComments'
 import { fakeStatistic } from '../constants/fakeStatistics'
-import { authButtons } from '../constants/authButtons'
+import { useNavigate } from 'react-router-dom'
 
 export const MainPage = () => {
+    const navigate = useNavigate()
+
     return (
         <Stack
             direction='row'
@@ -93,17 +95,25 @@ export const MainPage = () => {
                         justifyContent: 'space-between'
                     }}
                 >
-                    {authButtons.map((btn) =>
-                        <Button
-                            key={btn.id}
-                            color={btn.color}
-                            variant={btn.variant}
-                            sx={btn.style}
-                            fullWidth
-                        >
-                            {btn.text}
-                        </Button>
-                    )}
+                    <Button
+                        color='secondary'
+                        variant='outlined'
+                        sx={{ borderRadius: '20px' }}
+                        fullWidth
+                        onClick={() => navigate('/login')}
+                    >
+                        Авторизироваться
+                    </Button>
+
+                    <Button
+                        color='secondary'
+                        variant='contained'
+                        sx={{ borderRadius: '20px' }}
+                        fullWidth
+                        onClick={() => navigate('/registration')}
+                    >
+                        Зарегистрироваться
+                    </Button>
                 </Stack>
             </Paper>
         </Stack>

@@ -1,63 +1,54 @@
 import React from 'react'
 import {
-    Button,
     Typography,
-    Modal,
+    Stack,
     Link,
-    Stack
+    Button
 } from '@mui/material'
-import { Article } from '@mui/icons-material'
-
-const stackStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4
-}
+import { Article, Create } from '@mui/icons-material'
+import { Modal } from '../../../common/index.js'
 
 export const Documents = () => {
     const [open, setOpen] = React.useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
 
     return (
-        <>
-            <Stack spacing={2}>
-                <Typography variant='h4'>
-                    Согласование проекта:
-                </Typography>
+        <Stack spacing={2}>
+            <Typography variant='h4'>
+                Согласование проекта:
+            </Typography>
 
-                <Typography variant='h3' fontWeight='fontWeightBold'>
-                    Контракт по закупке канцелярских товаров
-                </Typography>
+            <Typography variant='h3' fontWeight='fontWeightBold'>
+                Контракт по закупке канцелярских товаров
+            </Typography>
+
+            <Stack direction='row' spacing={2}>
+                <Modal
+                    button='label'
+                    isOpen={open}
+                    onOpen={() => setOpen(true)}
+                    onClose={() => setOpen(false)}
+                    icon={<Article />}
+                    label='Документы'
+                    title='Документы проекта'
+                >
+                    <Stack>
+                        <Link href='#'>ГК-2018-1</Link>
+                        <Link href='#'>ДГ-2019-3</Link>
+                    </Stack>
+                </Modal>
 
                 <Button
+                    variant='outlined'
+                    startIcon={<Create />}
                     sx={{
-                        borderRadius: 20,
+                        borderRadius: '20px',
                         align: 'center',
-                        maxWidth: 200,
+                        width: 'fit-content',
                     }}
-                    onClick={handleOpen}
-                    variant='contained'
-                    startIcon={<Article />}
                 >
-                    Документы
+                    Редактировать проект
                 </Button>
             </Stack>
-
-            <Modal
-                open={open}
-                onClose={handleClose}
-            >
-                <Stack sx={stackStyle} >
-                    <Link href='#'>ГК-2018-1</Link>
-                    <Link href='#'>ДГ-2019-3</Link>
-                </Stack>
-            </Modal>
-        </>
+        </Stack>
     )
 }

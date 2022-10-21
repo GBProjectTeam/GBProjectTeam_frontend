@@ -57,12 +57,16 @@ export const Documents = () => {
                     isOutlintedVariant
                     showCheck
                     allowSubmit
+                    error
                     onOpen={() => setUnlock(true)}
                     onClose={() => setUnlock(false)}
                     icon={<DeleteOutline />}
                     label='Удалить проект'
-                    title='Вы уверены, что хотите удалить проект?'
-                />
+                    title='Удалить проект'
+                    del
+                >
+                    Вы уверены, что хотите удалить проект?
+                </Modal>
             </Stack>
         </Stack>
     )

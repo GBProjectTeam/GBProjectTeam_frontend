@@ -7,9 +7,11 @@ import {
 } from '@mui/material'
 import { Article, Create } from '@mui/icons-material'
 import { Modal } from '../../../common/index.js'
+import { DeleteOutline } from '@mui/icons-material'
 
 export const Documents = () => {
     const [open, setOpen] = React.useState(false)
+    const [unlock, setUnlock] = React.useState(false)
 
     return (
         <Stack spacing={2}>
@@ -48,6 +50,19 @@ export const Documents = () => {
                 >
                     Редактировать проект
                 </Button>
+
+                <Modal
+                    button='label'
+                    isOpen={unlock}
+                    isOutlintedVariant
+                    showCheck
+                    allowSubmit
+                    onOpen={() => setUnlock(true)}
+                    onClose={() => setUnlock(false)}
+                    icon={<DeleteOutline />}
+                    label='Удалить проект'
+                    title='Вы уверены, что хотите удалить проект?'
+                />
             </Stack>
         </Stack>
     )

@@ -56,19 +56,32 @@ export const PersonalPage = () => {
                         </Typography>
                     </Stack>
 
-                    <ModalUpdateUserInfo />
-                    <Modal
-                        button='label'
-                        isOpen={open}
-                        isOutlintedVariant
-                        showCheck
-                        allowSubmit
-                        onOpen={() => setOpen(true)}
-                        onClose={() => setOpen(false)}
-                        icon={<DeleteOutline />}
-                        label='Удалить профиль'
-                        title='Вы уверены, что хотите удалить профиль?'
-                    />
+                    <Stack
+                        spacing={2}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}
+                    >
+
+                        <ModalUpdateUserInfo />
+
+                        <Modal
+                            button='label'
+                            isOpen={open}
+                            isOutlintedVariant
+                            showCheck
+                            allowSubmit
+                            onOpen={() => setOpen(true)}
+                            onClose={() => setOpen(false)}
+                            icon={<DeleteOutline />}
+                            label='Удалить профиль'
+                            title='Удалить профиль'
+                            del
+                        >
+                            Вы уверены, что хотите удалить проект?
+                        </Modal>
+                    </Stack>
                 </Stack>
             </Stack>
         </Stack>

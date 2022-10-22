@@ -15,10 +15,12 @@ import {
     PermContactCalendar,
     ExitToApp
 } from '@mui/icons-material'
-import { useDispatch } from 'react-redux'
-import { loggedOut } from '../../../pages/LoginPage/loginSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { loggedOut, loginSelector } from '../../../pages/LoginPage/loginSlice.js'
 
 export const MenuAppBar = () => {
+    const { lastName, firstName } = useSelector(loginSelector)
+
     const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = React.useState(null)
@@ -40,8 +42,8 @@ export const MenuAppBar = () => {
         dispatch(
             loggedOut(),
         )
-    }    
-        
+    }
+
     const handleClickPersonal = () => {
         navigate('/personal')
         setAnchorEl(null)
@@ -70,7 +72,7 @@ export const MenuAppBar = () => {
                     onClick={handleClick}
                     sx={{ borderRadius: 20 }}
                 >
-                    Василий Пупкин
+                    {firstName} {lastName}
                 </Button>
             </Stack>
 

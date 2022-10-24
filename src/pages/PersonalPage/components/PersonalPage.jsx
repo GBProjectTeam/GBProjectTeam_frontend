@@ -13,7 +13,6 @@ import { DeleteOutline } from '@mui/icons-material'
 export const PersonalPage = () => {
     const { lastName, firstName, patronymicName, email } = useSelector(loginSelector)
     const [open, setOpen] = React.useState(false)
-
     return (
         <Stack flex={1}>
             <Typography
@@ -79,7 +78,9 @@ export const PersonalPage = () => {
                             title='Удалить профиль'
                             del
                         >
-                            Вы уверены, что хотите удалить проект?
+                            <Typography>
+                                {lastName} {firstName} {patronymicName}, вы уверены, что хотите удалить профиль?
+                            </Typography>
                         </Modal>
                     </Stack>
                 </Stack>

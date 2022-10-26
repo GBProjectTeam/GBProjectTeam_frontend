@@ -5,9 +5,8 @@ import {
     Link,
     Button
 } from '@mui/material'
-import { Article, Create } from '@mui/icons-material'
+import { Article, Create, DeleteOutline } from '@mui/icons-material'
 import { Modal } from '../../../common/index.js'
-import { DeleteOutline } from '@mui/icons-material'
 
 export const Documents = () => {
     const [open, setOpen] = React.useState(false)
@@ -63,7 +62,7 @@ export const Documents = () => {
                     onClose={() => setUnlock(false)}
                     icon={<DeleteOutline />}
                     label='Удалить проект'
-                    title='Удалить проект'
+                    title='Удаление проекта'
                     del
                 >
                     Вы уверены, что хотите удалить проект:

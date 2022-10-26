@@ -12,7 +12,9 @@ import { DeleteOutline } from '@mui/icons-material'
 
 export const PersonalPage = () => {
     const { lastName, firstName, patronymicName, email } = useSelector(loginSelector)
+
     const [open, setOpen] = React.useState(false)
+
     return (
         <Stack flex={1}>
             <Typography
@@ -60,7 +62,6 @@ export const PersonalPage = () => {
                         alignItems='center'
                         flex={1}
                     >
-
                         <ModalUpdateUserInfo />
 
                         <Modal

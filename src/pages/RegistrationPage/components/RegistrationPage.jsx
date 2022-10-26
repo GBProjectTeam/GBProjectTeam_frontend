@@ -14,6 +14,7 @@ import {
     Typography
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { ProgressOverlay } from '../../../common/index.js'
 
 const initialNewUser = {
     lastName: '',
@@ -52,7 +53,7 @@ export const RegistrationPage = () => {
 
     const navigate = useNavigate()
 
-    const [registration, { isSuccess, isError }] = useRegistrationMutation()
+    const [registration, { isSuccess, isError, isLoading }] = useRegistrationMutation()
 
     React.useEffect(
         () => {
@@ -272,6 +273,10 @@ export const RegistrationPage = () => {
             {formRegistration()}
 
             {additionalButtons()}
+
+            {isLoading && (
+                <ProgressOverlay showProgressOverlay={isLoading} />
+            )}
         </Stack>
     )
 }

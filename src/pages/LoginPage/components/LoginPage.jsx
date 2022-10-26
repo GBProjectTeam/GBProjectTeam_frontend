@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux'
 import { useLoginMutation } from '../../../store/api'
 import { doRememberMe } from '../loginSlice'
 import { setAnotherComp } from '../anotherCompSlice'
+import { ProgressOverlay } from '../../../common/index.js'
 
 export const LoginPage = () => {
     const [email, setEmail] = React.useState('')
@@ -31,7 +32,7 @@ export const LoginPage = () => {
 
     const dispatch = useDispatch()
 
-    const [login, { isSuccess, isError }] = useLoginMutation()
+    const [login, { isSuccess, isError, isLoading }] = useLoginMutation()
 
     React.useEffect(
         () => {
@@ -209,6 +210,10 @@ export const LoginPage = () => {
             {formLogin()}
 
             {additionalButtons()}
+
+            {isLoading && (
+                <ProgressOverlay showProgressOverlay={isLoading} />
+            )}
         </Stack>
     )
 }

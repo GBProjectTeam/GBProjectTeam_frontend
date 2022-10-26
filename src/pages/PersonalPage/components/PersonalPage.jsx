@@ -74,11 +74,11 @@ export const PersonalPage = () => {
                             onClose={() => setOpen(false)}
                             icon={<DeleteOutline />}
                             label='Удалить профиль'
-                            title='Удалить профиль'
+                            title='Удаление профиля'
                             del
                         >
                             <Typography>
-                                {lastName} {firstName}, вы уверены, что хотите удалить профиль?
+                                {lastName} {firstName}, Вы уверены, что хотите удалить профиль?
                             </Typography>
                         </Modal>
                     </Stack>

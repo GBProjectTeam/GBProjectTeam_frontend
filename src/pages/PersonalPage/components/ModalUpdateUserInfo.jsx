@@ -8,12 +8,11 @@ import {
     InputAdornment,
     IconButton, Typography
 } from '@mui/material'
-import { Modal } from '../../../common/index.js'
-import { Create } from '@mui/icons-material'
+import { Modal, ProgressOverlay } from '../../../common/index.js'
+import { Create, Visibility, VisibilityOff } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { useUpdateUserMutation } from '../../../store/api'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 const initialUpdateUser = {
     lastName: '',
@@ -55,7 +54,7 @@ export const ModalUpdateUserInfo = () => {
 
     const { lastName, firstName, patronymicName, email } = useSelector(loginSelector)
 
-    const [updateUser, { isSuccess, isError }] = useUpdateUserMutation()
+    const [updateUser, { isSuccess, isError, isLoading }] = useUpdateUserMutation()
 
     React.useEffect(
         () => {
@@ -253,6 +252,10 @@ export const ModalUpdateUserInfo = () => {
                     />
                 </FormControl>
             </Stack>
+
+            {isLoading && (
+                <ProgressOverlay showProgressOverlay={isLoading} />
+            )}
         </Modal>
     )
 }

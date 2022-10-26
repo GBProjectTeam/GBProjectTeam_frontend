@@ -56,11 +56,9 @@ export const PersonalPage = () => {
                     </Stack>
 
                     <Stack
-                        spacing={2}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
+                        spacing={1}
+                        alignItems='center'
+                        flex={1}
                     >
 
                         <ModalUpdateUserInfo />
@@ -71,6 +69,7 @@ export const PersonalPage = () => {
                             isOutlintedVariant
                             showCheck
                             allowSubmit
+                            onSubmit={() => setOpen(false)}
                             onOpen={() => setOpen(true)}
                             onClose={() => setOpen(false)}
                             icon={<DeleteOutline />}
@@ -79,7 +78,7 @@ export const PersonalPage = () => {
                             del
                         >
                             <Typography>
-                                {lastName} {firstName} {patronymicName}, вы уверены, что хотите удалить профиль?
+                                {lastName} {firstName}, вы уверены, что хотите удалить профиль?
                             </Typography>
                         </Modal>
                     </Stack>

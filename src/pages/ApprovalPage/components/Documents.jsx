@@ -58,6 +58,7 @@ export const Documents = () => {
                     showCheck
                     allowSubmit
                     error
+                    onSubmit={() => setUnlock(false)}
                     onOpen={() => setUnlock(true)}
                     onClose={() => setUnlock(false)}
                     icon={<DeleteOutline />}
@@ -65,7 +66,10 @@ export const Documents = () => {
                     title='Удалить проект'
                     del
                 >
-                    Дмитров Иван Александрович, вы уверены, что хотите удалить проект?
+                    Вы уверены, что хотите удалить проект:
+                    <Typography>
+                        Контракт по закупке канцелярских товаров?
+                    </Typography>
                 </Modal>
             </Stack>
         </Stack>

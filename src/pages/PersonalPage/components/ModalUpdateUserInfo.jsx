@@ -9,6 +9,7 @@ import {
     IconButton, Typography
 } from '@mui/material'
 import { Modal } from '../../../common/index.js'
+import { Create } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { useUpdateUserMutation } from '../../../store/api'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
@@ -108,6 +109,7 @@ export const ModalUpdateUserInfo = () => {
             allowSubmit={allowSubmit}
             title='Изменить данные'
             onSubmit={onSubmit}
+            icon={<Create />}
         >
             <Stack spacing={4}>
                 <TextField

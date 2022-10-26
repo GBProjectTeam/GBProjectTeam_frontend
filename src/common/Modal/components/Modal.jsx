@@ -24,7 +24,8 @@ export const Modal = (props) => {
         button,
         isOutlintedVariant,
         children,
-        showCheck
+        showCheck,
+        del,
     } = props
 
     const getButton = () => {
@@ -39,8 +40,10 @@ export const Modal = (props) => {
                     sx={{
                         borderRadius: '20px',
                         align: 'center',
-                        width: 'fit-content',
+                        width:'fit-content'
                     }}
+                    color={del ? 'error' : 'info'}
+                    fullWidth
                 >
                     {label}
                 </Button>
@@ -53,6 +56,7 @@ export const Modal = (props) => {
                 disabled={disabled}
                 size='small'
                 onClick={onOpen}
+                fullWidth
             >
                 {icon}
             </IconButton>
@@ -99,7 +103,8 @@ export const Modal = (props) => {
                     <IconButton
                         edge='end'
                         disabled={!allowSubmit}
-                        sx={{ visibility: !showCheck ? 'hidden' : 'none' }}
+                        sx={{ visibility: !showCheck ? 'hidden' : 'none' }
+                        }
                         size='small'
                         onClick={() => onSubmit()}
                         color='info'
@@ -108,7 +113,7 @@ export const Modal = (props) => {
                     </IconButton>
                 </DialogTitle>
 
-                <DialogContent fullWidth>
+                <DialogContent>
                     {children}
                 </DialogContent>
             </Dialog>
@@ -129,5 +134,6 @@ Modal.propTypes = {
     button: PropTypes.oneOf(['icon', 'label']).isRequired,
     isOutlintedVariant: PropTypes.bool,
     children: PropTypes.node.isRequired,
-    showCheck: PropTypes.bool
+    showCheck: PropTypes.bool,
+    del: PropTypes.bool
 }

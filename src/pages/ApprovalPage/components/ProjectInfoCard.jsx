@@ -62,7 +62,11 @@ export const ProjectInfoCard = () => {
             </CardContent>
 
             <CardActions>
-                <Stack spacing={1} alignItems='center' flex={1}>
+                <Stack
+                    spacing={1}
+                    alignItems='center'
+                    flex={1}
+                >
                     <Button
                         sx={{ borderRadius: 20, minWidth: 250 }}
                         size='small'

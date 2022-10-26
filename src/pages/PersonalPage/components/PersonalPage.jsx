@@ -7,10 +7,12 @@ import { PersonalAvatar } from './PersonalAvatar'
 import { ModalUpdateUserInfo } from './ModalUpdateUserInfo'
 import { useSelector } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
+import { Modal } from '../../../common'
+import { DeleteOutline } from '@mui/icons-material'
 
 export const PersonalPage = () => {
     const { lastName, firstName, patronymicName, email } = useSelector(loginSelector)
-
+    const [open, setOpen] = React.useState(false)
     return (
         <Stack flex={1}>
             <Typography
@@ -53,7 +55,33 @@ export const PersonalPage = () => {
                         </Typography>
                     </Stack>
 
-                    <ModalUpdateUserInfo />
+                    <Stack
+                        spacing={1}
+                        alignItems='center'
+                        flex={1}
+                    >
+
+                        <ModalUpdateUserInfo />
+
+                        <Modal
+                            button='label'
+                            isOpen={open}
+                            isOutlintedVariant
+                            showCheck
+                            allowSubmit
+                            onSubmit={() => setOpen(false)}
+                            onOpen={() => setOpen(true)}
+                            onClose={() => setOpen(false)}
+                            icon={<DeleteOutline />}
+                            label='Удалить профиль'
+                            title='Удаление профиля'
+                            del
+                        >
+                            <Typography>
+                                {lastName} {firstName}, Вы уверены, что хотите удалить профиль?
+                            </Typography>
+                        </Modal>
+                    </Stack>
                 </Stack>
             </Stack>
         </Stack>

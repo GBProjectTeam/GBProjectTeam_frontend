@@ -10,9 +10,12 @@ import {
 } from '@mui/material'
 import { projectInfo } from '../constants/projectInfo.js'
 import { getValue } from '../utils/getValue.js'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
 import { getColor } from '../utils/getColor.js'
 
 export const ProjectInfoCard = () => {
+    const { lastName, firstName, patronymicName } = useSelector(loginSelector)
     const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
         <Stack direction='row'>
             <Typography
@@ -38,7 +41,7 @@ export const ProjectInfoCard = () => {
             <CardHeader title='Информация о проекте' />
 
             <CardContent>
-                {renderAttribute('Автор проекта', projectInfo.author)}
+                {renderAttribute('Автор проекта', `${lastName} ${firstName} ${patronymicName}`)}
 
                 {renderAttribute(
                     'Решение',
@@ -62,7 +65,11 @@ export const ProjectInfoCard = () => {
             </CardContent>
 
             <CardActions>
-                <Stack spacing={1} alignItems='center' flex={1}>
+                <Stack
+                    spacing={1}
+                    alignItems='center'
+                    flex={1}
+                >
                     <Button
                         sx={{ borderRadius: 20, minWidth: 250 }}
                         size='small'

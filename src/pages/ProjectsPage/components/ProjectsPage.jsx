@@ -7,7 +7,8 @@ import {
 import { DataGrid } from '@mui/x-data-grid'
 import {
     grey,
-    green
+    green,
+    red
 } from '@mui/material/colors'
 import { rows } from '../constants/rows'
 import { columns } from '../constants/columns'
@@ -46,10 +47,21 @@ export const ProjectsPage = () => {
                         color: grey[500],
                         fontWeight: 'bold',
                     },
+                    '& .decision-agreed': {
+                        color: green[500],
+                        fontWeight: 'bold',
+                    },
+                    '& .decision-not-agreed': {
+                        color: red[500],
+                        fontWeight: 'bold',
+                    },
                 }}
                 getCellClassName={(params) => {
                     if (params.field === 'status' && params.value !== null) {
                         return params.value === 'На согласовании' ? 'status-to-be-agreed' : 'status-frozen'
+                    }
+                    if (params.field === 'solution' && params.value !== null) {
+                        return params.value === 'Согласовано' ? 'decision-agreed' : 'decision-not-agreed'
                     }
                     return ''
                 }}

@@ -4,12 +4,15 @@ import {
     MenuItem,
     Stack,
     Typography,
-    Button,
+    IconButton,
 } from '@mui/material'
 import {
-    AccountCircle,
-    PermContactCalendar,
-    ExitToApp
+    LibraryAdd,
+    MoreHoriz,
+    DeleteOutline,
+    Article,
+    Message,
+    LibraryAddCheck
 } from '@mui/icons-material'
 
 export const ProjectActions = () => {
@@ -32,14 +35,13 @@ export const ProjectActions = () => {
                 justifyContent='flex-end'
                 alignItems='center'
             >
-                <Button
+                <IconButton
                     variant='outlined'
-                    startIcon={<AccountCircle />}
                     onClick={handleClick}
                     sx={{ borderRadius: 20 }}
                 >
-                    Действия
-                </Button>
+                    <MoreHoriz />
+                </IconButton>
             </Stack>
 
             <Menu
@@ -57,7 +59,7 @@ export const ProjectActions = () => {
                         <Typography>
                             Изменить статус
                         </Typography>
-                        <PermContactCalendar />
+                        <LibraryAdd />
                     </Stack>
                 </MenuItem>
 
@@ -71,7 +73,7 @@ export const ProjectActions = () => {
                         <Typography>
                             Изменить решение
                         </Typography>
-                        <ExitToApp />
+                        <LibraryAddCheck />
                     </Stack>
                 </MenuItem>
 
@@ -85,7 +87,7 @@ export const ProjectActions = () => {
                         <Typography>
                             Открыть комментарии
                         </Typography>
-                        <ExitToApp />
+                        <Message />
                     </Stack>
                 </MenuItem>
 
@@ -99,7 +101,7 @@ export const ProjectActions = () => {
                         <Typography>
                             Документы
                         </Typography>
-                        <ExitToApp />
+                        <Article />
                     </Stack>
                 </MenuItem>
 
@@ -113,7 +115,7 @@ export const ProjectActions = () => {
                         <Typography>
                             Удалить проект
                         </Typography>
-                        <ExitToApp />
+                        <DeleteOutline />
                     </Stack>
                 </MenuItem>
             </Menu>

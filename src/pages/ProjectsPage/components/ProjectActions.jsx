@@ -28,7 +28,7 @@ export const ProjectActions = () => {
     }
 
     return (
-        <strong>
+        <>
             <Stack
                 direction='row'
                 spacing={2}
@@ -119,6 +119,6 @@ export const ProjectActions = () => {
                     </Stack>
                 </MenuItem>
             </Menu>
-        </strong>
+        </>
     )
 }

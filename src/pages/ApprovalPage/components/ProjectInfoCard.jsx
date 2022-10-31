@@ -4,13 +4,14 @@ import {
     Card,
     CardContent,
     CardActions,
-    Button,
     CardHeader,
     Stack
 } from '@mui/material'
 import { projectInfo } from '../constants/projectInfo.js'
 import { getValue } from '../utils/getValue.js'
 import { getColor } from '../utils/getColor.js'
+import { ProjectStatusButton } from './ProjectStatusButton.jsx'
+import { UserDecisionButton } from './UserDecisionButton.jsx'
 
 export const ProjectInfoCard = () => {
     const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
@@ -67,21 +68,8 @@ export const ProjectInfoCard = () => {
                     alignItems='center'
                     flex={1}
                 >
-                    <Button
-                        sx={{ borderRadius: 20, minWidth: 250 }}
-                        size='small'
-                        variant='outlined'
-                    >
-                        Изменить решение
-                    </Button>
-
-                    <Button
-                        sx={{ borderRadius: 20, minWidth: 250 }}
-                        size='small'
-                        variant='outlined'
-                    >
-                        Изменить статус проекта
-                    </Button>
+                    <UserDecisionButton />
+                    <ProjectStatusButton />
                 </Stack>
             </CardActions>
         </Card>

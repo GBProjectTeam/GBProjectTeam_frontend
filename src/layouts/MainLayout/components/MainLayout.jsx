@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Header } from '../../../common/index.js'
+import { Header, Alert } from '../../../common/index.js'
 import { useLocation } from 'react-router-dom'
 import { Box } from '@mui/material'
 import { headerHeight } from '../../../common/Header/constants/headerHeight.js'
@@ -82,6 +82,8 @@ export const MainLayout = ({ children }) => {
             >
                 {children}
             </Box>
+
+            <Alert />
         </Box>
     )
 }

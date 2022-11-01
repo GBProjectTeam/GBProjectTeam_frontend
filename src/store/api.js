@@ -4,6 +4,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 import { loggedOut } from '../pages/LoginPage/loginSlice'
+import { showAlert } from '../common/alert/showAlertSlice'
 
 const mutex = new Mutex()
 
@@ -34,6 +35,19 @@ const baseQueryWithReauth = async (
             )
 
     if (result.error || result.data.error) {
+        const errorMessage =
+            result.error?.data?.message
+            || JSON.stringify(result.error)
+            || result.data.message
+
+        api.dispatch(
+            showAlert({
+                isShowAlert: true,
+                severity: 'error',
+                message: errorMessage,
+            }),
+        )
+
         if (!mutex.isLocked()) {
             const release = await mutex.acquire()
 

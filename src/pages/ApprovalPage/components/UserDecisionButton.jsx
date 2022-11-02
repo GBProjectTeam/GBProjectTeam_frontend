@@ -9,6 +9,8 @@ import { Button,
     InputLabel,
     Select,
     MenuItem,
+    Stack,
+    TextField
 
 } from '@mui/material'
 import { Close, Check } from '@mui/icons-material'
@@ -25,7 +27,7 @@ export const UserDecisionButton=()=>{
                 variant='outlined'
                 onClick={() => setOpen(true)}
             >
-                Изменить статус проекта
+                Изменить решение
             </Button>
             <Dialog
                 open={open}
@@ -81,6 +83,39 @@ export const UserDecisionButton=()=>{
                             <MenuItem value={10}>Согласовано</MenuItem>
                             <MenuItem value={20}>Откланено</MenuItem>
                         </Select>
+                        <Stack sx={{ display: 'none' }}>
+                            <FormControl margin='dense'>
+                                <InputLabel id='demo-simple-select-label'>Документы</InputLabel>
+                                <Select
+                                    labelId='demo-simple-select-label'
+                                    id='demo-simple-select'
+                                    value={decision}
+                                    label='Документ'
+                                    onChange={(event)=>setDecision(event.target.value)}
+                                >
+                                    <MenuItem value={10}>ГК-2018-1</MenuItem>
+                                    <MenuItem value={20}>ДГ-2019-3</MenuItem>
+                                </Select>
+                                <TextField
+                                    id='outlined-basic'
+                                    label='Комментарий'
+                                    variant='outlined'
+                                    margin='dense'
+                                />
+                                <Button
+                                    sx={{
+                                        borderRadius: 20,
+                                        minWidth: 250,
+                                        alignSelf: 'center'
+                                    }}
+                                    size='small'
+                                    variant='outlined'
+                                    disabled
+                                >
+                                    Добавить комментарий
+                                </Button>
+                            </FormControl>
+                        </Stack>
                     </FormControl>
                 </DialogContent>
             </Dialog>

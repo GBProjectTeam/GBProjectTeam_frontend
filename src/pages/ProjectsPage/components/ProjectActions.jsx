@@ -1,10 +1,7 @@
 import React from 'react'
 import {
-    Menu,
-    MenuItem,
+    Button,
     Stack,
-    Typography,
-    IconButton,
 } from '@mui/material'
 import {
     LibraryAdd,
@@ -14,111 +11,48 @@ import {
     Message,
     LibraryAddCheck
 } from '@mui/icons-material'
+import { Modal } from '../../../common/index.js'
 
 export const ProjectActions = () => {
-    const [anchorEl, setAnchorEl] = React.useState(null)
-    const open = Boolean(anchorEl)
-    const handleClick = (event) => {
-        event.stopPropagation()
-        setAnchorEl(event.currentTarget)
-    }
-
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
+    const [open, setOpen] = React.useState(false)
 
     return (
-        <>
+        <Modal
+            button='label'
+            isOutlintedVariant={true}
+            isOpen={open}
+            onOpen={(event) => {
+                event.stopPropagation()
+                setOpen(true)
+            }}
+            onClose={() => setOpen(false)}
+            icon={<MoreHoriz />}
+            title='Действия'
+        >
             <Stack
-                direction='row'
-                spacing={2}
-                justifyContent='flex-end'
-                alignItems='center'
+                direction='column'
+                alignItems='flex-start'
             >
-                <IconButton
-                    variant='outlined'
-                    onClick={handleClick}
-                    sx={{ borderRadius: 20 }}
-                >
-                    <MoreHoriz />
-                </IconButton>
+                <Button startIcon={<LibraryAdd />}>
+                    Изменить статус
+                </Button>
+
+                <Button startIcon={<LibraryAddCheck />}>
+                    Изменить решение
+                </Button>
+
+                <Button startIcon={<Message />}>
+                    Открыть комментарии
+                </Button>
+
+                <Button startIcon={<Article />}>
+                    Документы
+                </Button>
+
+                <Button startIcon={<DeleteOutline />}>
+                    Удалить проект
+                </Button>
             </Stack>
-
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-            >
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Изменить статус
-                        </Typography>
-                        <LibraryAdd />
-                    </Stack>
-                </MenuItem>
-
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Изменить решение
-                        </Typography>
-                        <LibraryAddCheck />
-                    </Stack>
-                </MenuItem>
-
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Открыть комментарии
-                        </Typography>
-                        <Message />
-                    </Stack>
-                </MenuItem>
-
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Документы
-                        </Typography>
-                        <Article />
-                    </Stack>
-                </MenuItem>
-
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Удалить проект
-                        </Typography>
-                        <DeleteOutline />
-                    </Stack>
-                </MenuItem>
-            </Menu>
-        </>
+        </Modal>
     )
 }

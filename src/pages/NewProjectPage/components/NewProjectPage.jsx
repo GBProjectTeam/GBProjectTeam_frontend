@@ -8,8 +8,31 @@ import {
 import { CommonInfoNewProject } from './CommonInfoNewProject'
 import { MembersNewProject } from './MembersNewProject'
 import { DocsNewProject } from './DocsNewProject'
+import { useCreateProjectMutation } from '../../../store/api'
+import { useSelector } from 'react-redux'
+import { newProjectPageSelector } from '../newProjectPageSlice'
+import { ProgressOverlay } from '../../../common'
+import { useNavigate } from 'react-router'
 
 export const NewProjectPage = () => {
+    const [ createProject, { isLoading } ] = useCreateProjectMutation()
+
+    const { dataForCreateNewProject } = useSelector(newProjectPageSelector)
+
+    const navigate = useNavigate()
+
+    React.useEffect(
+        () => {
+            createProject()
+        },
+        [],
+    )
+
+    const updateProject = () => {
+        createProject(dataForCreateNewProject)
+            .then(() => navigate('/approval'))
+    }
+
     const stepsCreatingNewProject = () => (
         <Stack
             direction='row'
@@ -54,9 +77,14 @@ export const NewProjectPage = () => {
                     width: 'fit-content',
                     alignSelf: 'center'
                 }}
+                onClick={updateProject}
             >
                 Создать проект
             </Button>
+
+            {isLoading && (
+                <ProgressOverlay showProgressOverlay={isLoading} />
+            )}
         </Stack>
     )
 }

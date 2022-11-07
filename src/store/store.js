@@ -3,6 +3,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { api } from './api.js'
 import { loginSlice } from '../pages/LoginPage/loginSlice'
 import { anotherCompSlice } from '../pages/LoginPage/anotherCompSlice'
+import { newProjectPageSlice } from '../pages/NewProjectPage/newProjectPageSlice.js'
 import {
     persistStore,
     persistReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer,
     [loginSlice.name]: loginSlice.reducer,
     [anotherCompSlice.name]: anotherCompSlice.reducer,
+    [newProjectPageSlice.name]: newProjectPageSlice.reducer,
 })
 
 const persistConfig = {

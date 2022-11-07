@@ -5,7 +5,9 @@ import {
     DialogTitle,
     DialogContent,
     Typography,
-    IconButton
+    IconButton,
+    MenuItem,
+    Stack
 } from '@mui/material'
 import { Close, Check } from '@mui/icons-material'
 import PropTypes from 'prop-types'
@@ -40,13 +42,36 @@ export const Modal = (props) => {
                     sx={{
                         borderRadius: '20px',
                         align: 'center',
-                        width:'fit-content'
+                        width: 'fit-content'
                     }}
                     color={del ? 'error' : 'info'}
                     fullWidth
                 >
                     {label}
                 </Button>
+            )
+        }
+        if (button === 'menuItem') {
+            return (
+                <MenuItem
+                    onClick={onOpen}
+                    disabled={disabled}
+                    sx={{
+                        width: '100%'
+                    }}
+                >
+                    <Stack
+                        direction='row'
+                        spacing={2}
+                        flex={1}
+                        justifyContent='space-between'
+                    >
+                        <Typography>
+                            {label}
+                        </Typography>
+                        {icon}
+                    </Stack>
+                </MenuItem >
             )
         }
 

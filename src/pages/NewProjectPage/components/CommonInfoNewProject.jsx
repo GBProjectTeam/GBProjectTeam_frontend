@@ -3,9 +3,20 @@ import { Stack, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import ru from 'date-fns/locale/ru'
+import { useDispatch, useSelector } from 'react-redux'
+import { newProjectPageSelector } from '../newProjectPageSlice'
+import { saveNewProjectFormValues } from '../newProjectPageSlice'
 
 export const CommonInfoNewProject = () => {
-    const [deadlineValue, setDeadlineValue] = React.useState(null)
+    const { dataForCreateNewProject } = useSelector(newProjectPageSelector)
+
+    const dispatch = useDispatch()
+
+    const newProjectOnChange = (value, name) => {
+        dispatch (
+            saveNewProjectFormValues({ name, value })
+        )
+    }
 
     return (
         <Stack
@@ -17,6 +28,10 @@ export const CommonInfoNewProject = () => {
                 fullWidth
                 label='Название проекта'
                 required
+                value={dataForCreateNewProject.projectName}
+                onChange={
+                    (e) => newProjectOnChange(e.target.value, 'projectName')
+                }
             />
 
             <LocalizationProvider
@@ -26,10 +41,10 @@ export const CommonInfoNewProject = () => {
                 <DatePicker
                     label='Дедлайн'
                     disablePast
-                    value={deadlineValue}
-                    onChange={(newValue) => {
-                        setDeadlineValue(newValue)
-                    }}
+                    value={new Date(dataForCreateNewProject.deadline) || null}
+                    onChange={(newValue) =>
+                        newProjectOnChange(Date.parse(newValue), 'deadline')
+                    }
                     mask='__.__.____'
                     renderInput={(params) =>
                         <TextField {...params} />

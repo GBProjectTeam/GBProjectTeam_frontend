@@ -10,8 +10,8 @@ import {
 import { projectInfo } from '../constants/projectInfo.js'
 import { getValue } from '../utils/getValue.js'
 import { getColor } from '../utils/getColor.js'
-import { ProjectStatusButton } from './ProjectStatusButton.jsx'
-import { UserDecisionButton } from './UserDecisionButton.jsx'
+import { EditProjectStatus } from './EditProjectStatus.jsx'
+import { EditUserDecision } from './EditUserDecision.jsx'
 
 export const ProjectInfoCard = () => {
     const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
@@ -62,14 +62,14 @@ export const ProjectInfoCard = () => {
                 )}
             </CardContent>
 
-            <CardActions>
+            <CardActions >
                 <Stack
                     spacing={1}
                     alignItems='center'
                     flex={1}
                 >
-                    <UserDecisionButton />
-                    <ProjectStatusButton />
+                    <EditUserDecision />
+                    <EditProjectStatus />
                 </Stack>
             </CardActions>
         </Card>

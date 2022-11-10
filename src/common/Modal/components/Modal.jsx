@@ -56,7 +56,6 @@ export const Modal = (props) => {
                 disabled={disabled}
                 size='small'
                 onClick={onOpen}
-                fullWidth
             >
                 {icon}
             </IconButton>

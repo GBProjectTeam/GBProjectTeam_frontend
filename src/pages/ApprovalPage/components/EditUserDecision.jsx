@@ -7,86 +7,175 @@ import {
     Select,
     MenuItem,
     Stack,
-    TextField
-
+    TextField,
+    Card,
+    CardHeader,
+    CardContent,
+    Typography,
 } from '@mui/material'
 import { Modal } from '../../../common/index.js'
 import { decisionVariants } from '../constants/decisionsVariants.js'
+import { Close } from '@mui/icons-material'
+import { v4 as uuidv4 } from 'uuid'
 
 export const EditUserDecision = () => {
     const [open, setOpen] = React.useState(false)
     const [decision, setDecision] = React.useState('')
+    const [document, setDocument] = React.useState('')
+    const [comment, setComment] = React.useState('')
+    const [allComments, setAllComments] = React.useState([])
+    const [showDeleteCommentModal, setShowDeleteCommentModal] = React.useState(false)
+
+    const comments = React.useMemo(
+        () => (
+            allComments.length > 0 && allComments.map(
+                (commentItem) => (
+                    <Card
+                        key={commentItem.id}
+                        sx={{ my: 2 }}
+                    >
+                        <CardHeader
+                            title={commentItem.document}
+                            action={
+                                <Modal
+                                    button='icon'
+                                    isOpen={showDeleteCommentModal}
+                                    showCheck
+                                    allowSubmit
+                                    onSubmit={() => deleteComment(commentItem.id)}
+                                    onOpen={() => setShowDeleteCommentModal(true)}
+                                    onClose={() => setShowDeleteCommentModal(false)}
+                                    icon={<Close />}
+                                    label='Удалить комментарий'
+                                    title='Удаление комментария'
+                                    del
+                                >
+                                    Вы уверены, что хотите удалить комментарий:
+                                    <Typography>
+                                        {commentItem.document}: {commentItem.comment}
+                                    </Typography>
+                                </Modal>
+                            }
+                        />
+
+                        <CardContent>
+                            <Typography
+                                variant='body2'
+                                color='black'
+                            >
+                                {commentItem.comment}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                )
+            )
+        ),
+        [allComments],
+    )
+
+    console.log('showDeleteCommentModal', showDeleteCommentModal)
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+        setAllComments([...allComments, { document, comment, id: uuidv4() }])
+
+        setDocument('')
+        setComment('')
+    }
+
+    const deleteComment = (id) => {
+        const index = allComments.findIndex(item => item.id === id)
+
+        if (index !== -1) {
+            const updateAllComments = allComments
+            updateAllComments.splice(index, 1)
+            console.log(updateAllComments)
+            setAllComments(updateAllComments)
+        }
+    }
 
     return (
-        <>
-            <Modal
-                button='label'
-                isOpen={open}
-                isOutlintedVariant
-                showCheck
-                allowSubmit
-                onSubmit={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                onClose={() => setOpen(false)}
-                label='Изменить решение'
-                title='Изменить решение'
-            >
-                <DialogContent>
-                    <FormControl fullWidth>
-                        <InputLabel >Решение</InputLabel>
-                        <Select
-                            id='grouped-select'
-                            value={decision}
-                            label='Решение'
-                            onChange={(event) => setDecision(event.target.value)}
-                            defaultValue=''
-                        >
-                            {decisionVariants.map((item) =>
-                                <MenuItem
-                                    value={item.name}
-                                    key={item.id}
-                                >
-                                    {item.decision}
+        <Modal
+            button='label'
+            isOpen={open}
+            isOutlintedVariant
+            showCheck
+            allowSubmit
+            onSubmit={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            label='Изменить решение'
+            title='Изменить решение'
+        >
+            <DialogContent>
+                <FormControl fullWidth>
+                    <InputLabel>Решение</InputLabel>
+                    <Select
+                        value={decision}
+                        label='Решение'
+                        onChange={(event) => setDecision(event.target.value)}
+                    >
+                        {decisionVariants.map((item) =>
+                            <MenuItem
+                                value={item}
+                                key={item.id}
+                            >
+                                {item.decision}
+                            </MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
+
+                {decision.decision === 'Отклонено' && (
+                    <Stack
+                        component='form'
+                        onSubmit={onSubmit}
+                        my={2}
+                        spacing={2}
+                    >
+                        <FormControl fullWidth>
+                            <InputLabel>Документ</InputLabel>
+                            <Select
+                                value={document}
+                                label='Документ'
+                                onChange={(event) => setDocument(event.target.value)}
+                            >
+                                <MenuItem value={'ГК-2018-1'}>
+                                    ГК-2018-1
                                 </MenuItem>
-                            )}
-                        </Select>
-                        <Stack sx={{ display: 'contents' }}>
-                            <FormControl margin='dense'>
-                                <InputLabel >Документы</InputLabel>
-                                <Select
-                                    id='grouped-select'
-                                    value={decision}
-                                    label='Документ'
-                                    onChange={(event) => setDecision(event.target.value)}
-                                    defaultValue=''
-                                >
-                                    <MenuItem value={1}>ГК-2018-1</MenuItem>
-                                    <MenuItem value={2}>ДГ-2019-3</MenuItem>
-                                </Select>
-                                <TextField
-                                    id='outlined-basic'
-                                    label='Комментарий'
-                                    variant='outlined'
-                                    margin='dense'
-                                />
-                                <Button
-                                    sx={{
-                                        borderRadius: 20,
-                                        minWidth: 250,
-                                        alignSelf: 'center'
-                                    }}
-                                    size='small'
-                                    variant='outlined'
-                                    disabled
-                                >
-                                    Добавить комментарий
-                                </Button>
-                            </FormControl>
-                        </Stack>
-                    </FormControl>
-                </DialogContent>
-            </Modal>
-        </>
+
+                                <MenuItem value={'ДГ-2019-3'}>
+                                    ДГ-2019-3
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+
+                        <TextField
+                            fullWidth
+                            label='Комментарий'
+                            multiline
+                            rows={5}
+                            disabled={!document}
+                            onChange={(e) => setComment(e.target.value)}
+                        />
+
+                        <Button
+                            type='submit'
+                            variant='contained'
+                            sx={{ borderRadius: '20px' }}
+                            fullWidth
+                            disabled={!comment}
+                            color='secondary'
+                        >
+                            Добавить комментарий
+                        </Button>
+                    </Stack>
+                )}
+
+                {comments}
+            </DialogContent>
+        </Modal>
     )
 
 }

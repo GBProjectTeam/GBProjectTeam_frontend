@@ -8,16 +8,23 @@ import {
 import { CommonInfoNewProject } from './CommonInfoNewProject'
 import { MembersNewProject } from './MembersNewProject'
 import { DocsNewProject } from './DocsNewProject'
-import { useCreateProjectMutation } from '../../../store/api'
+import { useCreateProjectMutation, useUpdateProjectMutation } from '../../../store/api'
 import { useSelector } from 'react-redux'
-import { newProjectPageSelector } from '../newProjectPageSlice'
+import { newProjectSelector } from '../newProjectSlice'
 import { ProgressOverlay } from '../../../common'
 import { useNavigate } from 'react-router'
 
 export const NewProjectPage = () => {
-    const [ createProject, { isLoading } ] = useCreateProjectMutation()
+    const [
+        createProject,
+        { isLoading: isCreate, isError: isErrorCreate }
+    ] = useCreateProjectMutation()
+    const [
+        updateProject,
+        { isLoading: isUpdate, isSuccess: isSuccessUpdate }
+    ] = useUpdateProjectMutation()
 
-    const { dataForCreateNewProject } = useSelector(newProjectPageSelector)
+    const { project } = useSelector(newProjectSelector)
 
     const navigate = useNavigate()
 
@@ -28,9 +35,34 @@ export const NewProjectPage = () => {
         [],
     )
 
-    const updateProject = () => {
-        createProject(dataForCreateNewProject)
-            .then(() => navigate('/approval'))
+    React.useEffect(
+        () => {
+            if (isSuccessUpdate) {
+                navigate(`/approval/${project.projectId}`)
+            }
+        },
+        [isSuccessUpdate],
+    )
+
+    React.useEffect(
+        () => {
+            if (isErrorCreate) {
+                navigate('/projects')
+            }
+        },
+        [isErrorCreate],
+    )
+
+    const isDisabledCreate =
+        !project.projectId
+        || !project.projectName
+        || !project.coordinationUsersIds.length > 0
+        || !project.documentsIds.length > 0
+
+    const isLoading = isCreate || isUpdate
+
+    const updatingProject = () => {
+        updateProject(project)
     }
 
     const stepsCreatingNewProject = () => (
@@ -77,7 +109,8 @@ export const NewProjectPage = () => {
                     width: 'fit-content',
                     alignSelf: 'center'
                 }}
-                onClick={updateProject}
+                onClick={updatingProject}
+                disabled={isDisabledCreate}
             >
                 Создать проект
             </Button>

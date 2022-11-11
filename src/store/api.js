@@ -22,9 +22,9 @@ const baseQueryWithReauth = async (
         switch (args.url) {
         case '/auth/signin':
         case '/auth/signup':
-            return await baseQuery(args, api, extraOptions)
+            return baseQuery(args, api, extraOptions)
         case '/documents/create':
-            return await baseQuery(
+            return baseQuery(
                 {
                     ...args,
                     headers: {},
@@ -33,7 +33,7 @@ const baseQueryWithReauth = async (
                 extraOptions,
             )
         default:
-            return await baseQuery(
+            return baseQuery(
                 {
                     ...args,
                     headers: {
@@ -115,6 +115,18 @@ export const api = createApi({
                 body: documentData,
             })
         }),
+        updateProject: builder.mutation({
+            query: (updateProjectData) => ({
+                url: `/projects/update/${updateProjectData.projectId}`,
+                method: 'PATCH',
+                body: {
+                    name: updateProjectData.projectName,
+                    deadline: updateProjectData.deadline,
+                    documentsIds: updateProjectData.documentsIds,
+                    coordinationUsersIds: updateProjectData.coordinationUsersIds,
+                },
+            })
+        }),
     }),
 })
 
@@ -126,4 +138,5 @@ export const {
     useGetUsersQuery,
     useCreateProjectMutation,
     useCreateDocumentMutation,
+    useUpdateProjectMutation,
 } = api

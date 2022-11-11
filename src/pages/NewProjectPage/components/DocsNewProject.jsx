@@ -10,31 +10,30 @@ import {
     TextField,
     Typography
 } from '@mui/material'
-import { Add, ArticleOutlined, Clear, EditOutlined, FileDownloadOutlined } from '@mui/icons-material'
+import { Add, ArticleOutlined, Clear, FileDownloadOutlined } from '@mui/icons-material'
 import { useCreateDocumentMutation } from '../../../store/api'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteDocFromProject, newProjectPageSelector } from '../newProjectPageSlice'
-import { Modal, ProgressOverlay } from '../../../common'
+import { deleteDocFromProject, newProjectSelector } from '../newProjectSlice'
+import { DeleteModal, ProgressOverlay } from '../../../common'
 
 export const DocsNewProject = () => {
     const [ file, setFile ] = React.useState()
     const [ fileName, setFileName ] = React.useState('')
-    const [showDeleteDocModal, setShowDeleteDocModal] = React.useState(false)
 
-    const { dataForCreateNewProject, projectDocs } = useSelector(newProjectPageSelector)
+    const { project, projectDocs } = useSelector(newProjectSelector)
 
     const [ createDocument, { isLoading } ] = useCreateDocumentMutation()
 
-    const setFileAndFileName = (file) => {
-        setFile(file)
-        setFileName(file.name.replace(/\.[^/.]+$/, ''))
+    const setFileAndFileName = (newFile) => {
+        setFile(newFile)
+        setFileName(newFile.name.replace(/\.[^/.]+$/, ''))
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
 
         const documentData = new FormData()
-        documentData.append('projectId', dataForCreateNewProject.projectId)
+        documentData.append('projectId', project.projectId)
         documentData.append('attachedFileName', fileName)
         documentData.append('file', file)
 
@@ -47,8 +46,6 @@ export const DocsNewProject = () => {
     const dispatch = useDispatch()
 
     const deleteDoc = (id) => {
-        setShowDeleteDocModal(false)
-
         dispatch (
             deleteDocFromProject(id)
         )
@@ -82,14 +79,14 @@ export const DocsNewProject = () => {
 
                         <input
                             hidden
-                            accept='.doc, .docs, .pdf'
+                            accept='.pdf'
                             multiple
                             type='file'
                             onChange={(e) => setFileAndFileName(e.target.files[0])}
                         />
                     </IconButton>
 
-                    <Typography>{ file?.name || 'Имя документа' }</Typography>
+                    <Typography>{ file?.name || 'Загрузите документ' }</Typography>
                 </Stack>
 
                 <TextField
@@ -114,39 +111,20 @@ export const DocsNewProject = () => {
             </Stack>
 
             <List>
-                {projectDocs.map((item) =>
+                {projectDocs.map((item) => (
                     <ListItem
                         key={item.id}
                         sx={{ my: 2.5 }}
                         secondaryAction={
-                            <div>
-                                <IconButton>
-                                    <EditOutlined />
-                                </IconButton>
-                                <IconButton>
-                                    <Modal
-                                        button='icon'
-                                        isOpen={showDeleteDocModal}
-                                        isOutlintedVariant
-                                        showCheck
-                                        allowSubmit
-                                        error
-                                        onSubmit={() => deleteDoc(item.id)}
-                                        onOpen={() => setShowDeleteDocModal(true)}
-                                        onClose={() => setShowDeleteDocModal(false)}
-                                        icon={<Clear />}
-                                        label='Удалить документ'
-                                        title='Удаление документ'
-                                        del
-                                    >
-                                        Вы уверены, что хотите удалить документ:
-                                        <Typography>
-                                            {item.name}
-                                        </Typography>
-                                    </Modal>
-                                </IconButton>
-                            </div>
-
+                            <DeleteModal
+                                onSubmit={() => deleteDoc(item.id)}
+                                message='Вы уверены, что хотите удалить документ'
+                                itemName={item.name}
+                                title='Удаление документа'
+                                button='icon'
+                                icon={<Clear />}
+                                label='Удалить документ'
+                            />
                         }
                     >
                         <ListItemAvatar sx={{ display: 'flex' }}>
@@ -155,7 +133,7 @@ export const DocsNewProject = () => {
 
                         <ListItemText primary={item.name} />
                     </ListItem>
-                )}
+                ))}
             </List>
 
             {isLoading && (

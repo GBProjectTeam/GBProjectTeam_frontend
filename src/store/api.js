@@ -19,10 +19,22 @@ const baseQueryWithReauth = async (
 
     const loginState = api.getState().login
 
-    let result
-        = args.url === '/auth/signin' || args.url === '/auth/signup'
-            ? await baseQuery(args, api, extraOptions)
-            : await baseQuery(
+    const getResult = async () => {
+        switch (args.url) {
+        case '/auth/signin':
+        case '/auth/signup':
+            return baseQuery(args, api, extraOptions)
+        case '/documents/create':
+            return baseQuery(
+                {
+                    ...args,
+                    headers: {},
+                },
+                api,
+                extraOptions,
+            )
+        default:
+            return baseQuery(
                 {
                     ...args,
                     headers: {
@@ -33,6 +45,10 @@ const baseQueryWithReauth = async (
                 api,
                 extraOptions,
             )
+        }
+    }
+
+    let result = getResult()
 
     if (result.error || result.data.error) {
         const errorMessage =
@@ -93,6 +109,38 @@ export const api = createApi({
                 body: dataUpdatedUser,
             }),
         }),
+        createProject: builder.mutation({
+            query: (createProjectData) => ({
+                url: '/projects/create',
+                method: 'POST',
+                body: createProjectData,
+            })
+        }),
+        getUsers: builder.query({
+            query: () => ({
+                url: '/users',
+                method: 'GET',
+            })
+        }),
+        createDocument: builder.mutation({
+            query: (documentData) => ({
+                url: '/documents/create',
+                method: 'POST',
+                body: documentData,
+            })
+        }),
+        updateProject: builder.mutation({
+            query: (updateProjectData) => ({
+                url: `/projects/update/${updateProjectData.projectId}`,
+                method: 'PATCH',
+                body: {
+                    name: updateProjectData.projectName,
+                    deadline: updateProjectData.deadline,
+                    documentsIds: updateProjectData.documentsIds,
+                    coordinationUsersIds: updateProjectData.coordinationUsersIds,
+                },
+            })
+        }),
     }),
 })
 
@@ -101,4 +149,8 @@ export const {
     useLoginMutation,
     useRegistrationMutation,
     useUpdateUserMutation,
+    useGetUsersQuery,
+    useCreateProjectMutation,
+    useCreateDocumentMutation,
+    useUpdateProjectMutation,
 } = api

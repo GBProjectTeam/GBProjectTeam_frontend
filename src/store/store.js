@@ -4,6 +4,7 @@ import { api } from './api.js'
 import { loginSlice } from '../pages/LoginPage/loginSlice'
 import { anotherCompSlice } from '../pages/LoginPage/anotherCompSlice'
 import { newProjectSlice } from '../pages/NewProjectPage/newProjectSlice.js'
+import { showAlertSlice } from '../common/Alert/showAlertSlice'
 import {
     persistStore,
     persistReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     [loginSlice.name]: loginSlice.reducer,
     [anotherCompSlice.name]: anotherCompSlice.reducer,
     [newProjectSlice.name]: newProjectSlice.reducer,
+    [showAlertSlice.name]: showAlertSlice.reducer,
 })
 
 const persistConfig = {

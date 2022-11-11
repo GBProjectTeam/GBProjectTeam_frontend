@@ -2,40 +2,51 @@ import { createSlice } from '@reduxjs/toolkit'
 import { api } from '../../store/api'
 
 const initialState = {
-    dataForCreateNewProject: {
+    project: {
         projectId: '',
         projectName: '',
-        deadline: '',
+        deadline: null,
         coordinationUsersIds: [],
         documentsIds: [],
     },
     projectDocs: []
 }
 
-export const newProjectPageSlice = createSlice({
-    name: 'newProjectPage',
+export const newProjectSlice = createSlice({
+    name: 'newProject',
 
     initialState,
 
     reducers: {
-        saveNewProjectFormValues: (state, { payload }) => {
-            state.dataForCreateNewProject[payload.name] = payload.value
+        saveNewProjectName: (state, { payload }) => {
+            state.project.projectName = payload
         },
 
-        addUserId: (state, { payload: id }) => {
-            state.dataForCreateNewProject.coordinationUsersIds.push(id)
+        saveNewProjectDeadline: (state, { payload }) => {
+            state.project.deadline = payload
+        },
+
+        usersIds: (state, { payload }) => {
+            state.project.coordinationUsersIds = payload
         },
 
         deleteDocFromProject: (state, { payload: id }) => {
-            const docForCreateIndex = state.dataForCreateNewProject.documentsIds.findIndex(
+            const docForCreateIndex = state.project.documentsIds.findIndex(
                 (item) => item === id
             )
             const docForShowIndex = state.projectDocs.findIndex(
                 (item) => item.id === id
             )
+
+            const newDocumentsIds = state.project.documentsIds
+            const newProjectDocs = state.projectDocs
+
             if (docForCreateIndex !== -1 && docForShowIndex !== -1) {
-                state.dataForCreateNewProject.documentsIds.splice(docForCreateIndex, 1)
-                state.projectDocs.splice(docForShowIndex, 1)
+                newDocumentsIds.splice(docForCreateIndex, 1)
+                newProjectDocs.splice(docForShowIndex, 1)
+
+                state.project.documentsIds = newDocumentsIds
+                state.projectDocs = newProjectDocs
             }
         }
     },
@@ -45,13 +56,13 @@ export const newProjectPageSlice = createSlice({
             .addMatcher(
                 api.endpoints.createProject.matchFulfilled,
                 (state, { payload }) => {
-                    state.dataForCreateNewProject.projectId = payload._id
+                    state.project.projectId = payload._id
                 }
             )
             .addMatcher(
                 api.endpoints.createDocument.matchFulfilled,
                 (state, { payload }) => {
-                    state.dataForCreateNewProject.documentsIds.push(payload._id)
+                    state.project.documentsIds.push(payload._id)
                     const projectDoc = {
                         id: payload._id,
                         name: payload.attachedFileName
@@ -62,5 +73,5 @@ export const newProjectPageSlice = createSlice({
     }
 })
 
-export const { saveNewProjectFormValues, addUserId, deleteDocFromProject } = newProjectPageSlice.actions
-export const newProjectPageSelector = (state) => state.newProjectPage
+export const { saveNewProjectName, saveNewProjectDeadline, usersIds, deleteDocFromProject } = newProjectSlice.actions
+export const newProjectSelector = (state) => state.newProject

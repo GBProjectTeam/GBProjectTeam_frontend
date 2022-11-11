@@ -4,19 +4,12 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import ru from 'date-fns/locale/ru'
 import { useDispatch, useSelector } from 'react-redux'
-import { newProjectPageSelector } from '../newProjectPageSlice'
-import { saveNewProjectFormValues } from '../newProjectPageSlice'
+import { newProjectSelector, saveNewProjectName, saveNewProjectDeadline } from '../newProjectSlice'
 
 export const CommonInfoNewProject = () => {
-    const { dataForCreateNewProject } = useSelector(newProjectPageSelector)
+    const { project } = useSelector(newProjectSelector)
 
     const dispatch = useDispatch()
-
-    const newProjectOnChange = (value, name) => {
-        dispatch (
-            saveNewProjectFormValues({ name, value })
-        )
-    }
 
     return (
         <Stack
@@ -28,10 +21,12 @@ export const CommonInfoNewProject = () => {
                 fullWidth
                 label='Название проекта'
                 required
-                value={dataForCreateNewProject.projectName}
-                onChange={
-                    (e) => newProjectOnChange(e.target.value, 'projectName')
-                }
+                value={project.projectName}
+                onChange={(e) => {
+                    dispatch (
+                        saveNewProjectName(e.target.value)
+                    )
+                }}
             />
 
             <LocalizationProvider
@@ -41,13 +36,17 @@ export const CommonInfoNewProject = () => {
                 <DatePicker
                     label='Дедлайн'
                     disablePast
-                    value={new Date(dataForCreateNewProject.deadline) || null}
-                    onChange={(newValue) =>
-                        newProjectOnChange(Date.parse(newValue), 'deadline')
-                    }
+                    value={project.deadline ? new Date(project.deadline) : null}
+                    onChange={(newValue) => {
+                        dispatch (
+                            saveNewProjectDeadline(Date.parse(newValue))
+                        )
+                    }}
                     mask='__.__.____'
                     renderInput={(params) =>
-                        <TextField {...params} />
+                        <TextField
+                            {...params}
+                        />
                     }
                 />
             </LocalizationProvider>

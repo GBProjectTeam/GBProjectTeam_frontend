@@ -50,7 +50,7 @@ const baseQueryWithReauth = async (
 
     let result = getResult()
 
-    if (result.error || result.data.error) {
+    if (result.error || result.data?.error) {
         const errorMessage =
             result.error?.data?.message
             || JSON.stringify(result.error)

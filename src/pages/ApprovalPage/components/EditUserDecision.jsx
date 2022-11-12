@@ -12,11 +12,10 @@ import {
     CardHeader,
     CardContent,
     Typography,
-    IconButton,
 } from '@mui/material'
-import { Modal } from '../../../common/index.js'
+import { DeleteModal, Modal } from '../../../common/index.js'
 import { decisionVariants } from '../constants/decisionsVariants.js'
-import { Close } from '@mui/icons-material'
+import { Clear } from '@mui/icons-material'
 import { v4 as uuidv4 } from 'uuid'
 
 export const EditUserDecision = () => {
@@ -37,9 +36,14 @@ export const EditUserDecision = () => {
                         <CardHeader
                             title={commentItem.document}
                             action={
-                                <IconButton onClick={() => deleteComment(commentItem.id)}>
-                                    <Close />
-                                </IconButton>
+                                <DeleteModal
+                                    onSubmit={() => deleteComment(commentItem.id)}
+                                    message='Вы уверены, что хотите удалить комментарий'
+                                    itemName={`${commentItem.document}: ${commentItem.comment}`}
+                                    title='Удаление комментария'
+                                    button='icon'
+                                    icon={<Clear />}
+                                />
                             }
                         />
 
@@ -89,6 +93,7 @@ export const EditUserDecision = () => {
             onClose={() => setOpen(false)}
             label='Изменить решение'
             title='Изменить решение'
+            isStack
         >
             <DialogContent>
                 <FormControl fullWidth>
@@ -116,6 +121,7 @@ export const EditUserDecision = () => {
                         onSubmit={onSubmit}
                         my={2}
                         spacing={2}
+                        justifyContent='space-evenly'
                     >
                         <FormControl fullWidth>
                             <InputLabel>Документ</InputLabel>

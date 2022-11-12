@@ -219,7 +219,7 @@ export const RegistrationPage = () => {
                 variant='contained'
                 sx={{ borderRadius: '20px' }}
                 fullWidth
-                disabled={newUser.password !== confirmPassword}
+                disabled={!newUser.password || !confirmPassword || newUser.password !== confirmPassword}
                 color='secondary'
             >
                 Зарегистрироваться

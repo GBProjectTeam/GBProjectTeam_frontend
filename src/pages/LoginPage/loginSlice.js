@@ -33,6 +33,7 @@ export const loginSlice = createSlice({
                     state.lastName = payload.user.lastName
                     state.firstName = payload.user.firstName
                     state.patronymicName = payload.user?.patronymicName || ''
+                    state.userId = payload.user._id
                 },
             )
             .addMatcher(

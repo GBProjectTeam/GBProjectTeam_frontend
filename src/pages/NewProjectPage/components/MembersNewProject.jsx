@@ -203,7 +203,6 @@ export const MembersNewProject = () => {
                                 title='Удаление участника'
                                 button='icon'
                                 icon={<Clear />}
-                                label='Удалить участника'
                             />
                         }
                     >

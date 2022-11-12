@@ -12,6 +12,7 @@ import {
     CardHeader,
     CardContent,
     Typography,
+    IconButton,
 } from '@mui/material'
 import { Modal } from '../../../common/index.js'
 import { decisionVariants } from '../constants/decisionsVariants.js'
@@ -24,7 +25,6 @@ export const EditUserDecision = () => {
     const [document, setDocument] = React.useState('')
     const [comment, setComment] = React.useState('')
     const [allComments, setAllComments] = React.useState([])
-    const [showDeleteCommentModal, setShowDeleteCommentModal] = React.useState(false)
 
     const comments = React.useMemo(
         () => (
@@ -37,24 +37,9 @@ export const EditUserDecision = () => {
                         <CardHeader
                             title={commentItem.document}
                             action={
-                                <Modal
-                                    button='icon'
-                                    isOpen={showDeleteCommentModal}
-                                    showCheck
-                                    allowSubmit
-                                    onSubmit={() => deleteComment(commentItem.id)}
-                                    onOpen={() => setShowDeleteCommentModal(true)}
-                                    onClose={() => setShowDeleteCommentModal(false)}
-                                    icon={<Close />}
-                                    label='Удалить комментарий'
-                                    title='Удаление комментария'
-                                    del
-                                >
-                                    Вы уверены, что хотите удалить комментарий:
-                                    <Typography>
-                                        {commentItem.document}: {commentItem.comment}
-                                    </Typography>
-                                </Modal>
+                                <IconButton onClick={() => deleteComment(commentItem.id)}>
+                                    <Close />
+                                </IconButton>
                             }
                         />
 
@@ -73,8 +58,6 @@ export const EditUserDecision = () => {
         [allComments],
     )
 
-    console.log('showDeleteCommentModal', showDeleteCommentModal)
-
     const onSubmit = (e) => {
         e.preventDefault()
 
@@ -88,9 +71,8 @@ export const EditUserDecision = () => {
         const index = allComments.findIndex(item => item.id === id)
 
         if (index !== -1) {
-            const updateAllComments = allComments
+            const updateAllComments = [...allComments]
             updateAllComments.splice(index, 1)
-            console.log(updateAllComments)
             setAllComments(updateAllComments)
         }
     }
@@ -116,13 +98,14 @@ export const EditUserDecision = () => {
                         label='Решение'
                         onChange={(event) => setDecision(event.target.value)}
                     >
-                        {decisionVariants.map((item) =>
-                            <MenuItem
-                                value={item}
-                                key={item.id}
-                            >
-                                {item.decision}
-                            </MenuItem>
+                        {React.Children.toArray(
+                            decisionVariants.map((item) =>
+                                <MenuItem
+                                    value={item}
+                                >
+                                    {item.decision}
+                                </MenuItem>
+                            )
                         )}
                     </Select>
                 </FormControl>
@@ -156,6 +139,7 @@ export const EditUserDecision = () => {
                             label='Комментарий'
                             multiline
                             rows={5}
+                            value={comment}
                             disabled={!document}
                             onChange={(e) => setComment(e.target.value)}
                         />

@@ -2,14 +2,13 @@ import React from 'react'
 import {
     Typography,
     Stack,
-    Link,
     Button
 } from '@mui/material'
-import { Article, Create, DeleteOutline } from '@mui/icons-material'
-import { DeleteModal, Modal } from '../../../common/index.js'
+import { Create, DeleteOutline } from '@mui/icons-material'
+import DeleteModal from '../../../common/index.js'
+import { ProjectDocuments } from './ProjectDocuments.jsx'
 
 export const Documents = () => {
-    const [open, setOpen] = React.useState(false)
 
     return (
         <Stack spacing={2}>
@@ -22,20 +21,7 @@ export const Documents = () => {
             </Typography>
 
             <Stack direction='row' spacing={2}>
-                <Modal
-                    button='label'
-                    isOpen={open}
-                    onOpen={() => setOpen(true)}
-                    onClose={() => setOpen(false)}
-                    icon={<Article />}
-                    label='Документы'
-                    title='Документы проекта'
-                >
-                    <Stack>
-                        <Link href='#'>ГК-2018-1</Link>
-                        <Link href='#'>ДГ-2019-3</Link>
-                    </Stack>
-                </Modal>
+                <ProjectDocuments />
 
                 <Button
                     variant='outlined'

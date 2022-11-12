@@ -2,15 +2,13 @@ import React from 'react'
 import {
     Typography,
     Stack,
-    Link,
     Button
 } from '@mui/material'
-import { Article, Create, DeleteOutline } from '@mui/icons-material'
-import { Modal } from '../../../common/index.js'
+import { Create, DeleteOutline } from '@mui/icons-material'
+import { DeleteModal } from '../../../common/index.js'
+import { ProjectDocuments } from './ProjectDocuments.jsx'
 
 export const Documents = () => {
-    const [open, setOpen] = React.useState(false)
-    const [unlock, setUnlock] = React.useState(false)
 
     return (
         <Stack spacing={2}>
@@ -23,20 +21,7 @@ export const Documents = () => {
             </Typography>
 
             <Stack direction='row' spacing={2}>
-                <Modal
-                    button='label'
-                    isOpen={open}
-                    onOpen={() => setOpen(true)}
-                    onClose={() => setOpen(false)}
-                    icon={<Article />}
-                    label='Документы'
-                    title='Документы проекта'
-                >
-                    <Stack>
-                        <Link href='#'>ГК-2018-1</Link>
-                        <Link href='#'>ДГ-2019-3</Link>
-                    </Stack>
-                </Modal>
+                <ProjectDocuments />
 
                 <Button
                     variant='outlined'
@@ -50,26 +35,15 @@ export const Documents = () => {
                     Редактировать проект
                 </Button>
 
-                <Modal
-                    button='label'
-                    isOpen={unlock}
-                    isOutlintedVariant
-                    showCheck
-                    allowSubmit
-                    error
-                    onSubmit={() => setUnlock(false)}
-                    onOpen={() => setUnlock(true)}
-                    onClose={() => setUnlock(false)}
-                    icon={<DeleteOutline />}
-                    label='Удалить проект'
+                <DeleteModal
+                    onSubmit={() => null}
+                    message='Вы уверены, что хотите удалить проект'
+                    itemName='Контракт по закупке канцелярских товаров?'
                     title='Удаление проекта'
-                    del
-                >
-                    Вы уверены, что хотите удалить проект:
-                    <Typography>
-                        Контракт по закупке канцелярских товаров?
-                    </Typography>
-                </Modal>
+                    button='label'
+                    label='Удалить проект'
+                    icon={<DeleteOutline />}
+                />
             </Stack>
         </Stack>
     )

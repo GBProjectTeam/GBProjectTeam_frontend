@@ -123,7 +123,6 @@ export const DocsNewProject = () => {
                                 title='Удаление документа'
                                 button='icon'
                                 icon={<Clear />}
-                                label='Удалить документ'
                             />
                         }
                     >

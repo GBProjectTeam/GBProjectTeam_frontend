@@ -14,37 +14,36 @@ export const EditProjectStatus = () => {
     const [status, setStatus] = React.useState('')
 
     return (
-        <>
-            <Modal
-                button='label'
-                isOpen={open}
-                isOutlintedVariant
-                allowSubmit
-                onSubmit={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                onClose={() => setOpen(false)}
-                label='Изменить статус проекта'
-                title='Изменить статус проекта'
-                showCheck
-            >
-                <DialogContent>
-                    <FormControl fullWidth>
-                        <InputLabel id='demo-simple-select-label'>Статус</InputLabel>
-                        <Select
-                            labelId='demo-simple-select-label'
-                            id='demo-simple-select'
-                            value={status}
-                            label='Статус'
-                            onChange={(event) => setStatus(event.target.value)}
-                        >
-                            <MenuItem value={10}>На согласовании</MenuItem>
-                            <MenuItem value={20}>Согласован</MenuItem>
-                            <MenuItem value={30}>Заморожен</MenuItem>
-                        </Select>
-                    </FormControl>
-                </DialogContent>
-            </Modal>
-        </>
+        <Modal
+            button='label'
+            isOpen={open}
+            isOutlintedVariant
+            allowSubmit
+            onSubmit={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            label='Изменить статус проекта'
+            title='Изменить статус проекта'
+            showCheck
+            isStack
+        >
+            <DialogContent>
+                <FormControl fullWidth>
+                    <InputLabel id='demo-simple-select-label'>Статус</InputLabel>
+                    <Select
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        value={status}
+                        label='Статус'
+                        onChange={(event) => setStatus(event.target.value)}
+                    >
+                        <MenuItem value={10}>На согласовании</MenuItem>
+                        <MenuItem value={20}>Согласован</MenuItem>
+                        <MenuItem value={30}>Заморожен</MenuItem>
+                    </Select>
+                </FormControl>
+            </DialogContent>
+        </Modal>
     )
 
 }

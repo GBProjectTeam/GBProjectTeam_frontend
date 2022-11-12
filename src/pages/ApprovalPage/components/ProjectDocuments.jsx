@@ -7,7 +7,8 @@ import { Article } from '@mui/icons-material'
 import { Modal } from '../../../common'
 
 export const ProjectDocuments = () => {
-    const [open, setOpen] = React.useState('')
+    const [open, setOpen] = React.useState(false)
+
     return (
         <Modal
             button='label'

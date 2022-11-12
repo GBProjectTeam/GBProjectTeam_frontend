@@ -5,7 +5,7 @@ import {
     Button
 } from '@mui/material'
 import { Create, DeleteOutline } from '@mui/icons-material'
-import DeleteModal from '../../../common/index.js'
+import { DeleteModal } from '../../../common/index.js'
 import { ProjectDocuments } from './ProjectDocuments.jsx'
 
 export const Documents = () => {

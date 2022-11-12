@@ -26,6 +26,7 @@ export const Modal = (props) => {
         children,
         showCheck,
         del,
+        isStack,
     } = props
 
     const getButton = () => {
@@ -40,7 +41,7 @@ export const Modal = (props) => {
                     sx={{
                         borderRadius: '20px',
                         align: 'center',
-                        width:'fit-content'
+                        width: !isStack ? 'fit-content' : null
                     }}
                     color={del ? 'error' : 'info'}
                     fullWidth
@@ -105,7 +106,10 @@ export const Modal = (props) => {
                         sx={{ visibility: !showCheck ? 'hidden' : 'none' }
                         }
                         size='small'
-                        onClick={() => onSubmit()}
+                        onClick={() => {
+                            onSubmit()
+                            onClose()
+                        }}
                         color='info'
                     >
                         <Check />
@@ -134,5 +138,6 @@ Modal.propTypes = {
     isOutlintedVariant: PropTypes.bool,
     children: PropTypes.node.isRequired,
     showCheck: PropTypes.bool,
-    del: PropTypes.bool
+    del: PropTypes.bool,
+    isStack: PropTypes.bool,
 }

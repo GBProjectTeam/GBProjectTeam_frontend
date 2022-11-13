@@ -4,9 +4,9 @@ import { api } from '../../store/api'
 const initialState = {
     project: {
         projectId: '',
-        projectName: '',
+        name: '',
         deadline: null,
-        coordinationUsersIds: [],
+        coordinationUsers: [],
         documentsIds: [],
     },
     projectDocs: []
@@ -19,15 +19,15 @@ export const newProjectSlice = createSlice({
 
     reducers: {
         saveNewProjectName: (state, { payload }) => {
-            state.project.projectName = payload
+            state.project.name = payload
         },
 
         saveNewProjectDeadline: (state, { payload }) => {
             state.project.deadline = payload
         },
 
-        usersIds: (state, { payload }) => {
-            state.project.coordinationUsersIds = payload
+        updateMembers: (state, { payload }) => {
+            state.project.coordinationUsers = payload
         },
 
         deleteDocFromProject: (state, { payload: id }) => {
@@ -73,5 +73,5 @@ export const newProjectSlice = createSlice({
     }
 })
 
-export const { saveNewProjectName, saveNewProjectDeadline, usersIds, deleteDocFromProject } = newProjectSlice.actions
+export const { saveNewProjectName, saveNewProjectDeadline, updateMembers, deleteDocFromProject } = newProjectSlice.actions
 export const newProjectSelector = (state) => state.newProject

@@ -10,12 +10,45 @@ import {
     TextField,
     Typography
 } from '@mui/material'
-import { Add, ArticleOutlined, EditOutlined, FileDownloadOutlined } from '@mui/icons-material'
-import { fakeDocs } from '../constants/fakeDocs'
+import { Add, ArticleOutlined, Clear, FileDownloadOutlined } from '@mui/icons-material'
+import { useCreateDocumentMutation } from '../../../store/api'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteDocFromProject, newProjectSelector } from '../newProjectSlice'
+import { DeleteModal, ProgressOverlay } from '../../../common'
 
 export const DocsNewProject = () => {
+    const [ file, setFile ] = React.useState()
+    const [ fileName, setFileName ] = React.useState('')
+
+    const { project, projectDocs } = useSelector(newProjectSelector)
+
+    const [ createDocument, { isLoading } ] = useCreateDocumentMutation()
+
+    const setFileAndFileName = (newFile) => {
+        setFile(newFile)
+        setFileName(newFile.name.replace(/\.[^/.]+$/, ''))
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
+
+        const documentData = new FormData()
+        documentData.append('projectId', project.projectId)
+        documentData.append('attachedFileName', fileName)
+        documentData.append('file', file)
+
+        createDocument(documentData)
+
+        setFile(undefined)
+        setFileName('')
+    }
+
+    const dispatch = useDispatch()
+
+    const deleteDoc = (id) => {
+        dispatch (
+            deleteDocFromProject(id)
+        )
     }
 
     return (
@@ -23,11 +56,14 @@ export const DocsNewProject = () => {
             width='100%'
             spacing={3}
         >
-            <Stack spacing={3} alignItems='center'>
+            <Stack
+                spacing={3}
+                alignItems='center'
+                component='form'
+                onSubmit={onSubmit}
+                method='POST'
+            >
                 <Stack
-                    component='form'
-                    onSubmit={onSubmit}
-                    method='POST'
                     direction='row'
                     justifyContent='start'
                     alignItems='center'
@@ -35,24 +71,38 @@ export const DocsNewProject = () => {
                     my={0.5}
                     spacing={3}
                 >
-                    <IconButton component='label' size='large'>
+                    <IconButton
+                        component='label'
+                        size='large'
+                    >
                         <FileDownloadOutlined />
-                        <input hidden accept='.doc, .docs, .pdf' multiple type='file' />
+
+                        <input
+                            hidden
+                            accept='.pdf'
+                            multiple
+                            type='file'
+                            onChange={(e) => setFileAndFileName(e.target.files[0])}
+                        />
                     </IconButton>
 
-                    <Typography>Text.pdf</Typography>
+                    <Typography>{ file?.name || 'Загрузите документ' }</Typography>
                 </Stack>
 
                 <TextField
                     variant='outlined'
                     fullWidth
                     label='Название документа'
-                    required
+                    value={fileName}
+                    onChange={
+                        (e) => setFileName(e.target.value)
+                    }
                 />
 
                 <Button
                     type='submit'
                     variant='outlined'
+                    disabled={!fileName || !file}
                     startIcon={<Add />}
                     sx={{ borderRadius: '20px' }}
                 >
@@ -61,14 +111,19 @@ export const DocsNewProject = () => {
             </Stack>
 
             <List>
-                {fakeDocs.map((item) =>
+                {projectDocs.map((item) => (
                     <ListItem
                         key={item.id}
                         sx={{ my: 2.5 }}
                         secondaryAction={
-                            <IconButton>
-                                <EditOutlined />
-                            </IconButton>
+                            <DeleteModal
+                                onSubmit={() => deleteDoc(item.id)}
+                                message='Вы уверены, что хотите удалить документ'
+                                itemName={item.name}
+                                title='Удаление документа'
+                                button='icon'
+                                icon={<Clear />}
+                            />
                         }
                     >
                         <ListItemAvatar sx={{ display: 'flex' }}>
@@ -77,8 +132,12 @@ export const DocsNewProject = () => {
 
                         <ListItemText primary={item.name} />
                     </ListItem>
-                )}
+                ))}
             </List>
+
+            {isLoading && (
+                <ProgressOverlay showProgressOverlay={isLoading} />
+            )}
         </Stack>
     )
 }

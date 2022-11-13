@@ -41,7 +41,7 @@ export const LoginPage = () => {
             }
 
             if (isSuccess) {
-                navigate('/approval')
+                navigate('/projects')
             }
         },
         [isSuccess, isError],

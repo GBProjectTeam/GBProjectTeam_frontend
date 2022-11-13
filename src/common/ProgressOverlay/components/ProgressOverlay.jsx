@@ -7,6 +7,7 @@ const CustomBackdrop = styled(Backdrop)(
     ({ theme }) => ({
         color: theme.palette.background.default,
         zIndex: theme.zIndex.tooltip,
+        marginTop: '0 !important',
     }),
 )
 

@@ -56,10 +56,7 @@ export const Modal = (props) => {
             return (
                 <MenuItem
                     onClick={onOpen}
-                    disabled={disabled}
-                    sx={{
-                        width: '100%'
-                    }}
+                    sx={{ width: '100%' }}
                 >
                     <Stack
                         direction='row'
@@ -70,6 +67,7 @@ export const Modal = (props) => {
                         <Typography>
                             {label}
                         </Typography>
+
                         {icon}
                     </Stack>
                 </MenuItem >

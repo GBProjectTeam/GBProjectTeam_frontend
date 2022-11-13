@@ -55,8 +55,8 @@ export const NewProjectPage = () => {
 
     const isDisabledCreate =
         !project.projectId
-        || !project.projectName
-        || !project.coordinationUsersIds.length > 0
+        || !project.name
+        || !project.coordinationUsers.length > 0
         || !project.documentsIds.length > 0
 
     const isLoading = isCreate || isUpdate

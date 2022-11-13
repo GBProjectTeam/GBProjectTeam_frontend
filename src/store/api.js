@@ -134,10 +134,10 @@ export const api = createApi({
                 url: `/projects/update/${updateProjectData.projectId}`,
                 method: 'PATCH',
                 body: {
-                    name: updateProjectData.projectName,
+                    name: updateProjectData.name,
                     deadline: updateProjectData.deadline,
                     documentsIds: updateProjectData.documentsIds,
-                    coordinationUsersIds: updateProjectData.coordinationUsersIds,
+                    coordinationUsers: updateProjectData.coordinationUsers,
                 },
             })
         }),

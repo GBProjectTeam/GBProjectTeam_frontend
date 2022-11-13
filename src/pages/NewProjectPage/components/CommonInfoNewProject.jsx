@@ -21,7 +21,7 @@ export const CommonInfoNewProject = () => {
                 fullWidth
                 label='Название проекта'
                 required
-                value={project.projectName}
+                value={project.name}
                 onChange={(e) => {
                     dispatch (
                         saveNewProjectName(e.target.value)

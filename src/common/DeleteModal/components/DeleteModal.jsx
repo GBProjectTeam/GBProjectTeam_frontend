@@ -47,5 +47,5 @@ DeleteModal.propTypes = {
     label: PropTypes.string,
     icon: PropTypes.node,
     title: PropTypes.string.isRequired,
-    button: PropTypes.oneOf(['icon', 'label']).isRequired,
+    button: PropTypes.oneOf(['icon', 'label', 'menuItem']).isRequired,
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     Stack,
     Link
@@ -6,12 +7,14 @@ import {
 import { Article } from '@mui/icons-material'
 import { Modal } from '../../../common'
 
-export const ProjectDocuments = () => {
+export const ProjectDocuments = ({
+    button = 'label',
+}) => {
     const [open, setOpen] = React.useState(false)
 
     return (
         <Modal
-            button='label'
+            button={button}
             isOpen={open}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
@@ -25,4 +28,8 @@ export const ProjectDocuments = () => {
             </Stack>
         </Modal>
     )
+}
+
+ProjectDocuments.propTypes = {
+    button: PropTypes.oneOf(['icon', 'label', 'menuItem']),
 }

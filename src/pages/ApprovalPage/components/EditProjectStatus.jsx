@@ -1,21 +1,23 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     DialogContent,
     FormControl,
     InputLabel,
     Select,
     MenuItem,
-
 } from '@mui/material'
 import { Modal } from '../../../common'
 
-export const EditProjectStatus = () => {
+export const EditProjectStatus = ({
+    button = 'label',
+}) => {
     const [open, setOpen] = React.useState(false)
     const [status, setStatus] = React.useState('')
 
     return (
         <Modal
-            button='label'
+            button={button}
             isOpen={open}
             isOutlintedVariant
             allowSubmit
@@ -23,7 +25,7 @@ export const EditProjectStatus = () => {
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
             label='Изменить статус проекта'
-            title='Изменить статус проекта'
+            title='Изменение статуса проекта'
             showCheck
             isStack
         >
@@ -45,5 +47,8 @@ export const EditProjectStatus = () => {
             </DialogContent>
         </Modal>
     )
+}
 
+EditProjectStatus.propTypes = {
+    button: PropTypes.oneOf(['icon', 'label', 'menuItem']),
 }

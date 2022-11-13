@@ -1,13 +1,27 @@
 import React from 'react'
+import docFragment from '../assets/main-page-image.jpg'
 import { Paper, Stack, Typography, Box, Button } from '@mui/material'
 import { CommentCard } from './CommentCard'
 import { StatisticItem } from './StatisticItem'
 import { fakeComments } from '../constants/fakeComments'
 import { fakeStatistic } from '../constants/fakeStatistics'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
 
 export const MainPage = () => {
     const navigate = useNavigate()
+
+    const { token } = useSelector(loginSelector)
+
+    React.useEffect(
+        () => {
+            if (token) {
+                navigate('/projects')
+            }
+        },
+        [token],
+    )
 
     return (
         <Stack
@@ -38,7 +52,7 @@ export const MainPage = () => {
                     }}
                 >
                     <Box sx={{ height: '40%' }}>
-                        <img src='src/pages/MainPage/assets/main-page-image.jpg' alt='Фрагмент согласуемого документа' />
+                        <img src={docFragment} alt='Фрагмент согласуемого документа' />
                     </Box>
                 </Paper>
 

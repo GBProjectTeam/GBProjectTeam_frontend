@@ -5,7 +5,9 @@ import {
     DialogTitle,
     DialogContent,
     Typography,
-    IconButton
+    IconButton,
+    MenuItem,
+    Stack
 } from '@mui/material'
 import { Close, Check } from '@mui/icons-material'
 import PropTypes from 'prop-types'
@@ -48,6 +50,27 @@ export const Modal = (props) => {
                 >
                     {label}
                 </Button>
+            )
+        }
+        if (button === 'menuItem') {
+            return (
+                <MenuItem
+                    onClick={onOpen}
+                    sx={{ width: '100%' }}
+                >
+                    <Stack
+                        direction='row'
+                        spacing={2}
+                        flex={1}
+                        justifyContent='space-between'
+                    >
+                        <Typography>
+                            {label}
+                        </Typography>
+
+                        {icon}
+                    </Stack>
+                </MenuItem >
             )
         }
 
@@ -134,7 +157,7 @@ Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func,
     title: PropTypes.string.isRequired,
-    button: PropTypes.oneOf(['icon', 'label']).isRequired,
+    button: PropTypes.oneOf(['icon', 'label', 'menuItem']).isRequired,
     isOutlintedVariant: PropTypes.bool,
     children: PropTypes.node.isRequired,
     showCheck: PropTypes.bool,

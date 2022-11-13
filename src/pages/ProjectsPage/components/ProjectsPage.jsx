@@ -15,6 +15,7 @@ import { columns } from '../constants/columns'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
+
     return (
         <Stack
             flexDirection='column'
@@ -31,7 +32,7 @@ export const ProjectsPage = () => {
             <DataGrid
                 rows={rows}
                 columns={columns}
-                hideFooter={true}
+                hideFooter
                 sx={{
                     '& .MuiDataGrid-columnHeader': {
                         backgroundColor: grey[300],
@@ -56,13 +57,16 @@ export const ProjectsPage = () => {
                         fontWeight: 'bold',
                     },
                 }}
+
                 getCellClassName={(params) => {
                     if (params.field === 'status' && params.value !== null) {
                         return params.value === 'На согласовании' ? 'status-to-be-agreed' : 'status-frozen'
                     }
+
                     if (params.field === 'solution' && params.value !== null) {
                         return params.value === 'Согласовано' ? 'decision-agreed' : 'decision-not-agreed'
                     }
+
                     return ''
                 }}
                 onRowClick={(params) => navigate(`/approval/${params.id}`)}

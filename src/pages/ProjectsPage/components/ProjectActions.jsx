@@ -1,23 +1,29 @@
 import React from 'react'
 import {
     Menu,
-    MenuItem,
     Stack,
-    Typography,
     IconButton,
+    MenuItem,
+    Typography
 } from '@mui/material'
 import {
-    LibraryAdd,
     MoreHoriz,
     DeleteOutline,
-    Article,
     Message,
-    LibraryAddCheck
 } from '@mui/icons-material'
+import { DeleteModal } from '../../../common/index.js'
+import { ProjectDocuments } from '../../ApprovalPage/components/ProjectDocuments.jsx'
+import { useNavigate } from 'react-router-dom'
+import { EditUserDecision } from '../../ApprovalPage/components/EditUserDecision.jsx'
+import { EditProjectStatus } from '../../ApprovalPage/components/EditProjectStatus.jsx'
 
 export const ProjectActions = () => {
     const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const navigate = useNavigate()
+
     const open = Boolean(anchorEl)
+
     const handleClick = (event) => {
         event.stopPropagation()
         setAnchorEl(event.currentTarget)
@@ -49,75 +55,44 @@ export const ProjectActions = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Изменить статус
-                        </Typography>
-                        <LibraryAdd />
-                    </Stack>
-                </MenuItem>
+                <Stack
+                    direction='column'
+                    alignItems='flex-start'
+                >
+                    <EditUserDecision button='menuItem' />
 
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Изменить решение
-                        </Typography>
-                        <LibraryAddCheck />
-                    </Stack>
-                </MenuItem>
+                    <EditProjectStatus button='menuItem' />
 
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Открыть комментарии
-                        </Typography>
-                        <Message />
-                    </Stack>
-                </MenuItem>
+                    <ProjectDocuments button='menuItem' />
 
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
+                    <MenuItem
+                        onClick={() => navigate('/project-comments')}
+                        sx={{ width: '100%' }}
                     >
-                        <Typography>
-                            Документы
-                        </Typography>
-                        <Article />
-                    </Stack>
-                </MenuItem>
+                        <Stack
+                            direction='row'
+                            spacing={2}
+                            flex={1}
+                            justifyContent='space-between'
+                        >
+                            <Typography>
+                                Открыть комментарии
+                            </Typography>
 
-                <MenuItem>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Удалить проект
-                        </Typography>
-                        <DeleteOutline />
-                    </Stack>
-                </MenuItem>
+                            <Message />
+                        </Stack>
+                    </MenuItem >
+
+                    <DeleteModal
+                        onSubmit={() => null}
+                        message='Вы уверены, что хотите удалить проект'
+                        itemName='Контракт по закупке канцелярских товаров?'
+                        title='Удаление проекта'
+                        button='menuItem'
+                        label='Удалить проект'
+                        icon={<DeleteOutline />}
+                    />
+                </Stack>
             </Menu>
         </>
     )

@@ -14,6 +14,7 @@ import {
     ProjectsPage,
     NotFoundPage,
     RegistrationPage,
+    CommentsPage,
 } from './pages'
 
 export const Routes = () => (
@@ -76,6 +77,14 @@ export const Routes = () => (
             element={
                 <PrivateRoute>
                     <PersonalPage />
+                </PrivateRoute>
+            }
+        />
+        <Route
+            path='/project-comments'
+            element={
+                <PrivateRoute>
+                    <CommentsPage />
                 </PrivateRoute>
             }
         />

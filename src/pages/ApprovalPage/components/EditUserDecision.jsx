@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     Button,
     DialogContent,
@@ -18,7 +19,9 @@ import { decisionVariants } from '../constants/decisionsVariants.js'
 import { Clear } from '@mui/icons-material'
 import { v4 as uuidv4 } from 'uuid'
 
-export const EditUserDecision = () => {
+export const EditUserDecision = ({
+    button = 'label',
+}) => {
     const [open, setOpen] = React.useState(false)
     const [decision, setDecision] = React.useState('')
     const [document, setDocument] = React.useState('')
@@ -83,7 +86,7 @@ export const EditUserDecision = () => {
 
     return (
         <Modal
-            button='label'
+            button={button}
             isOpen={open}
             isOutlintedVariant
             showCheck
@@ -92,7 +95,7 @@ export const EditUserDecision = () => {
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
             label='Изменить решение'
-            title='Изменить решение'
+            title='Изменение решения'
             isStack
         >
             <DialogContent>
@@ -167,5 +170,8 @@ export const EditUserDecision = () => {
             </DialogContent>
         </Modal>
     )
+}
 
+EditUserDecision.propTypes = {
+    button: PropTypes.oneOf(['icon', 'label', 'menuItem']),
 }

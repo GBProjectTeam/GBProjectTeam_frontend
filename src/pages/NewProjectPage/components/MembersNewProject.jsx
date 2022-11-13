@@ -15,7 +15,7 @@ import { Add, Clear } from '@mui/icons-material'
 import { useGetUsersQuery } from '../../../store/api'
 import { DeleteModal, ProgressOverlay } from '../../../common/index'
 import { useDispatch, useSelector } from 'react-redux'
-import { newProjectSelector, usersIds } from '../newProjectSlice'
+import { newProjectSelector, updateMembers } from '../newProjectSlice'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
 
 export const MembersNewProject = () => {
@@ -91,10 +91,10 @@ export const MembersNewProject = () => {
         )
 
         dispatch (
-            usersIds(
-                project.coordinationUsersIds.length > 0
-                    ? [...project.coordinationUsersIds, projectMemberId]
-                    : [projectMemberId]
+            updateMembers(
+                project.coordinationUsers.length > 0
+                    ? [...project.coordinationUsers, { userId: projectMemberId }]
+                    : [{ userId: projectMemberId }]
             )
         )
 
@@ -113,10 +113,10 @@ export const MembersNewProject = () => {
         }
 
         dispatch(
-            usersIds(
+            updateMembers(
                 updateProjectsMembers.length > 0
                     ? updateProjectsMembers.map(
-                        (member) => member.id
+                        (member) => ({ userId: member.id })
                     )
                     : []
             )

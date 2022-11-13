@@ -7,6 +7,7 @@ import { PersonalPage } from './PersonalPage/components/PersonalPage.jsx'
 import { ProjectsPage } from './ProjectsPage/components/ProjectsPage.jsx'
 import { NotFoundPage } from './NotFoundPage/components/NotFoundPage.jsx'
 import { RegistrationPage } from './RegistrationPage/components/RegistrationPage.jsx'
+import { CommentsPage } from './CommentsPage/constants/CommentsPage.jsx'
 
 export {
     MainPage,
@@ -17,5 +18,6 @@ export {
     NewProjectPage,
     ProjectsPage,
     NotFoundPage,
-    RegistrationPage
+    RegistrationPage,
+    CommentsPage,
 }

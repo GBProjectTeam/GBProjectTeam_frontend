@@ -159,7 +159,7 @@ Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func,
     title: PropTypes.string.isRequired,
-    button: PropTypes.oneOf(['icon', 'label']).isRequired,
+    button: PropTypes.oneOf(['icon', 'label', 'menuItem']).isRequired,
     isOutlintedVariant: PropTypes.bool,
     children: PropTypes.node.isRequired,
     showCheck: PropTypes.bool,

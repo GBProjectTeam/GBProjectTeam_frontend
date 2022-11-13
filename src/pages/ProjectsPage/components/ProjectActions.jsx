@@ -15,11 +15,11 @@ import {
 import { Modal } from '../../../common/index.js'
 
 export const ProjectActions = () => {
-    const [openModal_1, setOpenModal_1] = React.useState(false)
-    const [openModal_2, setOpenModal_2] = React.useState(false)
-    const [openModal_3, setOpenModal_3] = React.useState(false)
-    const [openModal_4, setOpenModal_4] = React.useState(false)
-    const [openModal_5, setOpenModal_5] = React.useState(false)
+    const [openModalChangeStatus, setOpenModalChangeStatus] = React.useState(false)
+    const [openModalChangeDecision, setOpenModalChangeDecision] = React.useState(false)
+    const [openModalOpenComments, setOpenModalOpenComments] = React.useState(false)
+    const [openModalTheDocuments, setOpenModalTheDocuments] = React.useState(false)
+    const [openModalDeleteProject, setOpenModalDeleteProject] = React.useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null)
     const open = Boolean(anchorEl)
     const handleClick = (event) => {
@@ -59,52 +59,57 @@ export const ProjectActions = () => {
                 >
                     <Modal
                         button='menuItem'
-                        isOpen={openModal_1}
-                        onOpen={() => setOpenModal_1(true)}
-                        onClose={() => setOpenModal_1(false)}
+                        isOpen={openModalChangeStatus}
+                        onOpen={() => setOpenModalChangeStatus(true)}
+                        onClose={() => setOpenModalChangeStatus(false)}
                         icon={<LibraryAdd />}
                         label='Изменить статус'
                         title='Изменить статус'
+                        children=''
                     />
 
                     <Modal
                         button='menuItem'
-                        isOpen={openModal_2}
-                        onOpen={() => setOpenModal_2(true)}
-                        onClose={() => setOpenModal_2(false)}
+                        isOpen={openModalChangeDecision}
+                        onOpen={() => setOpenModalChangeDecision(true)}
+                        onClose={() => setOpenModalChangeDecision(false)}
                         icon={<LibraryAddCheck />}
                         label='Изменить решение'
                         title='Изменить решение'
+                        children=''
                     />
 
                     <Modal
                         button='menuItem'
-                        isOpen={openModal_3}
-                        onOpen={() => setOpenModal_3(true)}
-                        onClose={() => setOpenModal_3(false)}
+                        isOpen={openModalOpenComments}
+                        onOpen={() => setOpenModalOpenComments(true)}
+                        onClose={() => setOpenModalOpenComments(false)}
                         icon={<Message />}
                         label='Открыть комментарии'
                         title='Открыть комментарии'
+                        children=''
                     />
 
                     <Modal
                         button='menuItem'
-                        isOpen={openModal_4}
-                        onOpen={() => setOpenModal_4(true)}
-                        onClose={() => setOpenModal_4(false)}
+                        isOpen={openModalTheDocuments}
+                        onOpen={() => setOpenModalTheDocuments(true)}
+                        onClose={() => setOpenModalTheDocuments(false)}
                         icon={<Article />}
                         label='Документы'
                         title='Документы'
+                        children=''
                     />
 
                     <Modal
                         button='menuItem'
-                        isOpen={openModal_5}
-                        onOpen={() => setOpenModal_5(true)}
-                        onClose={() => setOpenModal_5(false)}
+                        isOpen={openModalDeleteProject}
+                        onOpen={() => setOpenModalDeleteProject(true)}
+                        onClose={() => setOpenModalDeleteProject(false)}
                         icon={<DeleteOutline />}
                         label='Удалить проект'
                         title='Удалить проект'
+                        children=''
                     />
                 </Stack>
             </Menu>

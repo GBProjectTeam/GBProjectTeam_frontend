@@ -9,7 +9,6 @@ import { DeleteModal } from '../../../common/index.js'
 import { ProjectDocuments } from './ProjectDocuments.jsx'
 
 export const Documents = () => {
-
     return (
         <Stack spacing={2}>
             <Typography variant='h4'>

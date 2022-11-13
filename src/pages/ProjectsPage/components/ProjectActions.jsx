@@ -2,26 +2,28 @@ import React from 'react'
 import {
     Menu,
     Stack,
-    IconButton
+    IconButton,
+    MenuItem,
+    Typography
 } from '@mui/material'
 import {
-    LibraryAdd,
     MoreHoriz,
     DeleteOutline,
-    Article,
     Message,
-    LibraryAddCheck
 } from '@mui/icons-material'
-import { Modal } from '../../../common/index.js'
+import { DeleteModal } from '../../../common/index.js'
+import { ProjectDocuments } from '../../ApprovalPage/components/ProjectDocuments.jsx'
+import { useNavigate } from 'react-router-dom'
+import { EditUserDecision } from '../../ApprovalPage/components/EditUserDecision.jsx'
+import { EditProjectStatus } from '../../ApprovalPage/components/EditProjectStatus.jsx'
 
 export const ProjectActions = () => {
-    const [openModalChangeStatus, setOpenModalChangeStatus] = React.useState(false)
-    const [openModalChangeDecision, setOpenModalChangeDecision] = React.useState(false)
-    const [openModalOpenComments, setOpenModalOpenComments] = React.useState(false)
-    const [openModalTheDocuments, setOpenModalTheDocuments] = React.useState(false)
-    const [openModalDeleteProject, setOpenModalDeleteProject] = React.useState(false)
     const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const navigate = useNavigate()
+
     const open = Boolean(anchorEl)
+
     const handleClick = (event) => {
         event.stopPropagation()
         setAnchorEl(event.currentTarget)
@@ -57,59 +59,38 @@ export const ProjectActions = () => {
                     direction='column'
                     alignItems='flex-start'
                 >
-                    <Modal
-                        button='menuItem'
-                        isOpen={openModalChangeStatus}
-                        onOpen={() => setOpenModalChangeStatus(true)}
-                        onClose={() => setOpenModalChangeStatus(false)}
-                        icon={<LibraryAdd />}
-                        label='Изменить статус'
-                        title='Изменить статус'
-                        children=''
-                    />
+                    <EditUserDecision button='menuItem' />
 
-                    <Modal
-                        button='menuItem'
-                        isOpen={openModalChangeDecision}
-                        onOpen={() => setOpenModalChangeDecision(true)}
-                        onClose={() => setOpenModalChangeDecision(false)}
-                        icon={<LibraryAddCheck />}
-                        label='Изменить решение'
-                        title='Изменить решение'
-                        children=''
-                    />
+                    <EditProjectStatus button='menuItem' />
 
-                    <Modal
-                        button='menuItem'
-                        isOpen={openModalOpenComments}
-                        onOpen={() => setOpenModalOpenComments(true)}
-                        onClose={() => setOpenModalOpenComments(false)}
-                        icon={<Message />}
-                        label='Открыть комментарии'
-                        title='Открыть комментарии'
-                        children=''
-                    />
+                    <ProjectDocuments button='menuItem' />
 
-                    <Modal
-                        button='menuItem'
-                        isOpen={openModalTheDocuments}
-                        onOpen={() => setOpenModalTheDocuments(true)}
-                        onClose={() => setOpenModalTheDocuments(false)}
-                        icon={<Article />}
-                        label='Документы'
-                        title='Документы'
-                        children=''
-                    />
+                    <MenuItem
+                        onClick={() => navigate('/project-comments')}
+                        sx={{ width: '100%' }}
+                    >
+                        <Stack
+                            direction='row'
+                            spacing={2}
+                            flex={1}
+                            justifyContent='space-between'
+                        >
+                            <Typography>
+                                Открыть комментарии
+                            </Typography>
 
-                    <Modal
+                            <Message />
+                        </Stack>
+                    </MenuItem >
+
+                    <DeleteModal
+                        onSubmit={() => null}
+                        message='Вы уверены, что хотите удалить проект'
+                        itemName='Контракт по закупке канцелярских товаров?'
+                        title='Удаление проекта'
                         button='menuItem'
-                        isOpen={openModalDeleteProject}
-                        onOpen={() => setOpenModalDeleteProject(true)}
-                        onClose={() => setOpenModalDeleteProject(false)}
-                        icon={<DeleteOutline />}
                         label='Удалить проект'
-                        title='Удалить проект'
-                        children=''
+                        icon={<DeleteOutline />}
                     />
                 </Stack>
             </Menu>

@@ -10,11 +10,36 @@ import {
     green,
     red
 } from '@mui/material/colors'
-import { rows } from '../constants/rows'
 import { columns } from '../constants/columns'
+import { useGetProjectsQuery } from '../../../store/api'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
+
+    const { data: projects } = useGetProjectsQuery()
+
+    const [rows, setRows] = React.useState([])
+
+    React.useEffect(() => {
+        setRows(getRows(projects))
+    },
+        [projects])
+
+    const getRows = (array) => {
+        if (!array) {
+            return []
+        }
+        return array.map((element) => (
+            {
+                id: element._id,
+                project: element.name,
+                deadline: element.deadline ? element.deadline : 'Не обнаружено',
+                author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
+                status: element.status,
+                solution: element.solution ? element.solution : 'Не обнаружено'
+            }
+        ))
+    }
 
     return (
         <Stack

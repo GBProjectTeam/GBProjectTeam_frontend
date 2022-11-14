@@ -21,30 +21,30 @@ const baseQueryWithReauth = async (
 
     const getResult = async () => {
         switch (args.url) {
-        case '/auth/signin':
-        case '/auth/signup':
-            return baseQuery(args, api, extraOptions)
-        case '/documents/create':
-            return baseQuery(
-                {
-                    ...args,
-                    headers: {},
-                },
-                api,
-                extraOptions,
-            )
-        default:
-            return baseQuery(
-                {
-                    ...args,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${loginState.token}`,
+            case '/auth/signin':
+            case '/auth/signup':
+                return baseQuery(args, api, extraOptions)
+            case '/documents/create':
+                return baseQuery(
+                    {
+                        ...args,
+                        headers: {},
                     },
-                },
-                api,
-                extraOptions,
-            )
+                    api,
+                    extraOptions,
+                )
+            default:
+                return baseQuery(
+                    {
+                        ...args,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${loginState.token}`,
+                        },
+                    },
+                    api,
+                    extraOptions,
+                )
         }
     }
 
@@ -141,6 +141,12 @@ export const api = createApi({
                 },
             })
         }),
+        getProjects: builder.query({
+            query: () => ({
+                url: '/projects',
+                method: 'GET',
+            })
+        }),
     }),
 })
 
@@ -153,4 +159,5 @@ export const {
     useCreateProjectMutation,
     useCreateDocumentMutation,
     useUpdateProjectMutation,
+    useGetProjectsQuery,
 } = api

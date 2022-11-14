@@ -5,7 +5,7 @@ import {
     Stack
 } from '@mui/material'
 
-export const PersonalAvatar = () =>{
+export const PersonalAvatar = () => {
     return(
         <Stack
             sx={{
@@ -30,7 +30,12 @@ export const PersonalAvatar = () =>{
                 }}
             >
                 Изменить фото
-                <input hidden accept='image/*' multiple type='file' />
+
+                <input
+                    hidden
+                    accept='image/*'
+                    multiple type='file'
+                />
             </Button>
         </Stack>
     )

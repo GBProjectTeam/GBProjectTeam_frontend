@@ -32,22 +32,13 @@ export const Routes = () => (
             element={<RegistrationPage />}
         />
         <Route
-            path='/approval'
+            path='/approval/:id'
             element={
                 <PrivateRoute>
                     <ApprovalPage />
                 </PrivateRoute>
             }
-        >
-            <Route
-                path=':id'
-                element={
-                    <PrivateRoute>
-                        <ApprovalPage />
-                    </PrivateRoute>
-                }
-            />
-        </Route>
+        />
         <Route
             path='/projects'
             element={

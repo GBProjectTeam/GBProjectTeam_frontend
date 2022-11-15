@@ -6,7 +6,7 @@ export const columns = [
         headerName: 'Проект',
         headerAlign: 'left',
         align: 'left',
-        flex: 1,
+        flex: 3,
         sortable: false
     },
     {
@@ -19,13 +19,6 @@ export const columns = [
     {
         field: 'author',
         headerName: 'Автор проекта',
-        headerAlign: 'left',
-        align: 'left',
-        flex: 1,
-    },
-    {
-        field: 'status',
-        headerName: 'Статус',
         headerAlign: 'left',
         align: 'left',
         flex: 1,

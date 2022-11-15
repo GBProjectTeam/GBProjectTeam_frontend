@@ -25,6 +25,10 @@ export const ProjectsPage = () => {
     },
         [projects])
 
+    const getSettedStatus = (users, id) => {
+        return users.filter((element) => element.userId == id)[0]?.settedStatus
+    }
+
     const getRows = (array) => {
         if (!array) {
             return []
@@ -33,10 +37,10 @@ export const ProjectsPage = () => {
             {
                 id: element._id,
                 project: element.name,
-                deadline: element.deadline ? element.deadline : 'Не обнаружено',
+                deadline: element.deadline ? element.deadline : '',
                 author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
                 status: element.status,
-                solution: element.solution ? element.solution : 'Не обнаружено'
+                solution: getSettedStatus(element.coordinationUsers, element.ownerId._id)
             }
         ))
     }

@@ -12,38 +12,38 @@ import {
 } from '@mui/material/colors'
 import { columns } from '../constants/columns'
 import { useGetProjectsQuery } from '../../../store/api'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
 
     const { data: projects } = useGetProjectsQuery()
 
-    const [rows, setRows] = React.useState([])
-
-    React.useEffect(() => {
-        setRows(getRows(projects))
-    },
-        [projects])
+    const { userId } = useSelector(loginSelector)
 
     const getSettedStatus = (users, id) => {
-        return users.filter((element) => element.userId == id)[0]?.settedStatus
+        return users.filter((element) => element.userId === id)[0]?.settedStatus
     }
 
-    const getRows = (array) => {
-        if (!array) {
-            return []
-        }
-        return array.map((element) => (
-            {
-                id: element._id,
-                project: element.name,
-                deadline: element.deadline ? element.deadline : '',
-                author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
-                status: element.status,
-                solution: getSettedStatus(element.coordinationUsers, element.ownerId._id)
+    const rows = React.useMemo(
+        () => {
+            if (!projects) {
+                return []
+            } else {
+                return projects.map((element) => (
+                    {
+                        id: element._id,
+                        project: element.name,
+                        deadline: element.deadline ? element.deadline : '',
+                        author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
+                        solution: getSettedStatus(element.coordinationUsers, userId)
+                    }
+                ))
             }
-        ))
-    }
+        },
+        [projects],
+    )
 
     return (
         <Stack
@@ -86,17 +86,10 @@ export const ProjectsPage = () => {
                         fontWeight: 'bold',
                     },
                 }}
-
                 getCellClassName={(params) => {
-                    if (params.field === 'status' && params.value !== null) {
-                        return params.value === 'На согласовании' ? 'status-to-be-agreed' : 'status-frozen'
-                    }
-
                     if (params.field === 'solution' && params.value !== null) {
                         return params.value === 'Согласовано' ? 'decision-agreed' : 'decision-not-agreed'
                     }
-
-                    return ''
                 }}
                 onRowClick={(params) => navigate(`/approval/${params.id}`)}
             />

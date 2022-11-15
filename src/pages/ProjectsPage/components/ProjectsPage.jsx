@@ -14,11 +14,12 @@ import { columns } from '../constants/columns'
 import { useGetProjectsQuery } from '../../../store/api'
 import { useSelector } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
+import { ProgressOverlay } from '../../../common/index.js'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
 
-    const { data: projects } = useGetProjectsQuery()
+    const { data: projects, isFetching } = useGetProjectsQuery()
 
     const { userId } = useSelector(loginSelector)
 
@@ -93,6 +94,8 @@ export const ProjectsPage = () => {
                 }}
                 onRowClick={(params) => navigate(`/approval/${params.id}`)}
             />
+
+            <ProgressOverlay showProgressOverlay={isFetching} />
         </Stack>
     )
 }

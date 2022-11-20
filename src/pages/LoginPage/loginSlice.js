@@ -34,6 +34,7 @@ export const loginSlice = createSlice({
                     state.firstName = payload.user.firstName
                     state.patronymicName = payload.user?.patronymicName || ''
                     state.userId = payload.user._id
+                    state.avatar = `http://194.87.94.182/users/${state.userId}/avatar`
                 },
             )
             .addMatcher(

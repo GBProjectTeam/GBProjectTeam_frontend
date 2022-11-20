@@ -147,6 +147,12 @@ export const api = createApi({
                 method: 'GET',
             })
         }),
+        getProjectById: builder.query({
+            query: (id) => ({
+                url: `/projects/${id}`,
+                method: 'GET',
+            })
+        }),
     }),
 })
 
@@ -160,4 +166,5 @@ export const {
     useCreateDocumentMutation,
     useUpdateProjectMutation,
     useGetProjectsQuery,
+    useGetProjectByIdQuery,
 } = api

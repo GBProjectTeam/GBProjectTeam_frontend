@@ -10,6 +10,7 @@ import {
     MoreHoriz,
     DeleteOutline,
     Message,
+    Edit,
 } from '@mui/icons-material'
 import { DeleteModal } from '../../../common/index.js'
 import { ProjectDocuments } from '../../ApprovalPage/components/ProjectDocuments.jsx'
@@ -64,6 +65,24 @@ export const ProjectActions = () => {
                     <EditProjectStatus button='menuItem' />
 
                     <ProjectDocuments button='menuItem' />
+
+                    <MenuItem
+                        onClick={() => navigate('/edit-project')}
+                        sx={{ width: '100%' }}
+                    >
+                        <Stack
+                            direction='row'
+                            spacing={2}
+                            flex={1}
+                            justifyContent='space-between'
+                        >
+                            <Typography>
+                                Редактировать проект
+                            </Typography>
+
+                            <Edit />
+                        </Stack>
+                    </MenuItem >
 
                     <MenuItem
                         onClick={() => navigate('/project-comments')}

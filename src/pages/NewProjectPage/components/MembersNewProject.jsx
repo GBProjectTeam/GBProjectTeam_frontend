@@ -1,11 +1,13 @@
 import React from 'react'
 import {
+    Avatar,
     Button,
     FormControl,
     IconButton,
     InputLabel,
     List,
     ListItem,
+    ListItemAvatar,
     ListItemText,
     MenuItem,
     Select,
@@ -23,19 +25,19 @@ export const MembersNewProject = () => {
     const [projectMembers, setProjectMembers] = React.useState([])
 
     const { project } = useSelector(newProjectSelector)
-    const { userId: ownerId } = useSelector(loginSelector)
+    const { userId } = useSelector(loginSelector)
 
     const { data: users, isFetching } = useGetUsersQuery()
 
     const usersWithoutOwner = React.useMemo(
         () => {
             if (users) {
-                return users.filter((user) => user._id !== ownerId)
+                return users.filter((user) => user._id !== userId)
             }
 
             return []
         },
-        [users, ownerId],
+        [users, userId],
     )
 
     const generateUserList = (allUsers, checkedUsers) => {
@@ -85,9 +87,10 @@ export const MembersNewProject = () => {
     const addMember = () => {
         const user = users?.find(item => item._id === projectMemberId)
         const name = `${user.lastName} ${user.firstName} ${user.patronymicName}`
+        const avatar = `http://194.87.94.182/users/${user._id}/avatar`
 
         setProjectMembers(
-            (members) => [...members, { id: projectMemberId, name }]
+            (members) => [...members, { id: projectMemberId, name, avatar }]
         )
 
         dispatch (
@@ -206,9 +209,9 @@ export const MembersNewProject = () => {
                             />
                         }
                     >
-                        {/* <ListItemAvatar>
+                        <ListItemAvatar>
                             <Avatar src={item.avatar} />
-                        </ListItemAvatar> */}
+                        </ListItemAvatar>
 
                         <ListItemText
                             primary={item.name}

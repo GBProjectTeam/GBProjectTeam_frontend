@@ -7,10 +7,10 @@ import {
     IconButton,
     Badge,
     Stack,
-    Typography
+    Typography,
+    Avatar
 } from '@mui/material'
 import {
-    AccountCircle,
     NotificationsNone,
     PermContactCalendar,
     ExitToApp
@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loggedOut, loginSelector } from '../../../pages/LoginPage/loginSlice.js'
 
 export const MenuAppBar = () => {
-    const { lastName, firstName } = useSelector(loginSelector)
+    const { lastName, firstName, avatar } = useSelector(loginSelector)
 
     const navigate = useNavigate()
 
@@ -68,7 +68,13 @@ export const MenuAppBar = () => {
 
                 <Button
                     variant='outlined'
-                    startIcon={<AccountCircle />}
+                    startIcon={
+                        <Avatar
+                            alt='Remy Sharp'
+                            sx={{ width: '30px', height: '30px' }}
+                            src={avatar}
+                        />
+                    }
                     onClick={handleClick}
                     sx={{ borderRadius: 20 }}
                 >

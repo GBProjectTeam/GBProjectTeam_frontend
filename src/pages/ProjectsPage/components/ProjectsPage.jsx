@@ -36,8 +36,9 @@ export const ProjectsPage = () => {
                     {
                         id: element._id,
                         project: element.name,
-                        deadline: element.deadline ? element.deadline : '',
+                        deadline: element.deadline.replace(/(\d{4})-(\d{2})-(\d{2}).+/, '$3.$2.$1'),
                         author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
+                        status: element.status,
                         solution: getSettedStatus(element.coordinationUsers, userId)
                     }
                 ))
@@ -88,6 +89,9 @@ export const ProjectsPage = () => {
                     },
                 }}
                 getCellClassName={(params) => {
+                    if (params.field === 'status' && params.value !== null) {
+                        return params.value === 'На согласовании' ? 'status-to-be-agreed' : 'status-frozen'
+                    }
                     if (params.field === 'solution' && params.value !== null) {
                         return params.value === 'Согласовано' ? 'decision-agreed' : 'decision-not-agreed'
                     }

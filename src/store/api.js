@@ -122,6 +122,12 @@ export const api = createApi({
                 method: 'GET',
             })
         }),
+        getProjectById: builder.query({
+            query: (id) => ({
+                url: `/projects/${id}`,
+                method: 'GET',
+            })
+        }),
         createDocument: builder.mutation({
             query: (documentData) => ({
                 url: '/documents/create',
@@ -160,4 +166,5 @@ export const {
     useCreateDocumentMutation,
     useUpdateProjectMutation,
     useGetProjectsQuery,
+    useGetProjectByIdQuery,
 } = api

@@ -24,6 +24,13 @@ export const columns = [
         flex: 1,
     },
     {
+        field: 'status',
+        headerName: 'Статус',
+        headerAlign: 'left',
+        align: 'left',
+        flex: 1,
+    },
+    {
         field: 'solution',
         headerName: 'Решение',
         headerAlign: 'left',

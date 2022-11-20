@@ -141,6 +141,13 @@ export const api = createApi({
                 },
             })
         }),
+        updateAvatar: builder.mutation({
+            query: (avatar) => ({
+                url: '/users/avatar',
+                method: 'POST',
+                body: avatar,
+            })
+        })
     }),
 })
 
@@ -153,4 +160,5 @@ export const {
     useCreateProjectMutation,
     useCreateDocumentMutation,
     useUpdateProjectMutation,
+    useUpdateAvatarMutation,
 } = api

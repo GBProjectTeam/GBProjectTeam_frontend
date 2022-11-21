@@ -12,8 +12,9 @@ import { getValue } from '../utils/getValue.js'
 import { getColor } from '../utils/getColor.js'
 import { EditProjectStatus } from './EditProjectStatus.jsx'
 import { EditUserDecision } from './EditUserDecision.jsx'
+import PropTypes from 'prop-types'
 
-export const ProjectInfoCard = () => {
+export const ProjectInfoCard = ({ information }) => {
     const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
         <Stack direction='row'>
             <Typography
@@ -39,7 +40,7 @@ export const ProjectInfoCard = () => {
             <CardHeader title='Информация о проекте' />
 
             <CardContent>
-                {renderAttribute('Автор проекта', projectInfo.author)}
+                {renderAttribute('Автор проекта', `${information?.ownerId.lastName} ${information?.ownerId.firstName}`)}
 
                 {renderAttribute(
                     'Решение',
@@ -50,12 +51,12 @@ export const ProjectInfoCard = () => {
                 )}
                 {renderAttribute(
                     'Дедлайн',
-                    projectInfo.projectTimeEnd
+                    information?.deadline
                 )}
 
                 {renderAttribute(
                     'Статус проекта',
-                    projectInfo.projectIsNotAgreed,
+                    information?.status,
                     'На согласовании',
                     'Закрыт',
                     true
@@ -74,4 +75,8 @@ export const ProjectInfoCard = () => {
             </CardActions>
         </Card>
     )
+}
+
+ProjectInfoCard.propTypes = {
+    information: PropTypes.object
 }

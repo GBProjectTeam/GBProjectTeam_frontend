@@ -43,7 +43,7 @@ export const DeleteModal = (props) => {
 DeleteModal.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     message: PropTypes.string.isRequired,
-    itemName: PropTypes.string.isRequired,
+    itemName: PropTypes.string,
     label: PropTypes.string,
     icon: PropTypes.node,
     title: PropTypes.string.isRequired,

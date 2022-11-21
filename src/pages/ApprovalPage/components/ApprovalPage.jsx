@@ -6,7 +6,8 @@ import {
 } from '@mui/material'
 import { ProjectInfoCard } from './ProjectInfoCard'
 import { ApprovalTable } from './ApprovalTable'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { ProgressOverlay } from '../../../common'
 import { useGetProjectByIdQuery } from '../../../store/api'
 import { Create, DeleteOutline } from '@mui/icons-material'
@@ -17,7 +18,14 @@ export const ApprovalPage = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const { data: project, isFetching, isError } = useGetProjectByIdQuery(id)
-    console.log(project)
+    const memoProject = React.useMemo(
+        () => {
+            if (project) {
+                return project[0]
+            }
+        },
+        [project]
+    )
     React.useEffect(
         () => {
             if (isError) {
@@ -34,11 +42,11 @@ export const ApprovalPage = () => {
             </Typography>
 
             <Typography variant='h3' fontWeight='fontWeightBold'>
-                {(project && project[0]) ? project.name : ' '}
+                {memoProject?.name}
             </Typography>
 
             <Stack direction='row' spacing={2}>
-                <ProjectDocuments />
+                <ProjectDocuments documents={memoProject} />
 
                 <Button
                     variant='outlined'
@@ -55,7 +63,7 @@ export const ApprovalPage = () => {
                 <DeleteModal
                     onSubmit={() => null}
                     message='Вы уверены, что хотите удалить проект'
-                    itemName='Контракт по закупке канцелярских товаров?'
+                    itemName={memoProject?.name}
                     title='Удаление проекта'
                     button='label'
                     label='Удалить проект'
@@ -86,7 +94,7 @@ export const ApprovalPage = () => {
                 spacing={2}
             >
                 {documents()}
-                <ProjectInfoCard />
+                <ProjectInfoCard information={memoProject} />
             </Stack>
 
             <ApprovalTable />

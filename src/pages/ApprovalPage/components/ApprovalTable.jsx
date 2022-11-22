@@ -15,8 +15,16 @@ import { rows } from '../constants/Rows'
 import { green, red } from '@mui/material/colors'
 import { useNavigate } from 'react-router-dom'
 
-export const ApprovalTable = () => {
+export const ApprovalTable = ({ users }) => {
     const navigate = useNavigate()
+    const usersArray = React.useMemo(
+        () => {
+            if (users) {
+                return users.coordinationUsers
+            }
+        },
+        [users]
+    )
 
     return (
         <Stack
@@ -62,20 +70,20 @@ export const ApprovalTable = () => {
                     </TableHead>
 
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.id}>
-                                <TableCell align='center' >{row.name}</TableCell>
+                        {usersArray?.map((user) => (
+                            <TableRow key={user.id}>
+                                <TableCell align='center' ></TableCell>
 
                                 <TableCell align='center'>
                                     <Typography
                                         fontWeight='fontWeightBold'
-                                        color={row.status !== 'Отклонено' ? green[500] : red[500]}
+                                        color={user.settedStatus !== 'Отклонено' ? green[500] : red[500]}
                                     >
-                                        {row.status}
+                                        {user.settedStatus}
                                     </Typography>
                                 </TableCell>
 
-                                <TableCell align='center'>{row.comment}</TableCell>
+                                <TableCell align='center'></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

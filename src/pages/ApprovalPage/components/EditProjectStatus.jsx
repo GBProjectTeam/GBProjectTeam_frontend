@@ -8,6 +8,9 @@ import {
     MenuItem,
 } from '@mui/material'
 import { Modal } from '../../../common'
+import { useUpdateProjectStatusMutation } from '../../../store/api'
+import { useSelector } from 'react-redux'
+import { projectSelector } from '../../ProjectsPage/projectSlice'
 
 export const EditProjectStatus = ({
     button = 'label',
@@ -15,13 +18,28 @@ export const EditProjectStatus = ({
     const [open, setOpen] = React.useState(false)
     const [status, setStatus] = React.useState('')
 
+    const [
+        updateProjectStatus,
+        { isLoading: isUpdate, isSuccess: isSuccessUpdate }
+    ] = useUpdateProjectStatusMutation()
+
+    const { project } = useSelector(projectSelector)
+
+    const updatingProject = () => {
+        const newStatus = {
+            projectId: project.projectId,
+            status: status
+        }
+        updateProjectStatus(newStatus)
+    }
+
     return (
         <Modal
             button={button}
             isOpen={open}
             isOutlintedVariant
             allowSubmit
-            onSubmit={() => setOpen(false)}
+            onSubmit={updatingProject}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
             label='Изменить статус проекта'

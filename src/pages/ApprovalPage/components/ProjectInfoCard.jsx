@@ -13,8 +13,11 @@ import { getColor } from '../utils/getColor.js'
 import { EditProjectStatus } from './EditProjectStatus.jsx'
 import { EditUserDecision } from './EditUserDecision.jsx'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
 
 export const ProjectInfoCard = ({ information }) => {
+    const { userId } = useSelector(loginSelector)
     const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
         <Stack direction='row'>
             <Typography
@@ -34,7 +37,6 @@ export const ProjectInfoCard = ({ information }) => {
             </Typography>
         </Stack>
     )
-
     return (
         <Card sx={{ width: '25%' }}>
             <CardHeader title='Информация о проекте' />
@@ -42,7 +44,7 @@ export const ProjectInfoCard = ({ information }) => {
             <CardContent>
                 {renderAttribute('Автор проекта', `${information?.ownerId.lastName} ${information?.ownerId.firstName}`)}
 
-                {renderAttribute(
+                {information?.ownerId._id !== userId && renderAttribute(
                     'Решение',
                     projectInfo.userDecisionIsAgreed,
                     'Согласовано',
@@ -69,8 +71,8 @@ export const ProjectInfoCard = ({ information }) => {
                     alignItems='center'
                     flex={1}
                 >
-                    <EditUserDecision />
-                    <EditProjectStatus />
+                    {information?.ownerId._id !== userId && <EditUserDecision docs={information} />}
+                    {information?.ownerId._id === userId && <EditProjectStatus />}
                 </Stack>
             </CardActions>
         </Card>

@@ -34,7 +34,7 @@ export const ApprovalPage = () => {
         },
         [isError],
     )
-    console.log(memoProject)
+
     const documents = () => (
         <Stack spacing={2}>
             <Typography variant='h4'>

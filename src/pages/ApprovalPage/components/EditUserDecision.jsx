@@ -21,6 +21,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export const EditUserDecision = ({
     button = 'label',
+    docs
 }) => {
     const [open, setOpen] = React.useState(false)
     const [decision, setDecision] = React.useState('')
@@ -83,6 +84,14 @@ export const EditUserDecision = ({
             setAllComments(updateAllComments)
         }
     }
+    const documentsArray = React.useMemo(
+        () => {
+            if (docs) {
+                return docs.documentsIds
+            }
+        },
+        [docs]
+    )
 
     return (
         <Modal
@@ -133,13 +142,11 @@ export const EditUserDecision = ({
                                 label='Документ'
                                 onChange={(event) => setDocument(event.target.value)}
                             >
-                                <MenuItem value={'ГК-2018-1'}>
-                                    ГК-2018-1
-                                </MenuItem>
-
-                                <MenuItem value={'ДГ-2019-3'}>
-                                    ДГ-2019-3
-                                </MenuItem>
+                                {documentsArray?.map((array) => (
+                                    <MenuItem value={array.attachedFileName}>
+                                        {array.attachedFileName}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
 

@@ -16,11 +16,8 @@ import { ProjectDocuments } from '../../ApprovalPage/components/ProjectDocuments
 import { useNavigate } from 'react-router-dom'
 import { EditUserDecision } from '../../ApprovalPage/components/EditUserDecision.jsx'
 import { EditProjectStatus } from '../../ApprovalPage/components/EditProjectStatus.jsx'
-import { saveProject } from '../projectSlice.js'
-import { useDispatch } from 'react-redux'
 
 export const ProjectActions = () => {
-    const dispatch = useDispatch()
 
     const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -29,13 +26,6 @@ export const ProjectActions = () => {
     const open = Boolean(anchorEl)
 
     const handleClick = (event) => {
-        const project = {
-            projectId: "6373bd7267353681dfa297d7",
-            decision: null,
-            status: "К рассмотрению",
-        }
-        dispatch(saveProject(project))
-        event.stopPropagation()
         setAnchorEl(event.currentTarget)
     }
 

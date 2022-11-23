@@ -12,12 +12,15 @@ import {
 } from '@mui/material/colors'
 import { columns } from '../constants/columns'
 import { useGetProjectsQuery } from '../../../store/api'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
 import { ProgressOverlay } from '../../../common/index.js'
+import { saveProject } from '../projectSlice.js'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     const { data: projects, isFetching } = useGetProjectsQuery()
 
@@ -25,6 +28,19 @@ export const ProjectsPage = () => {
 
     const getSettedStatus = (users, id) => {
         return users.filter((element) => element.userId === id)[0]?.settedStatus
+    }
+
+    const handleOnCellClick = (params) => {
+        if (params.field === "actions") {
+            const project = {
+                projectId: params.id,
+                decision: params.solution,
+                status: params.status,
+            }
+            dispatch(saveProject(project))
+        } else {
+            navigate(`/approval/${params.id}`)
+        }
     }
 
     const rows = React.useMemo(
@@ -96,7 +112,7 @@ export const ProjectsPage = () => {
                         return params.value === 'Согласовано' ? 'decision-agreed' : 'decision-not-agreed'
                     }
                 }}
-                onRowClick={(params) => navigate(`/approval/${params.id}`)}
+                onCellClick={handleOnCellClick}
             />
 
             <ProgressOverlay showProgressOverlay={isFetching} />

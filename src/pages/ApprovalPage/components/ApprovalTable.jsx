@@ -8,16 +8,12 @@ import {
     TableBody,
     Paper,
     Stack,
-    Button,
     Typography
 } from '@mui/material'
 import { rows } from '../constants/Rows'
 import { green, red } from '@mui/material/colors'
-import { useNavigate } from 'react-router-dom'
 
 export const ApprovalTable = () => {
-    const navigate = useNavigate()
-
     return (
         <Stack
             spacing={2}
@@ -81,18 +77,6 @@ export const ApprovalTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-
-            <Button
-                variant='outlined'
-                onClick={() => navigate('/project-comments')}
-                sx={{
-                    width: 'fit-content',
-                    borderRadius: 20,
-                    alignSelf: 'flex-end'
-                }}
-            >
-                Открыть комментарии
-            </Button>
         </Stack>
     )
 }

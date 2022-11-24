@@ -37,7 +37,7 @@ export const MembersNewProject = ({
                 const members = updatedCoordinationUsers?.map(
                     (user) => {
                         const index = users?.findIndex(
-                            (itemUser) => itemUser._id === user.userId
+                            (itemUser) => itemUser._id === user.userId._id
                         )
 
                         if (index) {
@@ -48,7 +48,7 @@ export const MembersNewProject = ({
 
                 setProjectMembers(
                     members.map(
-                        (member) => ({ id: member?._id, name: `${member.lastName} ${member.firstName} ${member.patronymicName}` })
+                        (member) => ({ id: member?._id, name: `${member?.lastName} ${member?.firstName} ${member?.patronymicName}` })
                     )
                 )
             }
@@ -186,28 +186,6 @@ export const MembersNewProject = ({
                     </Select>
                 </FormControl>
 
-                {/* <FormControl fullWidth required>
-                    <InputLabel id='role-select-label'>
-                        Роль
-                    </InputLabel>
-
-                    <Select
-                        labelId='role-select-label'
-                        id='role-select'
-                        label='Роль'
-                        value='role'
-                    >
-                        {fakeRoles.map((item) =>
-                            <MenuItem
-                                value={item.role}
-                                key={item.id}
-                            >
-                                {item.role}
-                            </MenuItem>
-                        )}
-                    </Select>
-                </FormControl> */}
-
                 <Button
                     variant='outlined'
                     startIcon={<Add />}
@@ -240,7 +218,6 @@ export const MembersNewProject = ({
 
                         <ListItemText
                             primary={item.name}
-                            // secondary={item.role}
                         />
                     </ListItem>
                 ))}

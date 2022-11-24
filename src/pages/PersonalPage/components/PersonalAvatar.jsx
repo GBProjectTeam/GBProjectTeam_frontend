@@ -18,7 +18,7 @@ export const PersonalAvatar = () => {
 
         const file = e.target.files[0]
         const avatarData = new FormData()
-        avatarData.append('avatar', file)
+        avatarData.append('file', file)
 
         updateAvatar(avatarData)
     }

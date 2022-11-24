@@ -33,6 +33,17 @@ const baseQueryWithReauth = async (
                 api,
                 extraOptions,
             )
+        case '/users/avatar':
+            return baseQuery(
+                {
+                    ...args,
+                    headers: {
+                        'Authorization': `Bearer ${loginState.token}`,
+                    },
+                },
+                api,
+                extraOptions,
+            )
         default:
             return baseQuery(
                 {

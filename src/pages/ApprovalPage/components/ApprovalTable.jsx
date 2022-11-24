@@ -25,7 +25,7 @@ export const ApprovalTable = ({ users }) => {
         },
         [users]
     )
-
+    console.log(users)
     return (
         <Stack
             spacing={2}
@@ -72,7 +72,7 @@ export const ApprovalTable = ({ users }) => {
                     <TableBody>
                         {usersArray?.map((user) => (
                             <TableRow key={user.id}>
-                                <TableCell align='center' ></TableCell>
+                                <TableCell align='center' >{user.userId.lastName} {user.userId.firstName}</TableCell>
 
                                 <TableCell align='center'>
                                     <Typography

@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
 import { ProgressOverlay } from '../../../common/index.js'
 import { saveProject } from '../projectSlice.js'
+import { format } from 'date-fns'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
@@ -33,9 +34,9 @@ export const ProjectsPage = () => {
     const handleOnCellClick = (params) => {
         if (params.field === "actions") {
             const project = {
-                projectId: params.id,
-                decision: params.solution,
-                status: params.status,
+                projectId: params.row.id,
+                decision: params.row.solution,
+                status: params.row.status,
             }
             dispatch(saveProject(project))
         } else {
@@ -52,7 +53,7 @@ export const ProjectsPage = () => {
                     {
                         id: element._id,
                         project: element.name,
-                        deadline: element.deadline.replace(/(\d{4})-(\d{2})-(\d{2}).+/, '$3.$2.$1'),
+                        deadline: format(new Date(element.deadline), 'dd.MM.yyyy'),
                         author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
                         status: element.status,
                         solution: getSettedStatus(element.coordinationUsers, userId)

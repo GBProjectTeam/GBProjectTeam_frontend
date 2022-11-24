@@ -8,7 +8,7 @@ import {
     MenuItem,
 } from '@mui/material'
 import { Modal } from '../../../common'
-import { useUpdateProjectStatusMutation } from '../../../store/api'
+import { useGetReferenceEnumQuery, useUpdateProjectStatusMutation } from '../../../store/api'
 import { useSelector } from 'react-redux'
 import { projectSelector } from '../../ProjectsPage/projectSlice'
 
@@ -18,20 +18,32 @@ export const EditProjectStatus = ({
     const [open, setOpen] = React.useState(false)
     const [status, setStatus] = React.useState('')
 
-    const [
-        updateProjectStatus,
-        { isLoading: isUpdate, isSuccess: isSuccessUpdate }
-    ] = useUpdateProjectStatusMutation()
+    const [updateProjectStatus] = useUpdateProjectStatusMutation()
+
+    const { data: projectStatuses } = useGetReferenceEnumQuery('ProjectStatus')
 
     const { project } = useSelector(projectSelector)
 
     const updatingProject = () => {
         const newStatus = {
             projectId: project.projectId,
-            status: status
+            status: projectStatuses[status]
         }
         updateProjectStatus(newStatus)
     }
+
+    React.useEffect(
+        () => {
+            if (open && projectStatuses) {
+                Object.keys(projectStatuses).forEach(element => {
+                    if (projectStatuses[element] === project.status) {
+                        setStatus(element)
+                    }
+                })
+            }
+        },
+        [open]
+    )
 
     return (
         <Modal
@@ -57,9 +69,9 @@ export const EditProjectStatus = ({
                         label='Статус'
                         onChange={(event) => setStatus(event.target.value)}
                     >
-                        <MenuItem value={10}>На согласовании</MenuItem>
-                        <MenuItem value={20}>Согласован</MenuItem>
-                        <MenuItem value={30}>Заморожен</MenuItem>
+                        {projectStatuses ? Object.keys(projectStatuses).map((element) => (
+                            <MenuItem key={element} value={element}>{projectStatuses[element]}</MenuItem>
+                        )) : <MenuItem></MenuItem>}
                     </Select>
                 </FormControl>
             </DialogContent>

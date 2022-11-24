@@ -155,7 +155,13 @@ export const api = createApi({
                     status: updateProjectData.status,
                 },
             })
-        })
+        }),
+        getReferenceEnum: builder.query({
+            query: (referenceEnum) => ({
+                url: `/reference/enums/${referenceEnum}`,
+                method: 'GET',
+            })
+        }),
     }),
 })
 
@@ -170,4 +176,5 @@ export const {
     useUpdateProjectMutation,
     useGetProjectsQuery,
     useUpdateProjectStatusMutation,
+    useGetReferenceEnumQuery,
 } = api

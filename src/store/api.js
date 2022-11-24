@@ -153,6 +153,12 @@ export const api = createApi({
                 method: 'GET',
             })
         }),
+        getComments: builder.query({
+            query: (projectId) => ({
+                url: `/comments/${projectId}`,
+                method: 'GET',
+            })
+        })
     }),
 })
 
@@ -167,4 +173,5 @@ export const {
     useUpdateProjectMutation,
     useGetProjectsQuery,
     useGetProjectByIdQuery,
+    useGetCommentsQuery,
 } = api

@@ -7,7 +7,6 @@ import { PersonalPage } from './PersonalPage/components/PersonalPage.jsx'
 import { ProjectsPage } from './ProjectsPage/components/ProjectsPage.jsx'
 import { NotFoundPage } from './NotFoundPage/components/NotFoundPage.jsx'
 import { RegistrationPage } from './RegistrationPage/components/RegistrationPage.jsx'
-import { CommentsPage } from './CommentsPage/constants/CommentsPage.jsx'
 import { EditProjectPage } from './EditProjectPage/components/EditProjectPage.jsx'
 
 export {
@@ -20,6 +19,5 @@ export {
     ProjectsPage,
     NotFoundPage,
     RegistrationPage,
-    CommentsPage,
     EditProjectPage,
 }

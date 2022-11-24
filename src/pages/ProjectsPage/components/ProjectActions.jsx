@@ -9,7 +9,6 @@ import {
 import {
     MoreHoriz,
     DeleteOutline,
-    Message,
     Edit,
 } from '@mui/icons-material'
 import { DeleteModal } from '../../../common/index.js'
@@ -17,14 +16,22 @@ import { ProjectDocuments } from '../../ApprovalPage/components/ProjectDocuments
 import { useNavigate } from 'react-router-dom'
 import { EditUserDecision } from '../../ApprovalPage/components/EditUserDecision.jsx'
 import { EditProjectStatus } from '../../ApprovalPage/components/EditProjectStatus.jsx'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
+import { projectSelector } from '../projectSlice.js'
 
 export const ProjectActions = () => {
-
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const navigate = useNavigate()
 
+    const { project } = useSelector(projectSelector)
+
+    const { userId: ownerId } = useSelector(loginSelector)
+
     const open = Boolean(anchorEl)
+
+    const isOwner = ownerId === project?.ownerId?._id
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -60,57 +67,56 @@ export const ProjectActions = () => {
                     direction='column'
                     alignItems='flex-start'
                 >
-                    <EditUserDecision button='menuItem' />
+                    {!isOwner && (
+                        <EditUserDecision
+                            button='menuItem'
+                            closeMenu={() => setAnchorEl(null)}
+                        />
+                    )}
 
-                    <EditProjectStatus button='menuItem' />
+                    {isOwner && (
+                        <EditProjectStatus
+                            button='menuItem'
+                            closeMenu={() => setAnchorEl(null)}
+                        />
+                    )}
 
-                    <ProjectDocuments button='menuItem' />
-
-                    <MenuItem
-                        onClick={() => navigate('/edit-project')}
-                        sx={{ width: '100%' }}
-                    >
-                        <Stack
-                            direction='row'
-                            spacing={2}
-                            flex={1}
-                            justifyContent='space-between'
-                        >
-                            <Typography>
-                                Редактировать проект
-                            </Typography>
-
-                            <Edit />
-                        </Stack>
-                    </MenuItem >
-
-                    <MenuItem
-                        onClick={() => navigate('/project-comments')}
-                        sx={{ width: '100%' }}
-                    >
-                        <Stack
-                            direction='row'
-                            spacing={2}
-                            flex={1}
-                            justifyContent='space-between'
-                        >
-                            <Typography>
-                                Открыть комментарии
-                            </Typography>
-
-                            <Message />
-                        </Stack>
-                    </MenuItem >
-
-                    <DeleteModal
-                        onSubmit={() => null}
-                        message='Вы уверены, что хотите удалить проект'
-                        itemName='Контракт по закупке канцелярских товаров?'
-                        title='Удаление проекта'
+                    <ProjectDocuments
                         button='menuItem'
-                        label='Удалить проект'
-                        icon={<DeleteOutline />}
+                        closeMenu={() => setAnchorEl(null)}
                     />
+
+                    {isOwner && (
+                        <MenuItem
+                            onClick={() => navigate(`/edit-project/${project._id}`)}
+                            sx={{ width: '100%' }}
+                        >
+                            <Stack
+                                direction='row'
+                                spacing={2}
+                                flex={1}
+                                justifyContent='space-between'
+                            >
+                                <Typography>
+                                    Редактировать проект
+                                </Typography>
+
+                                <Edit />
+                            </Stack>
+                        </MenuItem >
+                    )}
+
+                    {isOwner && (
+                        <DeleteModal
+                            onSubmit={() => setAnchorEl(null)}
+                            message='Вы уверены, что хотите удалить проект'
+                            itemName='Контракт по закупке канцелярских товаров?'
+                            title='Удаление проекта'
+                            button='menuItem'
+                            label='Удалить проект'
+                            icon={<DeleteOutline />}
+                        />
+                    )}
                 </Stack>
             </Menu>
         </>

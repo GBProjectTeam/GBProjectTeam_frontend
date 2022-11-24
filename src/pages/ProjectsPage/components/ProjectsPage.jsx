@@ -28,17 +28,12 @@ export const ProjectsPage = () => {
     const { userId } = useSelector(loginSelector)
 
     const getSettedStatus = (users, id) => {
-        return users.filter((element) => element.userId === id)[0]?.settedStatus
+        return users.filter((element) => element.userId._id === id)[0]?.settedStatus
     }
 
     const handleOnCellClick = (params) => {
-        if (params.field === "actions") {
-            const project = {
-                projectId: params.row.id,
-                decision: params.row.solution,
-                status: params.row.status,
-            }
-            dispatch(saveProject(project))
+        if (params.field === 'actions') {
+            dispatch(saveProject(params.row.project))
         } else {
             navigate(`/approval/${params.id}`)
         }
@@ -49,14 +44,15 @@ export const ProjectsPage = () => {
             if (!projects) {
                 return []
             } else {
-                return projects.map((element) => (
+                return projects.map((project) => (
                     {
-                        id: element._id,
-                        project: element.name,
-                        deadline: format(new Date(element.deadline), 'dd.MM.yyyy'),
-                        author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
-                        status: element.status,
-                        solution: getSettedStatus(element.coordinationUsers, userId)
+                        id: project._id,
+                        name: project.name,
+                        deadline: format(new Date(project.deadline), 'dd.MM.yyyy'),
+                        author: `${project.ownerId.firstName} ${project.ownerId.lastName}`,
+                        status: project.status,
+                        solution: getSettedStatus(project.coordinationUsers, userId),
+                        project,
                     }
                 ))
             }

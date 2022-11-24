@@ -2,7 +2,7 @@ import { ProjectActions } from '../components/ProjectActions'
 
 export const columns = [
     {
-        field: 'project',
+        field: 'name',
         headerName: 'Проект',
         headerAlign: 'left',
         align: 'left',

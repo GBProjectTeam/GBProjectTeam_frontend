@@ -9,6 +9,7 @@ import { Modal } from '../../../common'
 
 export const ProjectDocuments = ({
     button = 'label',
+    closeMenu,
 }) => {
     const [open, setOpen] = React.useState(false)
 
@@ -17,7 +18,10 @@ export const ProjectDocuments = ({
             button={button}
             isOpen={open}
             onOpen={() => setOpen(true)}
-            onClose={() => setOpen(false)}
+            onClose={() => {
+                setOpen(false)
+                closeMenu()
+            }}
             icon={<Article />}
             label='Документы'
             title='Документы проекта'
@@ -32,4 +36,5 @@ export const ProjectDocuments = ({
 
 ProjectDocuments.propTypes = {
     button: PropTypes.oneOf(['icon', 'label', 'menuItem']),
+    closeMenu: PropTypes.func,
 }

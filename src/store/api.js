@@ -87,6 +87,8 @@ const baseQueryWithReauth = async (
 export const api = createApi({
     baseQuery: baseQueryWithReauth,
 
+    tagTypes: ['Projects'],
+
     endpoints: (builder) => ({
         login: builder.mutation({
             query: (credentials) => ({
@@ -139,13 +141,19 @@ export const api = createApi({
                     documentsIds: updateProjectData.documentsIds,
                     coordinationUsers: updateProjectData.coordinationUsers,
                 },
-            })
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects'] : []
+            ),
         }),
         getProjects: builder.query({
             query: () => ({
                 url: '/projects',
                 method: 'GET',
-            })
+            }),
+
+            providesTags: ['Projects'],
         }),
         getProjectById: builder.query({
             query: (id) => ({
@@ -158,6 +166,28 @@ export const api = createApi({
                 url: `/reference/enums/${referenceEnum}`,
                 method: 'GET',
             })
+        }),
+        changeStatus: builder.mutation({
+            query: (statusData) => ({
+                url: '/projects/changeStatus',
+                method: 'POST',
+                body: statusData,
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects'] : []
+            ),
+        }),
+        addDecision: builder.mutation({
+            query: (decisionData) => ({
+                url: '/projects/addDecision',
+                method: 'POST',
+                body: decisionData,
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects'] : []
+            ),
         }),
     }),
 })
@@ -174,4 +204,6 @@ export const {
     useGetProjectsQuery,
     useGetProjectByIdQuery,
     useGetReferenceEnumQuery,
+    useChangeStatusMutation,
+    useAddDecisionMutation,
 } = api

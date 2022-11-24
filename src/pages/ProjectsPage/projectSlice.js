@@ -1,11 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    project: {
-        projectId: '',
-        decision: null,
-        status: null,
-    }
+    project: {},
 }
 
 export const projectSlice = createSlice({

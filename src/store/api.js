@@ -21,30 +21,30 @@ const baseQueryWithReauth = async (
 
     const getResult = async () => {
         switch (args.url) {
-            case '/auth/signin':
-            case '/auth/signup':
-                return baseQuery(args, api, extraOptions)
-            case '/documents/create':
-                return baseQuery(
-                    {
-                        ...args,
-                        headers: {},
+        case '/auth/signin':
+        case '/auth/signup':
+            return baseQuery(args, api, extraOptions)
+        case '/documents/create':
+            return baseQuery(
+                {
+                    ...args,
+                    headers: {},
+                },
+                api,
+                extraOptions,
+            )
+        default:
+            return baseQuery(
+                {
+                    ...args,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${loginState.token}`,
                     },
-                    api,
-                    extraOptions,
-                )
-            default:
-                return baseQuery(
-                    {
-                        ...args,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${loginState.token}`,
-                        },
-                    },
-                    api,
-                    extraOptions,
-                )
+                },
+                api,
+                extraOptions,
+            )
         }
     }
 
@@ -147,13 +147,10 @@ export const api = createApi({
                 method: 'GET',
             })
         }),
-        updateProjectStatus: builder.mutation({
-            query: (updateProjectData) => ({
-                url: `/projects/update/${updateProjectData.projectId}`,
-                method: 'PATCH',
-                body: {
-                    status: updateProjectData.status,
-                },
+        getProjectById: builder.query({
+            query: (id) => ({
+                url: `/projects/${id}`,
+                method: 'GET',
             })
         }),
         getReferenceEnum: builder.query({
@@ -175,6 +172,6 @@ export const {
     useCreateDocumentMutation,
     useUpdateProjectMutation,
     useGetProjectsQuery,
-    useUpdateProjectStatusMutation,
+    useGetProjectByIdQuery,
     useGetReferenceEnumQuery,
 } = api

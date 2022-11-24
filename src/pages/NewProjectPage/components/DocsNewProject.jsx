@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     Button,
     IconButton,
@@ -13,16 +14,46 @@ import {
 import { Add, ArticleOutlined, Clear, FileDownloadOutlined } from '@mui/icons-material'
 import { useCreateDocumentMutation } from '../../../store/api'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteDocFromProject, newProjectSelector } from '../newProjectSlice'
+import { addDocsFromProject, deleteDocFromProject, newProjectSelector } from '../newProjectSlice'
 import { DeleteModal, ProgressOverlay } from '../../../common'
 
-export const DocsNewProject = () => {
+export const DocsNewProject = ({
+    updatedDocumentsIds,
+    isUpdate = false,
+}) => {
     const [ file, setFile ] = React.useState()
     const [ fileName, setFileName ] = React.useState('')
 
     const { project, projectDocs } = useSelector(newProjectSelector)
 
     const [ createDocument, { isLoading } ] = useCreateDocumentMutation()
+
+    const dispatch = useDispatch()
+
+    const updatingDocs = React.useMemo(
+        () => {
+            if (isUpdate) {
+                return updatedDocumentsIds?.map(
+                    (doc) => ({
+                        _id: doc._id,
+                        name: doc.attachedFileName,
+                    })
+                )
+            }
+        },
+        [updatedDocumentsIds],
+    )
+
+    React.useEffect(
+        () => {
+            if (isUpdate && updatingDocs.length !== 0) {
+                dispatch(
+                    addDocsFromProject(updatingDocs)
+                )
+            }
+        },
+        [updatingDocs],
+    )
 
     const setFileAndFileName = (newFile) => {
         setFile(newFile)
@@ -42,8 +73,6 @@ export const DocsNewProject = () => {
         setFile(undefined)
         setFileName('')
     }
-
-    const dispatch = useDispatch()
 
     const deleteDoc = (id) => {
         dispatch (
@@ -113,11 +142,11 @@ export const DocsNewProject = () => {
             <List>
                 {projectDocs.map((item) => (
                     <ListItem
-                        key={item.id}
+                        key={item._id}
                         sx={{ my: 2.5 }}
                         secondaryAction={
                             <DeleteModal
-                                onSubmit={() => deleteDoc(item.id)}
+                                onSubmit={() => deleteDoc(item._id)}
                                 message='Вы уверены, что хотите удалить документ'
                                 itemName={item.name}
                                 title='Удаление документа'
@@ -140,4 +169,9 @@ export const DocsNewProject = () => {
             )}
         </Stack>
     )
+}
+
+DocsNewProject.propTypes = {
+    updatedDocumentsIds: PropTypes.array,
+    isUpdate: PropTypes.bool,
 }

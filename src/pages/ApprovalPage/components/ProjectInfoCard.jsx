@@ -15,6 +15,7 @@ import { EditUserDecision } from './EditUserDecision.jsx'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
+import { format } from 'date-fns'
 
 export const ProjectInfoCard = ({ information }) => {
     const { userId } = useSelector(loginSelector)
@@ -37,6 +38,8 @@ export const ProjectInfoCard = ({ information }) => {
             </Typography>
         </Stack>
     )
+
+    const deadlineStatus = information?.deadline ? format(new Date(information?.deadline), 'dd-MM-yyyy') : null
     return (
         <Card sx={{ width: '25%' }}>
             <CardHeader title='Информация о проекте' />
@@ -53,7 +56,7 @@ export const ProjectInfoCard = ({ information }) => {
                 )}
                 {renderAttribute(
                     'Дедлайн',
-                    information?.deadline
+                    deadlineStatus
                 )}
 
                 {renderAttribute(

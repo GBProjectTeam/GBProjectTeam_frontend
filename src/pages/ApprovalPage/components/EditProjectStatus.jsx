@@ -8,49 +8,98 @@ import {
     MenuItem,
 } from '@mui/material'
 import { Modal } from '../../../common'
-import { useGetReferenceEnumQuery, useUpdateProjectStatusMutation } from '../../../store/api'
+import { useGetReferenceEnumQuery, useChangeStatusMutation } from '../../../store/api'
 import { useSelector } from 'react-redux'
 import { projectSelector } from '../../ProjectsPage/projectSlice'
+import { ProgressOverlay } from '../../../common/index.js'
+import { useNavigate } from 'react-router-dom'
 
 export const EditProjectStatus = ({
     button = 'label',
+    closeMenu,
 }) => {
     const [open, setOpen] = React.useState(false)
     const [status, setStatus] = React.useState('')
+    const [oldStatus, setOldStatus] = React.useState('')
 
-    const [updateProjectStatus] = useUpdateProjectStatusMutation()
+    const navigate = useNavigate()
 
-    const { data: projectStatuses } = useGetReferenceEnumQuery('ProjectStatus')
+    const [
+        changeStatus,
+        { isLoading: isUpdateProject, isSuccess: isSuccessUpdate }
+    ] = useChangeStatusMutation()
+
+    const { data: projectStatuses, isFetching, isError } = useGetReferenceEnumQuery('ProjectStatus')
 
     const { project } = useSelector(projectSelector)
 
     const updatingProject = () => {
         const newStatus = {
-            projectId: project.projectId,
-            status: projectStatuses[status]
+            projectId: project._id,
+            status: projectStatuses[status],
+            message: '',
         }
-        updateProjectStatus(newStatus)
+
+        changeStatus(newStatus)
     }
+
+    const statuses = React.useMemo(
+        () => {
+            if (projectStatuses) {
+                return Object.values(projectStatuses)
+            } else {
+                return []
+            }
+        },
+        [projectStatuses],
+    )
 
     React.useEffect(
         () => {
-            if (open && projectStatuses) {
-                Object.keys(projectStatuses).forEach(element => {
-                    if (projectStatuses[element] === project.status) {
-                        setStatus(element)
+            if (open && statuses) {
+                statuses.map(
+                    (statusEl) => {
+                        if (statusEl === project.status) {
+                            setStatus(statusEl)
+                            setOldStatus(statusEl)
+                        }
                     }
-                })
+                )
             }
         },
-        [open]
+        [open, statuses]
     )
+
+    React.useEffect(
+        () => {
+            if (isError) {
+                navigate('/projects')
+            }
+        },
+        [isError],
+    )
+
+    React.useEffect(
+        () => {
+            if (isSuccessUpdate) {
+                setOpen(false)
+                navigate('/projects')
+                closeMenu()
+            }
+        },
+        [isSuccessUpdate],
+    )
+
+    const isLoading = isUpdateProject || isFetching
+
+    const allowSubmit = !!status && oldStatus !== status
 
     return (
         <Modal
             button={button}
             isOpen={open}
             isOutlintedVariant
-            allowSubmit
+            allowSubmit={allowSubmit}
             onSubmit={updatingProject}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
@@ -69,16 +118,27 @@ export const EditProjectStatus = ({
                         label='Статус'
                         onChange={(event) => setStatus(event.target.value)}
                     >
-                        {projectStatuses ? Object.keys(projectStatuses).map((element) => (
-                            <MenuItem key={element} value={element}>{projectStatuses[element]}</MenuItem>
-                        )) : <MenuItem></MenuItem>}
+                        {statuses && (
+                            React.Children.toArray(
+                                statuses.map(
+                                    (statusesItem) => (
+                                        <MenuItem value={statusesItem}>
+                                            {statusesItem}
+                                        </MenuItem>
+                                    )
+                                )
+                            )
+                        )}
                     </Select>
                 </FormControl>
             </DialogContent>
+
+            <ProgressOverlay showProgressOverlay={isLoading} />
         </Modal>
     )
 }
 
 EditProjectStatus.propTypes = {
     button: PropTypes.oneOf(['icon', 'label', 'menuItem']),
+    closeMenu: PropTypes.func,
 }

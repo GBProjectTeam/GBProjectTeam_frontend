@@ -8,6 +8,7 @@ import {
 import { useUpdateAvatarMutation } from '../../../store/api'
 import { useSelector } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice'
+import { ProgressOverlay } from '../../../common/index.js'
 
 export const PersonalAvatar = () => {
     const { avatar } = useSelector(loginSelector)
@@ -17,6 +18,7 @@ export const PersonalAvatar = () => {
         e.preventDefault()
 
         const file = e.target.files[0]
+
         const avatarData = new FormData()
         avatarData.append('file', file)
 
@@ -33,17 +35,20 @@ export const PersonalAvatar = () => {
             spacing={6}
         >
 
-            {
-                isLoading ?
+            {isLoading
+                ? (
                     <Skeleton
                         variant='circular'
                         sx={{ width: '50vh', height: '50vh' }}
-                    /> :
+                    />
+                )
+                : (
                     <Avatar
                         alt='Remy Sharp'
                         sx={{ width: '50vh', height: '50vh' }}
                         src={avatar}
                     />
+                )
             }
 
             <Button
@@ -64,6 +69,8 @@ export const PersonalAvatar = () => {
                     onChange={(e) => uploadNewAvatar(e)}
                 />
             </Button>
+
+            <ProgressOverlay showProgressOverlay={isLoading} />
         </Stack>
     )
 }

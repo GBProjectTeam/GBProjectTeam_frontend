@@ -189,6 +189,22 @@ export const api = createApi({
                 result ? ['Projects'] : []
             ),
         }),
+        deleteProject: builder.mutation({
+            query: (projectId) => ({
+                url: `/projects/delete/${projectId}`,
+                method: 'DELETE',
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects'] : []
+            ),
+        }),
+        getFileById: builder.query({
+            query: (fileId) => ({
+                url: `/file/download/${fileId}`,
+                method: 'GET',
+            })
+        }),
     }),
 })
 
@@ -206,4 +222,6 @@ export const {
     useGetReferenceEnumQuery,
     useChangeStatusMutation,
     useAddDecisionMutation,
+    useDeleteProjectMutation,
+    useGetFileByIdQuery,
 } = api

@@ -17,6 +17,7 @@ import { loginSelector } from '../../LoginPage/loginSlice.js'
 import { ProgressOverlay } from '../../../common/index.js'
 import { saveProject } from '../projectSlice.js'
 import { format } from 'date-fns'
+import { getSolution } from '../utils/getSolution.js'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
@@ -26,10 +27,6 @@ export const ProjectsPage = () => {
     const { data: projects, isFetching } = useGetProjectsQuery()
 
     const { userId } = useSelector(loginSelector)
-
-    const getSettedStatus = (users, id) => {
-        return users.filter((element) => element.userId._id === id)[0]?.settedStatus
-    }
 
     const handleOnCellClick = (params) => {
         if (params.field === 'actions') {
@@ -51,7 +48,7 @@ export const ProjectsPage = () => {
                         deadline: format(new Date(project.deadline), 'dd.MM.yyyy'),
                         author: `${project.ownerId.firstName} ${project.ownerId.lastName}`,
                         status: project.status,
-                        solution: getSettedStatus(project.coordinationUsers, userId),
+                        solution: getSolution(project.coordinationUsers, userId),
                         project,
                     }
                 ))

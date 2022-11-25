@@ -12,13 +12,8 @@ import { getValue } from '../utils/getValue.js'
 import { getColor } from '../utils/getColor.js'
 import { EditProjectStatus } from './EditProjectStatus.jsx'
 import { EditUserDecision } from './EditUserDecision.jsx'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
-import { loginSelector } from '../../LoginPage/loginSlice.js'
-import { format } from 'date-fns'
 
-export const ProjectInfoCard = ({ information }) => {
-    const { userId } = useSelector(loginSelector)
+export const ProjectInfoCard = () => {
     const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
         <Stack direction='row'>
             <Typography
@@ -39,15 +34,14 @@ export const ProjectInfoCard = ({ information }) => {
         </Stack>
     )
 
-    const deadlineStatus = information?.deadline ? format(new Date(information?.deadline), 'dd-MM-yyyy') : null
     return (
         <Card sx={{ width: '25%' }}>
             <CardHeader title='Информация о проекте' />
 
             <CardContent>
-                {renderAttribute('Автор проекта', `${information?.ownerId.lastName} ${information?.ownerId.firstName}`)}
+                {renderAttribute('Автор проекта', projectInfo.author)}
 
-                {information?.ownerId._id !== userId && renderAttribute(
+                {renderAttribute(
                     'Решение',
                     projectInfo.userDecisionIsAgreed,
                     'Согласовано',
@@ -56,12 +50,12 @@ export const ProjectInfoCard = ({ information }) => {
                 )}
                 {renderAttribute(
                     'Дедлайн',
-                    deadlineStatus
+                    projectInfo.projectTimeEnd
                 )}
 
                 {renderAttribute(
                     'Статус проекта',
-                    information?.status,
+                    projectInfo.projectIsNotAgreed,
                     'На согласовании',
                     'Закрыт',
                     true
@@ -74,14 +68,10 @@ export const ProjectInfoCard = ({ information }) => {
                     alignItems='center'
                     flex={1}
                 >
-                    {information?.ownerId._id !== userId && <EditUserDecision docs={information} />}
-                    {information?.ownerId._id === userId && <EditProjectStatus />}
+                    <EditUserDecision />
+                    <EditProjectStatus />
                 </Stack>
             </CardActions>
         </Card>
     )
-}
-
-ProjectInfoCard.propTypes = {
-    information: PropTypes.object
 }

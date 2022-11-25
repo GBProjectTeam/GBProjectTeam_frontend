@@ -7,8 +7,11 @@ import {
 import { Create, DeleteOutline } from '@mui/icons-material'
 import { DeleteModal } from '../../../common/index.js'
 import { ProjectDocuments } from './ProjectDocuments.jsx'
+import { useNavigate } from 'react-router-dom'
 
 export const Documents = () => {
+    const navigate = useNavigate()
+
     return (
         <Stack spacing={2}>
             <Typography variant='h4'>
@@ -30,6 +33,7 @@ export const Documents = () => {
                         align: 'center',
                         width: 'fit-content',
                     }}
+                    // onClick={() => navigate('/edit-project/6370ec24609b3c4e8ddded3c')}
                 >
                     Редактировать проект
                 </Button>

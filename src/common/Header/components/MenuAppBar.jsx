@@ -70,7 +70,7 @@ export const MenuAppBar = () => {
                     variant='outlined'
                     startIcon={
                         <Avatar
-                            alt='Remy Sharp'
+                            alt='Avatar'
                             sx={{ width: '30px', height: '30px' }}
                             src={avatar}
                         />

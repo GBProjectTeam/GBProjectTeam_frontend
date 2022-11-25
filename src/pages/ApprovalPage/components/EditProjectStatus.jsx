@@ -36,7 +36,7 @@ export const EditProjectStatus = ({
     const updatingProject = () => {
         const newStatus = {
             projectId: project._id,
-            status: projectStatuses[status],
+            status,
             message: '',
         }
 

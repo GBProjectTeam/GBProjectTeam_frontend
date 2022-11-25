@@ -161,28 +161,6 @@ export const MembersNewProject = () => {
                     </Select>
                 </FormControl>
 
-                {/* <FormControl fullWidth required>
-                    <InputLabel id='role-select-label'>
-                        Роль
-                    </InputLabel>
-
-                    <Select
-                        labelId='role-select-label'
-                        id='role-select'
-                        label='Роль'
-                        value='role'
-                    >
-                        {fakeRoles.map((item) =>
-                            <MenuItem
-                                value={item.role}
-                                key={item.id}
-                            >
-                                {item.role}
-                            </MenuItem>
-                        )}
-                    </Select>
-                </FormControl> */}
-
                 <Button
                     variant='outlined'
                     startIcon={<Add />}
@@ -215,7 +193,6 @@ export const MembersNewProject = () => {
 
                         <ListItemText
                             primary={item.name}
-                            // secondary={item.role}
                         />
                     </ListItem>
                 ))}

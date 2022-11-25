@@ -10,7 +10,7 @@ import { Modal } from '../../../common'
 
 export const ProjectDocuments = ({
     button = 'label',
-    closeMenu,
+    closeMenu = () => null,
     documents,
 }) => {
     const [open, setOpen] = React.useState(false)

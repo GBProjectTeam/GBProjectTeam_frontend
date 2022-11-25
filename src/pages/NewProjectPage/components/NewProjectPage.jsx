@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { newProjectSelector } from '../newProjectSlice'
 import { ProgressOverlay } from '../../../common'
 import { useNavigate } from 'react-router'
+import { format } from 'date-fns'
 
 export const NewProjectPage = () => {
     const [
@@ -62,7 +63,10 @@ export const NewProjectPage = () => {
     const isLoading = isCreate || isUpdate
 
     const updatingProject = () => {
-        updateProject(project)
+        updateProject({
+            ...project,
+            deadline: format(new Date(project.deadline), 'yyyy-MM-dd'),
+        })
     }
 
     const stepsCreatingNewProject = () => (

@@ -11,7 +11,7 @@ import {
     DeleteOutline,
     Edit,
 } from '@mui/icons-material'
-import { DeleteModal } from '../../../common/index.js'
+import { DeleteModal, ProgressOverlay } from '../../../common/index.js'
 import { ProjectDocuments } from '../../ApprovalPage/components/ProjectDocuments.jsx'
 import { useNavigate } from 'react-router-dom'
 import { EditUserDecision } from '../../ApprovalPage/components/EditUserDecision.jsx'
@@ -19,15 +19,28 @@ import { EditProjectStatus } from '../../ApprovalPage/components/EditProjectStat
 import { useSelector } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
 import { projectSelector } from '../projectSlice.js'
+import { useDeleteProjectMutation } from '../../../store/api'
 
 export const ProjectActions = () => {
     const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const [
+        deleteProject,
+        { isSuccess: isSuccessDelete, isLoading },
+    ] = useDeleteProjectMutation()
 
     const navigate = useNavigate()
 
     const { project } = useSelector(projectSelector)
 
     const { userId: ownerId } = useSelector(loginSelector)
+
+    React.useEffect(
+        () => {
+            if (isSuccessDelete) setAnchorEl(null)
+        },
+        [isSuccessDelete]
+    )
 
     const open = Boolean(anchorEl)
 
@@ -84,6 +97,7 @@ export const ProjectActions = () => {
                     <ProjectDocuments
                         button='menuItem'
                         closeMenu={() => setAnchorEl(null)}
+                        documents={project.documentsIds}
                     />
 
                     {isOwner && (
@@ -108,9 +122,9 @@ export const ProjectActions = () => {
 
                     {isOwner && (
                         <DeleteModal
-                            onSubmit={() => setAnchorEl(null)}
+                            onSubmit={() => deleteProject(project._id)}
                             message='Вы уверены, что хотите удалить проект'
-                            itemName='Контракт по закупке канцелярских товаров?'
+                            itemName={`${project.name}?`}
                             title='Удаление проекта'
                             button='menuItem'
                             label='Удалить проект'
@@ -119,6 +133,8 @@ export const ProjectActions = () => {
                     )}
                 </Stack>
             </Menu>
+
+            <ProgressOverlay showProgressOverlay={isLoading} />
         </>
     )
 }

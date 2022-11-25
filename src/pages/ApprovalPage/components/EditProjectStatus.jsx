@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const EditProjectStatus = ({
     button = 'label',
-    closeMenu,
+    closeMenu = () => null,
 }) => {
     const [open, setOpen] = React.useState(false)
     const [status, setStatus] = React.useState('')

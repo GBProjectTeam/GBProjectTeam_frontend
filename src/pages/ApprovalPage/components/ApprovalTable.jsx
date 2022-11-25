@@ -11,19 +11,12 @@ import {
     Button,
     Typography
 } from '@mui/material'
+import { rows } from '../constants/Rows'
 import { green, red } from '@mui/material/colors'
 import { useNavigate } from 'react-router-dom'
 
-export const ApprovalTable = ({ users }) => {
+export const ApprovalTable = () => {
     const navigate = useNavigate()
-    const usersArray = React.useMemo(
-        () => {
-            if (users) {
-                return users.coordinationUsers
-            }
-        },
-        [users]
-    )
 
     return (
         <Stack
@@ -69,24 +62,20 @@ export const ApprovalTable = ({ users }) => {
                     </TableHead>
 
                     <TableBody>
-                        {usersArray?.map((user) => (
-                            <TableRow key={user.id}>
-                                <TableCell align='center' >
-                                    {user.userId.lastName} {user.userId.firstName}
-                                </TableCell>
+                        {rows.map((row) => (
+                            <TableRow key={row.id}>
+                                <TableCell align='center' >{row.name}</TableCell>
 
                                 <TableCell align='center'>
                                     <Typography
                                         fontWeight='fontWeightBold'
-                                        color={user.settedStatus !== 'Отклонено' ? green[500] : red[500]}
+                                        color={row.status !== 'Отклонено' ? green[500] : red[500]}
                                     >
-                                        {user.settedStatus}
+                                        {row.status}
                                     </Typography>
                                 </TableCell>
 
-                                <TableCell align='center'>
-
-                                </TableCell>
+                                <TableCell align='center'>{row.comment}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

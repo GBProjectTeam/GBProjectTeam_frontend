@@ -25,13 +25,15 @@ export const MainLayout = ({ children }) => {
 
     const isApprovalPage = location.pathname.includes('/approval')
 
-    const isProjectsPage = location.pathname ==='/projects'
+    const isProjectsPage = location.pathname === '/projects'
 
-    const isArchivePage = location.pathname ==='/archive'
+    const isArchivePage = location.pathname === '/archive'
 
-    const isNewProjectPage = location.pathname ==='/new-project'
+    const isNewProjectPage = location.pathname === '/new-project'
 
-    const isPersonalPage = location.pathname ==='/personal'
+    const isUpdateProjectPage = location.pathname.includes('/edit-project/')
+
+    const isPersonalPage = location.pathname === '/personal'
 
     const bgGradient =
     'linear-gradient(135deg, rgba(105,35,255,1) 0%, rgba(127,77,232,1) 50%, rgba(144,112,211,1) 100%)'
@@ -47,6 +49,7 @@ export const MainLayout = ({ children }) => {
         case isArchivePage:
             return `url(${bgArchive})`
         case isNewProjectPage:
+        case isUpdateProjectPage:
             return `url(${bgNewProject})`
         case isPersonalPage:
             return `url(${bgPersonal})`

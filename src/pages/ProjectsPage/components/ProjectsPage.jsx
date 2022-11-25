@@ -12,19 +12,31 @@ import {
 } from '@mui/material/colors'
 import { columns } from '../constants/columns'
 import { useGetProjectsQuery } from '../../../store/api'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
 import { ProgressOverlay } from '../../../common/index.js'
+import { saveProject } from '../projectSlice.js'
+import { format } from 'date-fns'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     const { data: projects, isFetching } = useGetProjectsQuery()
 
     const { userId } = useSelector(loginSelector)
 
     const getSettedStatus = (users, id) => {
-        return users.filter((element) => element.userId === id)[0]?.settedStatus
+        return users.filter((element) => element.userId._id === id)[0]?.settedStatus
+    }
+
+    const handleOnCellClick = (params) => {
+        if (params.field === 'actions') {
+            dispatch(saveProject(params.row.project))
+        } else {
+            navigate(`/approval/${params.id}`)
+        }
     }
 
     const rows = React.useMemo(
@@ -32,13 +44,15 @@ export const ProjectsPage = () => {
             if (!projects) {
                 return []
             } else {
-                return projects.map((element) => (
+                return projects.map((project) => (
                     {
-                        id: element._id,
-                        project: element.name,
-                        deadline: element.deadline ? element.deadline : '',
-                        author: `${element.ownerId.firstName} ${element.ownerId.lastName}`,
-                        solution: getSettedStatus(element.coordinationUsers, userId)
+                        id: project._id,
+                        name: project.name,
+                        deadline: format(new Date(project.deadline), 'dd.MM.yyyy'),
+                        author: `${project.ownerId.firstName} ${project.ownerId.lastName}`,
+                        status: project.status,
+                        solution: getSettedStatus(project.coordinationUsers, userId),
+                        project,
                     }
                 ))
             }
@@ -88,11 +102,14 @@ export const ProjectsPage = () => {
                     },
                 }}
                 getCellClassName={(params) => {
+                    if (params.field === 'status' && params.value !== null) {
+                        return params.value === 'На согласовании' ? 'status-to-be-agreed' : 'status-frozen'
+                    }
                     if (params.field === 'solution' && params.value !== null) {
                         return params.value === 'Согласовано' ? 'decision-agreed' : 'decision-not-agreed'
                     }
                 }}
-                onRowClick={(params) => navigate(`/approval/${params.id}`)}
+                onCellClick={handleOnCellClick}
             />
 
             <ProgressOverlay showProgressOverlay={isFetching} />

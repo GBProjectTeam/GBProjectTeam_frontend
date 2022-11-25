@@ -9,17 +9,9 @@ import { Modal } from '../../../common'
 
 export const ProjectDocuments = ({
     button = 'label',
-    documents
 }) => {
     const [open, setOpen] = React.useState(false)
-    const documentsArray = React.useMemo(
-        () => {
-            if (documents) {
-                return documents.documentsIds
-            }
-        },
-        [documents]
-    )
+
     return (
         <Modal
             button={button}
@@ -31,9 +23,8 @@ export const ProjectDocuments = ({
             title='Документы проекта'
         >
             <Stack>
-                {documentsArray?.map((array) => (
-                    <Link key={array._id}>{array.attachedFileName}</Link>
-                ))}
+                <Link href='#'>ГК-2018-1</Link>
+                <Link href='#'>ДГ-2019-3</Link>
             </Stack>
         </Modal>
     )
@@ -41,5 +32,4 @@ export const ProjectDocuments = ({
 
 ProjectDocuments.propTypes = {
     button: PropTypes.oneOf(['icon', 'label', 'menuItem']),
-    memoProject: PropTypes.object
 }

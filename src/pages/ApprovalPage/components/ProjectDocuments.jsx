@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-    Stack,
-    Link
+    List,
+    ListItemButton,
+    ListItemText,
 } from '@mui/material'
 import { Article } from '@mui/icons-material'
 import { Modal } from '../../../common'
@@ -10,6 +11,7 @@ import { Modal } from '../../../common'
 export const ProjectDocuments = ({
     button = 'label',
     closeMenu,
+    documents,
 }) => {
     const [open, setOpen] = React.useState(false)
 
@@ -26,10 +28,17 @@ export const ProjectDocuments = ({
             label='Документы'
             title='Документы проекта'
         >
-            <Stack>
-                <Link href='#'>ГК-2018-1</Link>
-                <Link href='#'>ДГ-2019-3</Link>
-            </Stack>
+            <List>
+                {React.Children.toArray(
+                    documents?.map(
+                        (document) => (
+                            <ListItemButton>
+                                <ListItemText primary={document.attachedFileName} />
+                            </ListItemButton>
+                        )
+                    )
+                )}
+            </List>
         </Modal>
     )
 }
@@ -37,4 +46,5 @@ export const ProjectDocuments = ({
 ProjectDocuments.propTypes = {
     button: PropTypes.oneOf(['icon', 'label', 'menuItem']),
     closeMenu: PropTypes.func,
+    documents: PropTypes.array,
 }

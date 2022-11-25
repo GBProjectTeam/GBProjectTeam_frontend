@@ -199,12 +199,6 @@ export const api = createApi({
                 result ? ['Projects'] : []
             ),
         }),
-        getFileById: builder.query({
-            query: (fileId) => ({
-                url: `/file/download/${fileId}`,
-                method: 'GET',
-            })
-        }),
     }),
 })
 
@@ -223,5 +217,4 @@ export const {
     useChangeStatusMutation,
     useAddDecisionMutation,
     useDeleteProjectMutation,
-    useGetFileByIdQuery,
 } = api

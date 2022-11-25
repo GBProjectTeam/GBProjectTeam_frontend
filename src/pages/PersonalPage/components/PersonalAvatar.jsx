@@ -25,6 +25,26 @@ export const PersonalAvatar = () => {
         updateAvatar(avatarData)
     }
 
+    const renderAvatar = React.useMemo(
+        () => (
+            isLoading
+                ? (
+                    <Skeleton
+                        variant='circular'
+                        sx={{ width: '50vh', height: '50vh' }}
+                    />
+                )
+                : (
+                    <Avatar
+                        alt='Avatar'
+                        sx={{ width: '50vh', height: '50vh' }}
+                        src={avatar}
+                    />
+                )
+        ),
+        [isLoading],
+    )
+
     return(
         <Stack
             sx={{
@@ -35,21 +55,7 @@ export const PersonalAvatar = () => {
             spacing={6}
         >
 
-            {isLoading
-                ? (
-                    <Skeleton
-                        variant='circular'
-                        sx={{ width: '50vh', height: '50vh' }}
-                    />
-                )
-                : (
-                    <Avatar
-                        alt='Remy Sharp'
-                        sx={{ width: '50vh', height: '50vh' }}
-                        src={avatar}
-                    />
-                )
-            }
+            {renderAvatar}
 
             <Button
                 variant='outlined'

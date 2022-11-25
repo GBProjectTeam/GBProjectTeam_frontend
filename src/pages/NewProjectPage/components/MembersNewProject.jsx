@@ -188,7 +188,10 @@ export const MembersNewProject = () => {
                         }
                     >
                         <ListItemAvatar>
-                            <Avatar src={item.avatar} />
+                            <Avatar
+                                alt='Avatar'
+                                src={item.avatar}
+                            />
                         </ListItemAvatar>
 
                         <ListItemText

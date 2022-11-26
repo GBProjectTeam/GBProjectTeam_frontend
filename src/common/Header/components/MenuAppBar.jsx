@@ -30,7 +30,7 @@ export const MenuAppBar = () => {
 
     const dispatch = useDispatch()
 
-    const { data: projects, isFetching } = useGetProjectsByFilterQuery('К согласованию')
+    const { data: projects, isFetching } = useGetProjectsByFilterQuery('status=К согласованию')
 
     const projectsForConsideration = React.useMemo(
         () => {

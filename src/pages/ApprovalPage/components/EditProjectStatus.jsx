@@ -12,7 +12,7 @@ import { useGetReferenceEnumQuery, useChangeStatusMutation } from '../../../stor
 import { useSelector } from 'react-redux'
 import { projectSelector } from '../../ProjectsPage/projectSlice'
 import { ProgressOverlay } from '../../../common/index.js'
-import { useNavigate } from 'react-router-dom'
+import { without } from 'lodash'
 
 export const EditProjectStatus = ({
     button = 'label',
@@ -22,14 +22,12 @@ export const EditProjectStatus = ({
     const [status, setStatus] = React.useState('')
     const [oldStatus, setOldStatus] = React.useState('')
 
-    const navigate = useNavigate()
-
     const [
         changeStatus,
         { isLoading: isUpdateProject, isSuccess: isSuccessUpdate }
     ] = useChangeStatusMutation()
 
-    const { data: projectStatuses, isFetching, isError } = useGetReferenceEnumQuery('ProjectStatus')
+    const { data: projectStatuses, isFetching } = useGetReferenceEnumQuery('ProjectStatus')
 
     const { project } = useSelector(projectSelector)
 
@@ -43,10 +41,28 @@ export const EditProjectStatus = ({
         changeStatus(newStatus)
     }
 
+    const isAllDecisionsAgreed = () => {
+        const usersAgreed = project.coordinationUsers.filter(
+            (user) => {
+                if (user?.settedStatus === 'Согласовано') {
+                    return user
+                }
+            }
+        )
+
+        return usersAgreed.length === project.coordinationUsers.length
+    }
+
     const statuses = React.useMemo(
         () => {
             if (projectStatuses) {
-                return Object.values(projectStatuses)
+                const allStatuses = Object.values(projectStatuses)
+
+                if (isAllDecisionsAgreed()) {
+                    return allStatuses
+                } else {
+                    return without(allStatuses, 'Согласовано')
+                }
             } else {
                 return []
             }
@@ -72,18 +88,8 @@ export const EditProjectStatus = ({
 
     React.useEffect(
         () => {
-            if (isError) {
-                navigate('/projects')
-            }
-        },
-        [isError],
-    )
-
-    React.useEffect(
-        () => {
             if (isSuccessUpdate) {
                 setOpen(false)
-                navigate('/projects')
                 closeMenu()
             }
         },

@@ -79,7 +79,7 @@ export const ProjectInfoCard = ({ project }) => {
                     alignItems='center'
                     flex={1}
                 >
-                    {!isOwner && <EditUserDecision />}
+                    {!isOwner && project?.status !== 'Заморожено' && <EditUserDecision />}
                     {isOwner && <EditProjectStatus />}
                 </Stack>
             </CardActions>

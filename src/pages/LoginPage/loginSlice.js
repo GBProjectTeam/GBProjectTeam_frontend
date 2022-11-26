@@ -34,7 +34,7 @@ export const loginSlice = createSlice({
                     state.firstName = payload.user.firstName
                     state.patronymicName = payload.user?.patronymicName || ''
                     state.userId = payload.user._id
-                    state.avatar = `http://194.87.94.182/users/${payload.user._id}/avatar`
+                    state.avatar = `http://194.87.94.182/files/${payload.user._id}`
                 },
             )
             .addMatcher(
@@ -45,6 +45,12 @@ export const loginSlice = createSlice({
                     state.firstName = payload.firstName
                     state.patronymicName = payload?.patronymicName || ''
                 },
+            )
+            .addMatcher(
+                api.endpoints.updateAvatar.matchFulfilled,
+                (state, { payload }) => {
+                    state.avatar = `http://194.87.94.182/files/${payload.avatar}`
+                }
             )
     },
 })

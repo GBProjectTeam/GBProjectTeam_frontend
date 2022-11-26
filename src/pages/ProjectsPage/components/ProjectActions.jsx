@@ -80,7 +80,7 @@ export const ProjectActions = () => {
                     direction='column'
                     alignItems='flex-start'
                 >
-                    {!isOwner && (
+                    {!isOwner && project.status !== 'Заморожено' && (
                         <EditUserDecision
                             button='menuItem'
                             closeMenu={() => setAnchorEl(null)}

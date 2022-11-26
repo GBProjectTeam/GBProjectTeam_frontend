@@ -13,6 +13,7 @@ import {
     Typography,
     FilledInput,
     Link,
+    Tooltip,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
@@ -130,13 +131,15 @@ export const LoginPage = () => {
                         Забыли пароль?
                     </Typography>
 
-                    <Link
-                        variant='caption'
-                        href='#'
-                        underline='always'
-                    >
-                        Восстановить
-                    </Link>
+                    <Tooltip title='Для сброса пароля свяжитесь с разработчиками'>
+                        <Link
+                            variant='caption'
+                            href='#'
+                            underline='always'
+                        >
+                            Восстановить
+                        </Link>
+                    </Tooltip>
                 </Stack>
             </Stack>
 

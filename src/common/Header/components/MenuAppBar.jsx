@@ -72,7 +72,7 @@ export const MenuAppBar = () => {
                         <Avatar
                             alt='Avatar'
                             sx={{ width: '30px', height: '30px' }}
-                            src={avatar}
+                            src={`http://194.87.94.182/files/${avatar}`}
                         />
                     }
                     onClick={handleClick}

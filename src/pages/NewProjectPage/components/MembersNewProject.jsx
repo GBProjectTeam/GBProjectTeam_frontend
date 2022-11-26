@@ -198,29 +198,30 @@ export const MembersNewProject = ({
             </Stack>
 
             <List>
-                {projectMembers.map((item) => (
-                    <ListItem
-                        key={item.id}
-                        secondaryAction={
-                            <DeleteModal
-                                onSubmit={() => deleteMember(item.id)}
-                                message='Вы уверены, что хотите удалить участника'
-                                itemName={item?.name || ''}
-                                title='Удаление участника'
-                                button='icon'
-                                icon={<Clear />}
-                            />
-                        }
-                    >
-                        {/* <ListItemAvatar>
+                {React.Children.toArray(
+                    projectMembers.map((item) => (
+                        <ListItem
+                            secondaryAction={
+                                <DeleteModal
+                                    onSubmit={() => deleteMember(item.id)}
+                                    message='Вы уверены, что хотите удалить участника'
+                                    itemName={item?.name || ''}
+                                    title='Удаление участника'
+                                    button='icon'
+                                    icon={<Clear />}
+                                />
+                            }
+                        >
+                            {/* <ListItemAvatar>
                             <Avatar src={item.avatar} />
                         </ListItemAvatar> */}
 
-                        <ListItemText
-                            primary={item.name}
-                        />
-                    </ListItem>
-                ))}
+                            <ListItemText
+                                primary={item.name}
+                            />
+                        </ListItem>
+                    ))
+                )}
             </List>
 
             {isFetching && (

@@ -87,7 +87,7 @@ const baseQueryWithReauth = async (
 export const api = createApi({
     baseQuery: baseQueryWithReauth,
 
-    tagTypes: ['Projects'],
+    tagTypes: ['Projects', 'Project', 'ProjectsByFilter'],
 
     endpoints: (builder) => ({
         login: builder.mutation({
@@ -144,7 +144,7 @@ export const api = createApi({
             }),
 
             invalidatesTags: (result) => (
-                result ? ['Projects'] : []
+                result ? ['Projects', 'Project', 'ProjectsByFilter' ] : []
             ),
         }),
         getProjects: builder.query({
@@ -159,7 +159,17 @@ export const api = createApi({
             query: (id) => ({
                 url: `/projects/${id}`,
                 method: 'GET',
-            })
+            }),
+
+            providesTags: ['Project'],
+        }),
+        getProjectsByFilter: builder.query({
+            query: (status) => ({
+                url: `/projects/filter?status=${status}`,
+                method: 'GET',
+            }),
+
+            providesTags: ['ProjectsByFilter'],
         }),
         getReferenceEnum: builder.query({
             query: (referenceEnum) => ({
@@ -175,7 +185,7 @@ export const api = createApi({
             }),
 
             invalidatesTags: (result) => (
-                result ? ['Projects'] : []
+                result ? ['Projects', 'Project', 'ProjectsByFilter'] : []
             ),
         }),
         addDecision: builder.mutation({
@@ -186,7 +196,7 @@ export const api = createApi({
             }),
 
             invalidatesTags: (result) => (
-                result ? ['Projects'] : []
+                result ? ['Projects', 'Project', 'ProjectsByFilter' ] : []
             ),
         }),
         deleteProject: builder.mutation({
@@ -196,7 +206,7 @@ export const api = createApi({
             }),
 
             invalidatesTags: (result) => (
-                result ? ['Projects'] : []
+                result ? ['Projects', 'Project', 'ProjectsByFilter'] : []
             ),
         }),
     }),
@@ -217,4 +227,5 @@ export const {
     useChangeStatusMutation,
     useAddDecisionMutation,
     useDeleteProjectMutation,
+    useGetProjectsByFilterQuery,
 } = api

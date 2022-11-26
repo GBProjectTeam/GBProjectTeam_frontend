@@ -12,12 +12,11 @@ import { Modal, ProgressOverlay } from '../../../common/index.js'
 import { useGetReferenceEnumQuery, useAddDecisionMutation } from '../../../store/api.js'
 import { useSelector } from 'react-redux'
 import { projectSelector } from '../../ProjectsPage/projectSlice.js'
-import { useNavigate } from 'react-router-dom'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
 
 export const EditUserDecision = ({
     button = 'label',
-    closeMenu,
+    closeMenu = () => null,
 }) => {
     const [open, setOpen] = React.useState(false)
     const [oldDecision, setOldDecision] = React.useState('')
@@ -26,9 +25,7 @@ export const EditUserDecision = ({
 
     const { userId } = useSelector(loginSelector)
 
-    const navigate = useNavigate()
-
-    const { data: userDecisons, isFetching, isError } = useGetReferenceEnumQuery('UserDecision')
+    const { data: userDecisons, isFetching } = useGetReferenceEnumQuery('UserDecision')
 
     const [
         addDecision,
@@ -51,7 +48,7 @@ export const EditUserDecision = ({
     React.useEffect(
         () => {
             if (open && project) {
-                project.coordinationUsers.map(
+                project.coordinationUsers?.map(
                     (user) => {
                         if (user.userId._id === userId && user.settedStatus !== 'К рассмотрению') {
                             setDecision(user.settedStatus)
@@ -66,18 +63,8 @@ export const EditUserDecision = ({
 
     React.useEffect(
         () => {
-            if (isError) {
-                navigate('/projects')
-            }
-        },
-        [isError],
-    )
-
-    React.useEffect(
-        () => {
             if (isSuccessUpdate) {
                 setOpen(false)
-                navigate('/projects')
                 closeMenu()
             }
         },
@@ -86,7 +73,11 @@ export const EditUserDecision = ({
 
     const isLoading = isUpdateProject || isFetching
 
-    const allowSubmit = !!decision && oldDecision !== decision
+    const isMessageRequired = () => {
+        return !(decision === 'Отклонено' && !message)
+    }
+
+    const allowSubmit = !!decision && oldDecision !== decision && isMessageRequired()
 
     const updatingProject = () => {
         const newDecision = {
@@ -107,7 +98,10 @@ export const EditUserDecision = ({
             allowSubmit={allowSubmit}
             onSubmit={updatingProject}
             onOpen={() => setOpen(true)}
-            onClose={() => setOpen(false)}
+            onClose={() => {
+                setMessage('')
+                setOpen(false)
+            }}
             label='Изменить решение'
             title='Изменение решения'
             isStack
@@ -123,7 +117,7 @@ export const EditUserDecision = ({
                         >
                             {decisions && (
                                 React.Children.toArray(
-                                    decisions.map(
+                                    decisions?.map(
                                         (decisionItem) => (
                                             <MenuItem value={decisionItem} >
                                                 {decisionItem}

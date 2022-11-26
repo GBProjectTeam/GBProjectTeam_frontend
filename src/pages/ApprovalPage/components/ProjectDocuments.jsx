@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+    Link,
     List,
-    ListItemButton,
-    ListItemText,
+    ListItem,
 } from '@mui/material'
 import { Article } from '@mui/icons-material'
 import { Modal } from '../../../common'
 
 export const ProjectDocuments = ({
     button = 'label',
-    closeMenu,
+    closeMenu = () => null,
     documents,
 }) => {
     const [open, setOpen] = React.useState(false)
@@ -32,9 +32,16 @@ export const ProjectDocuments = ({
                 {React.Children.toArray(
                     documents?.map(
                         (document) => (
-                            <ListItemButton>
-                                <ListItemText primary={document.attachedFileName} />
-                            </ListItemButton>
+                            <ListItem>
+                                <Link
+                                    underline='none'
+                                    sx={{ cursor: 'pointer' }}
+                                    target='_blank'
+                                    href={`http://194.87.94.182/files/${document.attachedFileId}`}
+                                >
+                                    {document.attachedFileName}
+                                </Link>
+                            </ListItem>
                         )
                     )
                 )}

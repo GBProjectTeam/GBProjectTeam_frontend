@@ -74,6 +74,11 @@ export const newProjectSlice = createSlice({
                 state.project.documentsIds = newDocumentsIds
                 state.projectDocs = newProjectDocs
             }
+        },
+
+        removeData: (state) => {
+            state.project = initialState.project
+            state.projectDocs = initialState.projectDocs
         }
     },
 
@@ -109,5 +114,5 @@ export const newProjectSlice = createSlice({
     }
 })
 
-export const { saveNewProjectName, saveNewProjectDeadline, updateMembers, deleteDocFromProject, addDocsFromProject } = newProjectSlice.actions
+export const { saveNewProjectName, saveNewProjectDeadline, updateMembers, deleteDocFromProject, addDocsFromProject, removeData } = newProjectSlice.actions
 export const newProjectSelector = (state) => state.newProject

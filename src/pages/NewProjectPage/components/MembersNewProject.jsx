@@ -25,7 +25,7 @@ export const MembersNewProject = ({
     updatedCoordinationUsers,
     isUpdate = false,
 }) => {
-    const [projectMemberId, setProjectMemberId ] = React.useState('')
+    const [projectMemberId, setProjectMemberId] = React.useState('')
     const [projectMembers, setProjectMembers] = React.useState([])
 
     const { project } = useSelector(newProjectSelector)
@@ -42,7 +42,7 @@ export const MembersNewProject = ({
                             (itemUser) => itemUser._id === user.userId._id
                         )
 
-                        if (index) {
+                        if (index >= 0) {
                             return users[index]
                         }
                     }
@@ -121,7 +121,7 @@ export const MembersNewProject = ({
             (members) => [...members, { id: projectMemberId, name, avatar }]
         )
 
-        dispatch (
+        dispatch(
             updateMembers(
                 project.coordinationUsers.length > 0
                     ? [...project.coordinationUsers, { userId: projectMemberId }]
@@ -129,7 +129,7 @@ export const MembersNewProject = ({
             )
         )
 
-        setProjectMemberId( '')
+        setProjectMemberId('')
     }
 
     const deleteMember = (id) => {

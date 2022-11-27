@@ -8,7 +8,7 @@ export const columns = [
         sortable: false
     },
     {
-        field: 'deadline',
+        field: 'closedAt',
         headerName: 'Дата закрытия',
         headerAlign: 'left',
         align: 'left',

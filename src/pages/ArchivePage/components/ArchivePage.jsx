@@ -29,7 +29,7 @@ export const ArchivePage = () => {
                     {
                         id: project._id,
                         project: project.name,
-                        deadline: format(new Date(project.deadline), 'dd.MM.yyyy'),
+                        closedAt: format(new Date(project.updatedAt), 'dd.MM.yyyy'),
                         author: `${project.ownerId.firstName} ${project.ownerId.lastName}`,
                         status: project.status,
                     }

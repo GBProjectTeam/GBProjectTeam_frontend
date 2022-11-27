@@ -7,12 +7,12 @@ import {
     Autocomplete,
     TextField,
     CircularProgress,
-    IconButton,
-    Box,
+    ListItemButton,
+    ListItemText,
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import {
-    Add, ArrowRightAltOutlined,
+    Add,
 } from '@mui/icons-material'
 import { useGetProjectsByFilterQuery } from '../../../store/api'
 
@@ -25,6 +25,7 @@ export const InputsAppBar = () => {
 
     const [open, setOpen] = React.useState(false)
     const [options, setOptions] = React.useState([])
+
     const loading = open && options.length === 0
 
     React.useEffect(() => {
@@ -53,6 +54,7 @@ export const InputsAppBar = () => {
 
     const openProject = (id) => {
         navigate(`/approval/${id}`)
+        setOpen(false)
     }
 
     return (
@@ -92,37 +94,26 @@ export const InputsAppBar = () => {
                 loading={loading}
                 noOptionsText='Не найдено'
                 renderOption={(props, option) => (
-                    <Box
+                    <ListItemButton
                         {...props}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            borderBottom: '1px solid black'
-                        }}
+                        key={option._id}
+                        onClick={() => openProject(option._id)}
                     >
-                        <Typography sx={{ width: '100%' }}>{option.name}</Typography>
-
-                        <IconButton
-                            sx={{ justifySelf: 'end' }}
-                            onClick={() => openProject(option._id)}
-                        >
-                            <ArrowRightAltOutlined />
-                        </IconButton>
-                    </Box>
-
+                        <ListItemText primary={option.name} />
+                    </ListItemButton>
                 )}
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label='Поиск по проектам'
+                        label='Поиск и переход к проекту'
                         size='small'
                         InputProps={{
                             ...params.InputProps,
                             endAdornment: (
-                                <React.Fragment>
+                                <>
                                     {loading ? <CircularProgress color='inherit' size={20} /> : null}
                                     {params.InputProps.endAdornment}
-                                </React.Fragment>
+                                </>
                             ),
                             sx: { borderRadius: '20px' }
                         }}

@@ -175,8 +175,8 @@ export const api = createApi({
             providesTags: ['Project'],
         }),
         getProjectsByFilter: builder.query({
-            query: (status) => ({
-                url: `/projects/filter?status=${status}`,
+            query: (queryString) => ({
+                url: `/projects/filter?${queryString}`,
                 method: 'GET',
             }),
 
@@ -194,7 +194,7 @@ export const api = createApi({
                 method: 'POST',
                 body: avatar,
             })
-        })
+        }),
         changeStatus: builder.mutation({
             query: (statusData) => ({
                 url: '/projects/changeStatus',

@@ -30,7 +30,7 @@ export const MenuAppBar = () => {
 
     const dispatch = useDispatch()
 
-    const { data: projects, isFetching } = useGetProjectsByFilterQuery('К согласованию')
+    const { data: projects, isFetching } = useGetProjectsByFilterQuery('status=К согласованию')
 
     const projectsForConsideration = React.useMemo(
         () => {
@@ -169,7 +169,7 @@ export const MenuAppBar = () => {
                             src={avatar}
                         />
                     }
-                    onClick={handleClick}
+                    onClick={handleClickPersonalAreaMenu}
                     sx={{ borderRadius: 20 }}
                 >
                     {firstName} {lastName}

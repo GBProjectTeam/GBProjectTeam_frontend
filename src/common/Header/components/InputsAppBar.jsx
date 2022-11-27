@@ -3,20 +3,59 @@ import { useNavigate } from 'react-router-dom'
 import {
     Typography,
     Button,
+    Stack,
+    Autocomplete,
     TextField,
-    InputAdornment,
-    Stack
+    CircularProgress,
+    ListItemButton,
+    ListItemText,
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import {
     Add,
-    Search
 } from '@mui/icons-material'
+import { useGetProjectsByFilterQuery } from '../../../store/api'
 
 export const InputsAppBar = () => {
     const navigate = useNavigate()
 
     const isNewProjectPage = location.pathname === '/new-project'
+
+    const { data: projects } = useGetProjectsByFilterQuery('status=К согласованию&status=Согласовано&status=Отклонено')
+
+    const [open, setOpen] = React.useState(false)
+    const [options, setOptions] = React.useState([])
+
+    const loading = open && options.length === 0
+
+    React.useEffect(() => {
+        let active = true
+
+        if (!loading) {
+            return undefined
+        }
+
+        (async () => {
+            if (active) {
+                setOptions([...projects])
+            }
+        })()
+
+        return () => {
+            active = false
+        }
+    }, [loading])
+
+    React.useEffect(() => {
+        if (!open) {
+            setOptions([])
+        }
+    }, [open])
+
+    const openProject = (id) => {
+        navigate(`/approval/${id}`)
+        setOpen(false)
+    }
 
     return (
         <Stack
@@ -41,20 +80,48 @@ export const InputsAppBar = () => {
                 Проекты
             </Button>
 
-            <TextField
-                placeholder='Поиск по проектам'
-                size='small'
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position='start'>
-                            <Search />
-                        </InputAdornment>
-                    ),
-                    sx: { borderRadius: '20px' }
-                }}
-                variant='outlined'
+            <Autocomplete
                 sx={{ width: '30%' }}
-            />
+                open={open}
+                onOpen={() => {
+                    setOpen(true)
+                }}
+                onClose={() => {
+                    setOpen(false)
+                }}
+                getOptionLabel={(option) => option.name}
+                options={options}
+                loading={loading}
+                noOptionsText='Не найдено'
+                renderOption={(props, option) => (
+                    <ListItemButton
+                        {...props}
+                        key={option._id}
+                        onClick={() => openProject(option._id)}
+                    >
+                        <ListItemText primary={option.name} />
+                    </ListItemButton>
+                )}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        label='Поиск и переход к проекту'
+                        size='small'
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                                <>
+                                    {loading ? <CircularProgress color='inherit' size={20} /> : null}
+                                    {params.InputProps.endAdornment}
+                                </>
+                            ),
+                            sx: { borderRadius: '20px' }
+                        }}
+                    />
+                )}
+            >
+
+            </Autocomplete>
 
             <Button
                 variant='outlined'

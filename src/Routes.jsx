@@ -10,7 +10,7 @@ import {
     LoginPage,
     ArchivePage,
     NewProjectPage,
-    PersonalPage,
+    ProfilePage,
     ProjectsPage,
     NotFoundPage,
     RegistrationPage,
@@ -64,10 +64,10 @@ export const Routes = () => (
             }
         />
         <Route
-            path='/personal'
+            path='/profile/:id'
             element={
                 <PrivateRoute>
-                    <PersonalPage />
+                    <ProfilePage />
                 </PrivateRoute>
             }
         />

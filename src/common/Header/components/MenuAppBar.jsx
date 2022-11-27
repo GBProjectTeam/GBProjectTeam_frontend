@@ -38,7 +38,7 @@ export const MenuAppBar = () => {
                 return projects.filter(
                     (project) => {
                         const indexForConsideration = project.coordinationUsers.findIndex(
-                            (user) => user.userId._id === userId && user?.settedStatus === ''
+                            (user) => user.userId?._id === userId && user?.settedStatus === ''
                         )
 
                         return indexForConsideration !== -1
@@ -67,7 +67,7 @@ export const MenuAppBar = () => {
     }
 
     const handleClickPersonal = () => {
-        navigate('/personal')
+        navigate(`/profile/${userId}`)
         setAnchorPersonalArea(null)
     }
 

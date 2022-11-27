@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     Button,
     Avatar,
@@ -6,12 +7,12 @@ import {
     Skeleton
 } from '@mui/material'
 import { useUpdateAvatarMutation } from '../../../store/api'
-import { useSelector } from 'react-redux'
-import { loginSelector } from '../../LoginPage/loginSlice'
 import { ProgressOverlay } from '../../../common/index.js'
 
-export const PersonalAvatar = () => {
-    const { avatar } = useSelector(loginSelector)
+export const PersonalAvatar = ({
+    isAuthUser,
+    user,
+}) => {
     const [ updateAvatar, { isLoading } ] = useUpdateAvatarMutation()
 
     const uploadNewAvatar = (e) => {
@@ -27,7 +28,7 @@ export const PersonalAvatar = () => {
 
     const renderAvatar = React.useMemo(
         () => (
-            isLoading
+            isLoading && !user && !user._id
                 ? (
                     <Skeleton
                         variant='circular'
@@ -38,11 +39,11 @@ export const PersonalAvatar = () => {
                     <Avatar
                         alt='Avatar'
                         sx={{ width: '50vh', height: '50vh' }}
-                        src={avatar}
+                        src={`http://194.87.94.182/files/${user?.avatar}`}
                     />
                 )
         ),
-        [isLoading],
+        [isLoading, user],
     )
 
     return(
@@ -57,26 +58,33 @@ export const PersonalAvatar = () => {
 
             {renderAvatar}
 
-            <Button
-                variant='outlined'
-                component='label'
-                sx={{
-                    borderRadius: '20px',
-                    align: 'center',
-                    width: 'fit-content',
-                }}
-            >
-                Изменить фото
+            {isAuthUser && (
+                <Button
+                    variant='outlined'
+                    component='label'
+                    sx={{
+                        borderRadius: '20px',
+                        align: 'center',
+                        width: 'fit-content',
+                    }}
+                >
+                    Изменить фото
 
-                <input
-                    hidden
-                    accept='image/*'
-                    multiple type='file'
-                    onChange={(e) => uploadNewAvatar(e)}
-                />
-            </Button>
+                    <input
+                        hidden
+                        accept='image/*'
+                        multiple type='file'
+                        onChange={(e) => uploadNewAvatar(e)}
+                    />
+                </Button>
+            )}
 
             <ProgressOverlay showProgressOverlay={isLoading} />
         </Stack>
     )
+}
+
+PersonalAvatar.propTypes = {
+    isAuthUser: PropTypes.bool,
+    user: PropTypes.object,
 }

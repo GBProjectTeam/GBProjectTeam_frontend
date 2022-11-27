@@ -169,7 +169,7 @@ export const MenuAppBar = () => {
                             src={avatar}
                         />
                     }
-                    onClick={handleClick}
+                    onClick={handleClickPersonalAreaMenu}
                     sx={{ borderRadius: 20 }}
                 >
                     {firstName} {lastName}

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     Avatar,
     Button,
@@ -20,7 +21,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { newProjectSelector, updateMembers } from '../newProjectSlice'
 import { loginSelector } from '../../LoginPage/loginSlice.js'
 
-export const MembersNewProject = () => {
+export const MembersNewProject = ({
+    updatedCoordinationUsers,
+    isUpdate = false,
+}) => {
     const [projectMemberId, setProjectMemberId ] = React.useState('')
     const [projectMembers, setProjectMembers] = React.useState([])
 
@@ -29,57 +33,81 @@ export const MembersNewProject = () => {
 
     const { data: users, isFetching } = useGetUsersQuery()
 
+    React.useEffect(
+        () => {
+            if (isUpdate) {
+                const members = updatedCoordinationUsers?.map(
+                    (user) => {
+                        const index = users?.findIndex(
+                            (itemUser) => itemUser._id === user.userId._id
+                        )
+
+                        if (index) {
+                            return users[index]
+                        }
+                    }
+                )
+
+                setProjectMembers(
+                    members.map(
+                        (member) => ({ id: member?._id, name: `${member?.lastName} ${member?.firstName} ${member?.patronymicName}` })
+                    )
+                )
+            }
+        },
+        [updatedCoordinationUsers, users],
+    )
+
     const usersWithoutOwner = React.useMemo(
         () => {
             if (users) {
-                return users.filter((user) => user._id !== userId)
+                const filtredUsers = [...users]
+                return filtredUsers.filter((user) => user._id !== ownerId)
             }
 
             return []
         },
-        [users, userId],
+        [users, ownerId, projectMembers],
     )
 
-    const generateUserList = (allUsers, checkedUsers) => {
-        const isAddedUser = (user) =>
-            checkedUsers.find(item => item.id === user._id)
-
-        const userList = () =>
-            allUsers?.reduce(
-                (acc, item) =>
-                    isAddedUser(item)
-                        ? [...acc]
-                        : [...acc, item],
-                [])
-
-        const usersForSelect = userList()
-
-        if (usersForSelect?.length === 0) {
-            return (
-                <MenuItem
-                    value={1}
-                    key={1}
-                >
-                    None
-                </MenuItem>
-            )
-        }
-
-        return usersForSelect?.map(
-            (item) => (
-                <MenuItem
-                    value={item._id}
-                    key={item._id}
-                >
-                    {`${item.lastName} ${item.firstName} ${item.patronymicName}`}
-                </MenuItem>
-            )
-        )
-    }
-
     const usersOptions = React.useMemo(
-        () => generateUserList(usersWithoutOwner, projectMembers),
-        [users, projectMembers],
+        () => {
+            const isAddedUser = (user) =>
+                projectMembers.find(item => item.id === user._id)
+
+            const userList = () =>
+                usersWithoutOwner?.reduce(
+                    (acc, item) =>
+                        isAddedUser(item)
+                            ? [...acc]
+                            : [...acc, item],
+                    [])
+
+            const usersForSelect = userList()
+
+            if (usersForSelect?.length === 0) {
+                return (
+                    <MenuItem
+                        value={1}
+                        key={1}
+                    >
+                        None
+                    </MenuItem>
+                )
+            }
+
+            return usersForSelect?.map(
+                (item) => (
+                    <MenuItem
+                        value={item._id}
+                        key={item._id}
+                    >
+                        {`${item.lastName} ${item.firstName} ${item.patronymicName}`}
+                    </MenuItem>
+                )
+            )
+        },
+        [users, projectMembers, usersWithoutOwner],
     )
 
     const dispatch = useDispatch()
@@ -107,7 +135,7 @@ export const MembersNewProject = () => {
     const deleteMember = (id) => {
         const index = projectMembers.findIndex(item => item.id === id)
 
-        const updateProjectsMembers = projectMembers
+        const updateProjectsMembers = [...projectMembers]
 
         if (index !== -1) {
             updateProjectsMembers.splice(index, 1)
@@ -173,32 +201,33 @@ export const MembersNewProject = () => {
             </Stack>
 
             <List>
-                {projectMembers.map((item) => (
-                    <ListItem
-                        key={item.id}
-                        secondaryAction={
-                            <DeleteModal
-                                onSubmit={() => deleteMember(item.id)}
-                                message='Вы уверены, что хотите удалить участника'
-                                itemName={item.name}
-                                title='Удаление участника'
-                                button='icon'
-                                icon={<Clear />}
-                            />
-                        }
-                    >
-                        <ListItemAvatar>
-                            <Avatar
-                                alt='Avatar'
-                                src={item.avatar}
-                            />
-                        </ListItemAvatar>
+                {React.Children.toArray(
+                    projectMembers.map((item) => (
+                        <ListItem
+                            secondaryAction={
+                                <DeleteModal
+                                    onSubmit={() => deleteMember(item.id)}
+                                    message='Вы уверены, что хотите удалить участника'
+                                    itemName={item?.name || ''}
+                                    title='Удаление участника'
+                                    button='icon'
+                                    icon={<Clear />}
+                                />
+                            }
+                        >
+                            <ListItemAvatar>
+                                <Avatar
+                                    alt='Avatar'
+                                    src={item.avatar}
+                                />
+                            </ListItemAvatar>
 
-                        <ListItemText
-                            primary={item.name}
-                        />
-                    </ListItem>
-                ))}
+                            <ListItemText
+                                primary={item.name}
+                            />
+                        </ListItem>
+                    ))
+                )}
             </List>
 
             {isFetching && (
@@ -207,3 +236,9 @@ export const MembersNewProject = () => {
         </Stack>
     )
 }
+
+MembersNewProject.propTypes = {
+    updatedCoordinationUsers: PropTypes.array,
+    isUpdate: PropTypes.bool,
+}
+

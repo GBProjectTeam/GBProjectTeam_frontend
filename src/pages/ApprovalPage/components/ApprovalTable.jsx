@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     TableContainer,
     Table,
@@ -8,15 +9,19 @@ import {
     TableBody,
     Paper,
     Stack,
-    Button,
     Typography
 } from '@mui/material'
-import { rows } from '../constants/Rows'
-import { green, red } from '@mui/material/colors'
-import { useNavigate } from 'react-router-dom'
+import { getColor } from '../utils/getColor.js'
 
-export const ApprovalTable = () => {
-    const navigate = useNavigate()
+export const ApprovalTable = ({ project }) => {
+    const users = React.useMemo(
+        () => {
+            if (project) {
+                return project.coordinationUsers
+            }
+        },
+        [project]
+    )
 
     return (
         <Stack
@@ -48,7 +53,9 @@ export const ApprovalTable = () => {
                                     fontSize: 20
                                 }}
                             >
-                                Решение</TableCell>
+                                Решение
+                            </TableCell>
+
                             <TableCell align='center'
                                 width={700}
                                 sx={{
@@ -62,38 +69,35 @@ export const ApprovalTable = () => {
                     </TableHead>
 
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.id}>
-                                <TableCell align='center' >{row.name}</TableCell>
+                        {React.Children.toArray(
+                            users?.map((user) => (
+                                <TableRow>
+                                    <TableCell align='center' >
+                                        {user.userId.lastName} {user.userId.firstName}
+                                    </TableCell>
 
-                                <TableCell align='center'>
-                                    <Typography
-                                        fontWeight='fontWeightBold'
-                                        color={row.status !== 'Отклонено' ? green[500] : red[500]}
-                                    >
-                                        {row.status}
-                                    </Typography>
-                                </TableCell>
+                                    <TableCell align='center'>
+                                        <Typography
+                                            fontWeight='fontWeightBold'
+                                            color={getColor(user.settedStatus)}
+                                        >
+                                            {user.settedStatus}
+                                        </Typography>
+                                    </TableCell>
 
-                                <TableCell align='center'>{row.comment}</TableCell>
-                            </TableRow>
-                        ))}
+                                    <TableCell align='center'>
+                                        {user?.message}
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
-
-            <Button
-                variant='outlined'
-                onClick={() => navigate('/project-comments')}
-                sx={{
-                    width: 'fit-content',
-                    borderRadius: 20,
-                    alignSelf: 'flex-end'
-                }}
-            >
-                Открыть комментарии
-            </Button>
         </Stack>
     )
 }
 
+ApprovalTable.propTypes = {
+    project: PropTypes.object
+}

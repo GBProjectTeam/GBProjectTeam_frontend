@@ -2,11 +2,11 @@ import { ProjectActions } from '../components/ProjectActions'
 
 export const columns = [
     {
-        field: 'project',
+        field: 'name',
         headerName: 'Проект',
         headerAlign: 'left',
         align: 'left',
-        flex: 1,
+        flex: 3,
         sortable: false
     },
     {

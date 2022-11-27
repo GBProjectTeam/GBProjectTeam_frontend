@@ -10,11 +10,52 @@ import {
     green,
     red
 } from '@mui/material/colors'
-import { rows } from '../constants/rows'
 import { columns } from '../constants/columns'
+import { useGetProjectsQuery } from '../../../store/api'
+import { useSelector, useDispatch } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
+import { ProgressOverlay } from '../../../common/index.js'
+import { saveProject } from '../projectSlice.js'
+import { format } from 'date-fns'
+import { getSolution } from '../utils/getSolution.js'
 
 export const ProjectsPage = () => {
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
+
+    const { data: projects, isFetching } = useGetProjectsQuery()
+
+    const { userId } = useSelector(loginSelector)
+
+    const handleOnCellClick = (params) => {
+        if (params.field === 'actions') {
+            dispatch(saveProject(params.row.project))
+        } else {
+            navigate(`/approval/${params.id}`)
+        }
+    }
+
+    const rows = React.useMemo(
+        () => {
+            if (!projects) {
+                return []
+            } else {
+                return projects.map((project) => (
+                    {
+                        id: project._id,
+                        name: project.name,
+                        deadline: format(new Date(project.deadline), 'dd.MM.yyyy'),
+                        author: `${project.ownerId.firstName} ${project.ownerId.lastName}`,
+                        status: project.status,
+                        solution: getSolution(project.coordinationUsers, userId),
+                        project,
+                    }
+                ))
+            }
+        },
+        [projects],
+    )
 
     return (
         <Stack
@@ -57,20 +98,18 @@ export const ProjectsPage = () => {
                         fontWeight: 'bold',
                     },
                 }}
-
                 getCellClassName={(params) => {
                     if (params.field === 'status' && params.value !== null) {
                         return params.value === 'На согласовании' ? 'status-to-be-agreed' : 'status-frozen'
                     }
-
                     if (params.field === 'solution' && params.value !== null) {
                         return params.value === 'Согласовано' ? 'decision-agreed' : 'decision-not-agreed'
                     }
-
-                    return ''
                 }}
-                onRowClick={(params) => navigate(`/approval/${params.id}`)}
+                onCellClick={handleOnCellClick}
             />
+
+            <ProgressOverlay showProgressOverlay={isFetching} />
         </Stack>
     )
 }

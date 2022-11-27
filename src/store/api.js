@@ -98,6 +98,8 @@ const baseQueryWithReauth = async (
 export const api = createApi({
     baseQuery: baseQueryWithReauth,
 
+    tagTypes: ['Projects', 'Project', 'ProjectsByFilter'],
+
     endpoints: (builder) => ({
         login: builder.mutation({
             query: (credentials) => ({
@@ -150,6 +152,40 @@ export const api = createApi({
                     documentsIds: updateProjectData.documentsIds,
                     coordinationUsers: updateProjectData.coordinationUsers,
                 },
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects', 'Project', 'ProjectsByFilter' ] : []
+            ),
+        }),
+        getProjects: builder.query({
+            query: () => ({
+                url: '/projects',
+                method: 'GET',
+            }),
+
+            providesTags: ['Projects'],
+        }),
+        getProjectById: builder.query({
+            query: (id) => ({
+                url: `/projects/${id}`,
+                method: 'GET',
+            }),
+
+            providesTags: ['Project'],
+        }),
+        getProjectsByFilter: builder.query({
+            query: (status) => ({
+                url: `/projects/filter?status=${status}`,
+                method: 'GET',
+            }),
+
+            providesTags: ['ProjectsByFilter'],
+        }),
+        getReferenceEnum: builder.query({
+            query: (referenceEnum) => ({
+                url: `/reference/enums/${referenceEnum}`,
+                method: 'GET',
             })
         }),
         updateAvatar: builder.mutation({
@@ -159,6 +195,38 @@ export const api = createApi({
                 body: avatar,
             })
         })
+        changeStatus: builder.mutation({
+            query: (statusData) => ({
+                url: '/projects/changeStatus',
+                method: 'POST',
+                body: statusData,
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects', 'Project', 'ProjectsByFilter'] : []
+            ),
+        }),
+        addDecision: builder.mutation({
+            query: (decisionData) => ({
+                url: '/projects/addDecision',
+                method: 'POST',
+                body: decisionData,
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects', 'Project', 'ProjectsByFilter' ] : []
+            ),
+        }),
+        deleteProject: builder.mutation({
+            query: (projectId) => ({
+                url: `/projects/delete/${projectId}`,
+                method: 'DELETE',
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['Projects', 'Project', 'ProjectsByFilter'] : []
+            ),
+        }),
     }),
 })
 
@@ -172,4 +240,11 @@ export const {
     useCreateDocumentMutation,
     useUpdateProjectMutation,
     useUpdateAvatarMutation,
+    useGetProjectsQuery,
+    useGetProjectByIdQuery,
+    useGetReferenceEnumQuery,
+    useChangeStatusMutation,
+    useAddDecisionMutation,
+    useDeleteProjectMutation,
+    useGetProjectsByFilterQuery,
 } = api

@@ -9,23 +9,44 @@ import {
 import {
     MoreHoriz,
     DeleteOutline,
-    Message,
+    Edit,
 } from '@mui/icons-material'
-import { DeleteModal } from '../../../common/index.js'
+import { DeleteModal, ProgressOverlay } from '../../../common/index.js'
 import { ProjectDocuments } from '../../ApprovalPage/components/ProjectDocuments.jsx'
 import { useNavigate } from 'react-router-dom'
 import { EditUserDecision } from '../../ApprovalPage/components/EditUserDecision.jsx'
 import { EditProjectStatus } from '../../ApprovalPage/components/EditProjectStatus.jsx'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
+import { projectSelector } from '../projectSlice.js'
+import { useDeleteProjectMutation } from '../../../store/api'
 
 export const ProjectActions = () => {
     const [anchorEl, setAnchorEl] = React.useState(null)
 
+    const [
+        deleteProject,
+        { isSuccess: isSuccessDelete, isLoading },
+    ] = useDeleteProjectMutation()
+
     const navigate = useNavigate()
+
+    const { project } = useSelector(projectSelector)
+
+    const { userId: ownerId } = useSelector(loginSelector)
+
+    React.useEffect(
+        () => {
+            if (isSuccessDelete) setAnchorEl(null)
+        },
+        [isSuccessDelete]
+    )
 
     const open = Boolean(anchorEl)
 
+    const isOwner = ownerId === project?.ownerId?._id
+
     const handleClick = (event) => {
-        event.stopPropagation()
         setAnchorEl(event.currentTarget)
     }
 
@@ -59,41 +80,61 @@ export const ProjectActions = () => {
                     direction='column'
                     alignItems='flex-start'
                 >
-                    <EditUserDecision button='menuItem' />
+                    {!isOwner && project.status !== 'Заморожено' && (
+                        <EditUserDecision
+                            button='menuItem'
+                            closeMenu={() => setAnchorEl(null)}
+                        />
+                    )}
 
-                    <EditProjectStatus button='menuItem' />
+                    {isOwner && (
+                        <EditProjectStatus
+                            button='menuItem'
+                            closeMenu={() => setAnchorEl(null)}
+                        />
+                    )}
 
-                    <ProjectDocuments button='menuItem' />
-
-                    <MenuItem
-                        onClick={() => navigate('/project-comments')}
-                        sx={{ width: '100%' }}
-                    >
-                        <Stack
-                            direction='row'
-                            spacing={2}
-                            flex={1}
-                            justifyContent='space-between'
-                        >
-                            <Typography>
-                                Открыть комментарии
-                            </Typography>
-
-                            <Message />
-                        </Stack>
-                    </MenuItem >
-
-                    <DeleteModal
-                        onSubmit={() => null}
-                        message='Вы уверены, что хотите удалить проект'
-                        itemName='Контракт по закупке канцелярских товаров?'
-                        title='Удаление проекта'
+                    <ProjectDocuments
                         button='menuItem'
-                        label='Удалить проект'
-                        icon={<DeleteOutline />}
+                        closeMenu={() => setAnchorEl(null)}
+                        documents={project.documentsIds}
                     />
+
+                    {isOwner && (
+                        <MenuItem
+                            onClick={() => navigate(`/edit-project/${project._id}`)}
+                            sx={{ width: '100%' }}
+                        >
+                            <Stack
+                                direction='row'
+                                spacing={2}
+                                flex={1}
+                                justifyContent='space-between'
+                            >
+                                <Typography>
+                                    Редактировать проект
+                                </Typography>
+
+                                <Edit />
+                            </Stack>
+                        </MenuItem >
+                    )}
+
+                    {isOwner && (
+                        <DeleteModal
+                            onSubmit={() => deleteProject(project._id)}
+                            message='Вы уверены, что хотите удалить проект'
+                            itemName={`${project.name}?`}
+                            title='Удаление проекта'
+                            button='menuItem'
+                            label='Удалить проект'
+                            icon={<DeleteOutline />}
+                        />
+                    )}
                 </Stack>
             </Menu>
+
+            <ProgressOverlay showProgressOverlay={isLoading} />
         </>
     )
 }

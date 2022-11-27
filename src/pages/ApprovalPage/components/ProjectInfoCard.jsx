@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     Typography,
     Card,
@@ -7,55 +8,65 @@ import {
     CardHeader,
     Stack
 } from '@mui/material'
-import { projectInfo } from '../constants/projectInfo.js'
 import { getValue } from '../utils/getValue.js'
 import { getColor } from '../utils/getColor.js'
 import { EditProjectStatus } from './EditProjectStatus.jsx'
 import { EditUserDecision } from './EditUserDecision.jsx'
+import { useSelector } from 'react-redux'
+import { loginSelector } from '../../LoginPage/loginSlice.js'
+import { format } from 'date-fns'
+import { getSolution } from '../../ProjectsPage/utils/getSolution.js'
 
-export const ProjectInfoCard = () => {
-    const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => (
-        <Stack direction='row'>
-            <Typography
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'row'
-                }}
-            >
-                {attribute}:&nbsp;
-            </Typography>
+export const ProjectInfoCard = ({ project }) => {
+    const { userId } = useSelector(loginSelector)
 
-            <Typography
-                fontWeight='fontWeightBold'
-                color={isColored ? getColor(value) : 'none'}
-            >
-                {getValue(value, agreedTitle, notAgreedTitle)}
-            </Typography>
-        </Stack>
-    )
+    const isOwner = project?.ownerId._id === userId
 
+    const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => {
+        return (
+            <Stack direction='row'>
+                <Typography
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}
+                >
+                    {attribute}:&nbsp;
+                </Typography>
+
+                <Typography
+                    fontWeight='fontWeightBold'
+                    color={isColored ? getColor(value) : 'none'}
+                >
+                    {getValue(value, agreedTitle, notAgreedTitle)}
+                </Typography>
+            </Stack>
+        )
+    }
+
+    const deadlineStatus = project?.deadline ? format(new Date(project?.deadline), 'dd.MM.yyyy') : null
     return (
         <Card sx={{ width: '25%' }}>
             <CardHeader title='Информация о проекте' />
 
             <CardContent>
-                {renderAttribute('Автор проекта', projectInfo.author)}
+                {renderAttribute('Автор проекта', `${project?.ownerId.lastName} ${project?.ownerId.firstName}`)}
 
-                {renderAttribute(
+                {!isOwner && renderAttribute(
                     'Решение',
-                    projectInfo.userDecisionIsAgreed,
+                    getSolution(project?.coordinationUsers || [], userId),
                     'Согласовано',
                     'Отклонено',
                     true
                 )}
                 {renderAttribute(
                     'Дедлайн',
-                    projectInfo.projectTimeEnd
+                    deadlineStatus
                 )}
 
                 {renderAttribute(
                     'Статус проекта',
-                    projectInfo.projectIsNotAgreed,
+                    project?.status,
                     'На согласовании',
                     'Закрыт',
                     true
@@ -68,10 +79,14 @@ export const ProjectInfoCard = () => {
                     alignItems='center'
                     flex={1}
                 >
-                    <EditUserDecision />
-                    <EditProjectStatus />
+                    {!isOwner && project?.status !== 'Заморожено' && <EditUserDecision />}
+                    {isOwner && <EditProjectStatus />}
                 </Stack>
             </CardActions>
         </Card>
     )
+}
+
+ProjectInfoCard.propTypes = {
+    project: PropTypes.object
 }

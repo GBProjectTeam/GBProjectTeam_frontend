@@ -9,10 +9,11 @@ import { CommonInfoNewProject } from './CommonInfoNewProject'
 import { MembersNewProject } from './MembersNewProject'
 import { DocsNewProject } from './DocsNewProject'
 import { useCreateProjectMutation, useUpdateProjectMutation } from '../../../store/api'
-import { useSelector } from 'react-redux'
-import { newProjectSelector } from '../newProjectSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { newProjectSelector, removeData } from '../newProjectSlice'
 import { ProgressOverlay } from '../../../common'
 import { useNavigate } from 'react-router'
+import { format } from 'date-fns'
 
 export const NewProjectPage = () => {
     const [
@@ -28,8 +29,14 @@ export const NewProjectPage = () => {
 
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
     React.useEffect(
         () => {
+            dispatch(
+                removeData()
+            )
+
             createProject()
         },
         [],
@@ -62,7 +69,10 @@ export const NewProjectPage = () => {
     const isLoading = isCreate || isUpdate
 
     const updatingProject = () => {
-        updateProject(project)
+        updateProject({
+            ...project,
+            deadline: format(new Date(project.deadline), 'yyyy-MM-dd'),
+        })
     }
 
     const stepsCreatingNewProject = () => (

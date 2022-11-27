@@ -8,7 +8,7 @@ import {
     Badge,
     Stack,
     Typography,
-    Avatar
+    Avatar,
 } from '@mui/material'
 import {
     NotificationsNone,
@@ -17,27 +17,49 @@ import {
 } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import { loggedOut, loginSelector } from '../../../pages/LoginPage/loginSlice.js'
+import { useGetProjectsByFilterQuery } from '../../../store/api'
+import { ProgressOverlay } from '../../ProgressOverlay/components/ProgressOverlay.jsx'
 
 export const MenuAppBar = () => {
-    const { lastName, firstName, avatar } = useSelector(loginSelector)
+    const { lastName, firstName, avatar, userId } = useSelector(loginSelector)
 
     const navigate = useNavigate()
 
-    const [anchorEl, setAnchorEl] = React.useState(null)
+    const [anchorPersonalArea, setAnchorPersonalArea] = React.useState(null)
+    const [anchorProjectsForConsideration, setAnchorProjectsForConsideration] = React.useState(null)
 
     const dispatch = useDispatch()
 
-    const open = Boolean(anchorEl)
+    const { data: projects, isFetching } = useGetProjectsByFilterQuery('К согласованию')
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget)
+    const projectsForConsideration = React.useMemo(
+        () => {
+            if (projects && projects.length > 0) {
+                return projects.filter(
+                    (project) => {
+                        const indexForConsideration = project.coordinationUsers.findIndex(
+                            (user) => user.userId._id === userId && user?.settedStatus === ''
+                        )
+
+                        return indexForConsideration !== -1
+                    }
+                )
+            } else {
+                return []
+            }
+        },
+        [projects],
+    )
+
+    const handleClickPersonalAreaMenu = (e) => {
+        setAnchorPersonalArea(e.currentTarget)
     }
 
-    const handleClose = () => {
-        setAnchorEl(null)
+    const handleClosePersonalAreaMenu = () => {
+        setAnchorPersonalArea(null)
     }
 
-    const handleExit = () => {
+    const handleClickExit = () => {
         navigate('/')
         dispatch(
             loggedOut(),
@@ -46,8 +68,77 @@ export const MenuAppBar = () => {
 
     const handleClickPersonal = () => {
         navigate('/personal')
-        setAnchorEl(null)
+        setAnchorPersonalArea(null)
     }
+
+    const handleClickProjectForConsideration = (id) => {
+        navigate(`/approval/${id}`)
+        setAnchorProjectsForConsideration(null)
+    }
+
+    const handleCloseProjectsForConsiderationMenu = () => {
+        setAnchorProjectsForConsideration(null)
+    }
+
+    const renderPersonalAreaMenu = () => (
+        <Menu
+            anchorEl={anchorPersonalArea}
+            open={!!anchorPersonalArea}
+            onClose={handleClosePersonalAreaMenu}
+        >
+            <MenuItem onClick={handleClickPersonal}>
+                <Stack
+                    direction='row'
+                    spacing={2}
+                    flex={1}
+                    justifyContent='space-between'
+                >
+                    <Typography>
+                        Личный кабинет
+                    </Typography>
+                    <PermContactCalendar />
+                </Stack>
+            </MenuItem>
+
+            <MenuItem onClick={handleClickExit}>
+                <Stack
+                    direction='row'
+                    spacing={2}
+                    flex={1}
+                    justifyContent='space-between'
+                >
+                    <Typography>
+                        Выйти
+                    </Typography>
+                    <ExitToApp />
+                </Stack>
+            </MenuItem>
+        </Menu>
+    )
+
+    const renderProjectsForConsiderationMenu = () => (
+        <Menu
+            anchorEl={anchorProjectsForConsideration}
+            open={!!anchorProjectsForConsideration}
+            onClose={handleCloseProjectsForConsiderationMenu}
+        >
+            <Typography px={2}>
+                Проекты, которые ждут Вашего решения:
+            </Typography>
+
+            {React.Children.toArray(
+                projectsForConsideration.map(
+                    (project) => (
+                        <MenuItem
+                            onClick={() => handleClickProjectForConsideration(project._id)}
+                        >
+                            {project.name}
+                        </MenuItem>
+                    )
+                )
+            )}
+        </Menu>
+    )
 
     return (
         <>
@@ -57,9 +148,12 @@ export const MenuAppBar = () => {
                 justifyContent='flex-end'
                 alignItems='center'
             >
-                <IconButton>
+                <IconButton
+                    onClick={(e) => setAnchorProjectsForConsideration(e.currentTarget)}
+                    disabled={projectsForConsideration?.length === 0}
+                >
                     <Badge
-                        badgeContent={3}
+                        badgeContent={projectsForConsideration?.length || null}
                         color='error'
                     >
                         <NotificationsNone />
@@ -82,39 +176,11 @@ export const MenuAppBar = () => {
                 </Button>
             </Stack>
 
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-            >
-                <MenuItem onClick={handleClickPersonal}>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Личный кабинет
-                        </Typography>
-                        <PermContactCalendar />
-                    </Stack>
-                </MenuItem>
+            {renderPersonalAreaMenu()}
 
-                <MenuItem onClick={handleExit}>
-                    <Stack
-                        direction='row'
-                        spacing={2}
-                        flex={1}
-                        justifyContent='space-between'
-                    >
-                        <Typography>
-                            Выйти
-                        </Typography>
-                        <ExitToApp />
-                    </Stack>
-                </MenuItem>
-            </Menu>
+            {renderProjectsForConsiderationMenu()}
+
+            <ProgressOverlay showProgressOverlay={isFetching} />
         </>
     )
 }

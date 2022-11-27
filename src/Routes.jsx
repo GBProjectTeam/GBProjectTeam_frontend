@@ -14,7 +14,7 @@ import {
     ProjectsPage,
     NotFoundPage,
     RegistrationPage,
-    CommentsPage,
+    EditProjectPage,
 } from './pages'
 
 export const Routes = () => (
@@ -32,22 +32,13 @@ export const Routes = () => (
             element={<RegistrationPage />}
         />
         <Route
-            path='/approval'
+            path='/approval/:id'
             element={
                 <PrivateRoute>
                     <ApprovalPage />
                 </PrivateRoute>
             }
-        >
-            <Route
-                path=':id'
-                element={
-                    <PrivateRoute>
-                        <ApprovalPage />
-                    </PrivateRoute>
-                }
-            />
-        </Route>
+        />
         <Route
             path='/projects'
             element={
@@ -81,10 +72,10 @@ export const Routes = () => (
             }
         />
         <Route
-            path='/project-comments'
+            path='/edit-project/:id'
             element={
                 <PrivateRoute>
-                    <CommentsPage />
+                    <EditProjectPage />
                 </PrivateRoute>
             }
         />

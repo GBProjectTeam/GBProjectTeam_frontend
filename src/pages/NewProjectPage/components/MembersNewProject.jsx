@@ -29,7 +29,7 @@ export const MembersNewProject = ({
     const [projectMembers, setProjectMembers] = React.useState([])
 
     const { project } = useSelector(newProjectSelector)
-    const { userId } = useSelector(loginSelector)
+    const { userId: ownerId } = useSelector(loginSelector)
 
     const { data: users, isFetching } = useGetUsersQuery()
 

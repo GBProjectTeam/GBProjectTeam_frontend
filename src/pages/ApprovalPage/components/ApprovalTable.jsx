@@ -78,7 +78,7 @@ export const ApprovalTable = ({ project }) => {
                             users?.map((user) => (
                                 <TableRow>
                                     <TableCell align='center' >
-                                        {user.userId.lastName} {user.userId.firstName}
+                                        {user.userId?.lastName} {user.userId?.firstName}
 
                                         <IconButton onClick={() => navigate(`/profile/${user.userId._id}`)}>
                                             <Info />

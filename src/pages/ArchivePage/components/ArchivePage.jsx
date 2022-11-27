@@ -18,7 +18,7 @@ import { ProgressOverlay } from '../../../common'
 export const ArchivePage = () => {
     const navigate = useNavigate()
 
-    const { data: projects, isFetching } = useGetProjectsByFilterQuery('К согласованию')
+    const { data: projects, isFetching } = useGetProjectsByFilterQuery('status=Согласовано&status=Отклонено')
 
     const rows = React.useMemo(
         () => {

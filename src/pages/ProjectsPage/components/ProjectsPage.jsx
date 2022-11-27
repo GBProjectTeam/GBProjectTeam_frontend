@@ -30,7 +30,9 @@ export const ProjectsPage = () => {
 
     const handleOnCellClick = (params) => {
         if (params.field === 'actions') {
-            dispatch(saveProject(params.row.project))
+            dispatch(
+                saveProject(params.row.project)
+            )
         } else {
             navigate(`/approval/${params.id}`)
         }

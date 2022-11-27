@@ -22,6 +22,8 @@ export const ProjectInfoCard = ({ project }) => {
 
     const isOwner = project?.ownerId._id === userId
 
+    const allowEditDecision = project?.status !== 'Заморожено' && project?.status !== 'Отклонено' && project?.status !== 'Согласовано'
+
     const renderAttribute = (attribute, value, agreedTitle, notAgreedTitle, isColored) => {
         return (
             <Stack direction='row'>
@@ -79,7 +81,7 @@ export const ProjectInfoCard = ({ project }) => {
                     alignItems='center'
                     flex={1}
                 >
-                    {!isOwner && project?.status !== 'Заморожено' && <EditUserDecision />}
+                    {!isOwner && allowEditDecision && <EditUserDecision />}
                     {isOwner && <EditProjectStatus />}
                 </Stack>
             </CardActions>

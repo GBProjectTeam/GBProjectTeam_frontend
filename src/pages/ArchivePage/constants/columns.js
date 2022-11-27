@@ -1,6 +1,8 @@
+import { ProjectActions } from '../../ProjectsPage/components/ProjectActions.jsx'
+
 export const columns = [
     {
-        field: 'project',
+        field: 'name',
         headerName: 'Проект',
         headerAlign: 'left',
         align: 'left',
@@ -8,7 +10,7 @@ export const columns = [
         sortable: false
     },
     {
-        field: 'deadline',
+        field: 'closedAt',
         headerName: 'Дата закрытия',
         headerAlign: 'left',
         align: 'left',
@@ -27,5 +29,15 @@ export const columns = [
         headerAlign: 'left',
         align: 'left',
         flex: 1,
+    },
+    {
+        field: 'actions',
+        headerName: 'Действия',
+        headerAlign: 'right',
+        align: 'right',
+        flex: 1,
+        sortable: false,
+        disableColumnMenu: true,
+        renderCell: ProjectActions
     }
 ]

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
     Stack,
     TextField,
@@ -10,9 +11,7 @@ import {
 } from '@mui/material'
 import { Modal, ProgressOverlay } from '../../../common/index.js'
 import { Create, Visibility, VisibilityOff } from '@mui/icons-material'
-import { useSelector } from 'react-redux'
 import { useUpdateUserMutation } from '../../../store/api'
-import { loginSelector } from '../../LoginPage/loginSlice.js'
 
 const initialUpdateUser = {
     lastName: '',
@@ -43,7 +42,9 @@ const init = () => {
     return initialUpdateUser
 }
 
-export const ModalUpdateUserInfo = () => {
+export const ModalUpdateUserInfo = ({
+    user,
+}) => {
     const [open, setOpen] = React.useState(false)
     const [updatedUser, dispatch] = React.useReducer(reducer, initialUpdateUser, init)
     const [oldPassword, setOldPassword] = React.useState('')
@@ -52,26 +53,24 @@ export const ModalUpdateUserInfo = () => {
     const [showPassword, setShowPassword] = React.useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
 
-    const { lastName, firstName, patronymicName, email } = useSelector(loginSelector)
-
-    const [updateUser, { isSuccess, isError, isLoading }] = useUpdateUserMutation()
+    const [updateUser, { isLoading }] = useUpdateUserMutation()
 
     React.useEffect(
         () => {
             dispatch([
-                { id: 'firstName', value: firstName },
-                { id: 'lastName', value: lastName },
-                { id: 'patronymicName', value: patronymicName },
-                { id: 'email', value: email },
+                { id: 'firstName', value: user?.firstName },
+                { id: 'lastName', value: user?.lastName },
+                { id: 'patronymicName', value: user?.patronymicName },
+                { id: 'email', value: user?.email },
             ])
         },
         [],
     )
 
-    const allowSubmit = firstName !== updatedUser.firstName
-        || lastName !== updatedUser.lastName
-        || patronymicName !== updatedUser.patronymicName
-        || email !== updatedUser.email
+    const allowSubmit = user?.firstName !== updatedUser.firstName
+        || user?.lastName !== updatedUser.lastName
+        || user?.patronymicName !== updatedUser.patronymicName
+        || user?.email !== updatedUser.email
 
     const handleClickShowOldPassword = () => {
         setShowOldPassword(!showOldPassword)
@@ -258,4 +257,8 @@ export const ModalUpdateUserInfo = () => {
             )}
         </Modal>
     )
+}
+
+ModalUpdateUserInfo.propTypes = {
+    user: PropTypes.object,
 }

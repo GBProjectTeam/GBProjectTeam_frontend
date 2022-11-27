@@ -194,7 +194,7 @@ export const api = createApi({
                 method: 'POST',
                 body: avatar,
             })
-        })
+        }),
         changeStatus: builder.mutation({
             query: (statusData) => ({
                 url: '/projects/changeStatus',

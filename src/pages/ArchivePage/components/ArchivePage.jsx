@@ -14,9 +14,13 @@ import { columns } from '../constants/columns'
 import { useGetProjectsByFilterQuery } from '../../../store/api'
 import { format } from 'date-fns'
 import { ProgressOverlay } from '../../../common'
+import { saveProject } from '../../ProjectsPage/projectSlice.js'
+import { useDispatch } from 'react-redux'
 
 export const ArchivePage = () => {
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     const { data: projects, isFetching } = useGetProjectsByFilterQuery('status=Согласовано&status=Отклонено')
 
@@ -28,16 +32,27 @@ export const ArchivePage = () => {
                 return projects.map((project) => (
                     {
                         id: project._id,
-                        project: project.name,
+                        name: project.name,
                         closedAt: format(new Date(project.updatedAt), 'dd.MM.yyyy'),
                         author: `${project.ownerId.firstName} ${project.ownerId.lastName}`,
                         status: project.status,
+                        project,
                     }
                 ))
             }
         },
         [projects],
     )
+
+    const handleOnCellClick = (params) => {
+        if (params.field === 'actions') {
+            dispatch(
+                saveProject(params.row.project)
+            )
+        } else {
+            navigate(`/approval/${params.id}`)
+        }
+    }
 
     return (
         <Stack
@@ -78,7 +93,7 @@ export const ArchivePage = () => {
                     }
                     return ''
                 }}
-                onRowClick={(params) => navigate(`/approval/${params.id}`)}
+                onCellClick={handleOnCellClick}
             />
 
             <ProgressOverlay showProgressOverlay={isFetching} />

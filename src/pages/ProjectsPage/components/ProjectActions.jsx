@@ -42,9 +42,9 @@ export const ProjectActions = () => {
         [isSuccessDelete]
     )
 
-    const open = Boolean(anchorEl)
-
     const isOwner = ownerId === project?.ownerId?._id
+
+    const allowEditDecision = project?.status !== 'Заморожено' && project?.status !== 'Отклонено' && project?.status !== 'Согласовано'
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -73,14 +73,14 @@ export const ProjectActions = () => {
 
             <Menu
                 anchorEl={anchorEl}
-                open={open}
+                open={!!anchorEl}
                 onClose={handleClose}
             >
                 <Stack
                     direction='column'
                     alignItems='flex-start'
                 >
-                    {!isOwner && project.status !== 'Заморожено' && (
+                    {!isOwner && allowEditDecision && (
                         <EditUserDecision
                             button='menuItem'
                             closeMenu={() => setAnchorEl(null)}

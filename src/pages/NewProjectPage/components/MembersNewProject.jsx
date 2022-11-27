@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+    Avatar,
     Button,
     FormControl,
     IconButton,
     InputLabel,
     List,
     ListItem,
+    ListItemAvatar,
     ListItemText,
     MenuItem,
     Select,
@@ -27,7 +29,7 @@ export const MembersNewProject = ({
     const [projectMembers, setProjectMembers] = React.useState([])
 
     const { project } = useSelector(newProjectSelector)
-    const { userId: ownerId } = useSelector(loginSelector)
+    const { userId } = useSelector(loginSelector)
 
     const { data: users, isFetching } = useGetUsersQuery()
 
@@ -113,9 +115,10 @@ export const MembersNewProject = ({
     const addMember = () => {
         const user = users?.find(item => item._id === projectMemberId)
         const name = `${user.lastName} ${user.firstName} ${user.patronymicName}`
+        const avatar = `http://194.87.94.182/users/${user._id}/avatar`
 
         setProjectMembers(
-            (members) => [...members, { id: projectMemberId, name }]
+            (members) => [...members, { id: projectMemberId, name, avatar }]
         )
 
         dispatch (
@@ -212,9 +215,12 @@ export const MembersNewProject = ({
                                 />
                             }
                         >
-                            {/* <ListItemAvatar>
-                            <Avatar src={item.avatar} />
-                        </ListItemAvatar> */}
+                            <ListItemAvatar>
+                                <Avatar
+                                    alt='Avatar'
+                                    src={item.avatar}
+                                />
+                            </ListItemAvatar>
 
                             <ListItemText
                                 primary={item.name}

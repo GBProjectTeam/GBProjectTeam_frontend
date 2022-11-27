@@ -38,7 +38,7 @@ export const PersonalAvatar = () => {
                     <Avatar
                         alt='Avatar'
                         sx={{ width: '50vh', height: '50vh' }}
-                        src={`http://194.87.94.182/files/${avatar}`}
+                        src={avatar}
                     />
                 )
         ),

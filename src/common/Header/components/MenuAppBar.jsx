@@ -67,7 +67,7 @@ export const MenuAppBar = () => {
     }
 
     const handleClickPersonal = () => {
-        navigate('/personal')
+        navigate(`/profile/${userId}`)
         setAnchorPersonalArea(null)
     }
 

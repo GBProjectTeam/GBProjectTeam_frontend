@@ -98,7 +98,7 @@ const baseQueryWithReauth = async (
 export const api = createApi({
     baseQuery: baseQueryWithReauth,
 
-    tagTypes: ['Projects', 'Project', 'ProjectsByFilter'],
+    tagTypes: ['Projects', 'Project', 'ProjectsByFilter', 'Users', 'User'],
 
     endpoints: (builder) => ({
         login: builder.mutation({
@@ -121,6 +121,10 @@ export const api = createApi({
                 method: 'PATCH',
                 body: dataUpdatedUser,
             }),
+
+            invalidatesTags: (result) => (
+                result ? ['Users', 'User'] : []
+            ),
         }),
         createProject: builder.mutation({
             query: (createProjectData) => ({
@@ -133,7 +137,17 @@ export const api = createApi({
             query: () => ({
                 url: '/users',
                 method: 'GET',
-            })
+            }),
+
+            providesTags: ['Users'],
+        }),
+        getUserById: builder.query({
+            query: (userId) => ({
+                url: `/users/${userId}`,
+                method: 'GET',
+            }),
+
+            providesTags: ['User'],
         }),
         createDocument: builder.mutation({
             query: (documentData) => ({
@@ -193,7 +207,11 @@ export const api = createApi({
                 url: '/users/avatar',
                 method: 'POST',
                 body: avatar,
-            })
+            }),
+
+            invalidatesTags: (result) => (
+                result ? ['User'] : []
+            ),
         }),
         changeStatus: builder.mutation({
             query: (statusData) => ({
@@ -236,6 +254,7 @@ export const {
     useRegistrationMutation,
     useUpdateUserMutation,
     useGetUsersQuery,
+    useGetUserByIdQuery,
     useCreateProjectMutation,
     useCreateDocumentMutation,
     useUpdateProjectMutation,

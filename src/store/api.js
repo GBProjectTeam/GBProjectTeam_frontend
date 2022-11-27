@@ -33,6 +33,17 @@ const baseQueryWithReauth = async (
                 api,
                 extraOptions,
             )
+        case '/users/avatar':
+            return baseQuery(
+                {
+                    ...args,
+                    headers: {
+                        'Authorization': `Bearer ${loginState.token}`,
+                    },
+                },
+                api,
+                extraOptions,
+            )
         default:
             return baseQuery(
                 {
@@ -177,6 +188,13 @@ export const api = createApi({
                 method: 'GET',
             })
         }),
+        updateAvatar: builder.mutation({
+            query: (avatar) => ({
+                url: '/users/avatar',
+                method: 'POST',
+                body: avatar,
+            })
+        })
         changeStatus: builder.mutation({
             query: (statusData) => ({
                 url: '/projects/changeStatus',
@@ -221,6 +239,7 @@ export const {
     useCreateProjectMutation,
     useCreateDocumentMutation,
     useUpdateProjectMutation,
+    useUpdateAvatarMutation,
     useGetProjectsQuery,
     useGetProjectByIdQuery,
     useGetReferenceEnumQuery,

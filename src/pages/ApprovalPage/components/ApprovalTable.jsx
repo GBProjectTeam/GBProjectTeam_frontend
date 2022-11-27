@@ -9,9 +9,12 @@ import {
     TableBody,
     Paper,
     Stack,
-    Typography
+    Typography,
+    IconButton,
 } from '@mui/material'
+import { Info } from '@mui/icons-material'
 import { getColor } from '../utils/getColor.js'
+import { useNavigate } from 'react-router-dom'
 
 export const ApprovalTable = ({ project }) => {
     const users = React.useMemo(
@@ -22,6 +25,8 @@ export const ApprovalTable = ({ project }) => {
         },
         [project]
     )
+
+    const navigate = useNavigate()
 
     return (
         <Stack
@@ -74,6 +79,10 @@ export const ApprovalTable = ({ project }) => {
                                 <TableRow>
                                     <TableCell align='center' >
                                         {user.userId.lastName} {user.userId.firstName}
+
+                                        <IconButton onClick={() => navigate(`/profile/${user.userId._id}`)}>
+                                            <Info />
+                                        </IconButton>
                                     </TableCell>
 
                                     <TableCell align='center'>

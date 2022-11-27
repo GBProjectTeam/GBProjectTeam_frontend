@@ -8,9 +8,9 @@ import {
     Badge,
     Stack,
     Typography,
+    Avatar,
 } from '@mui/material'
 import {
-    AccountCircle,
     NotificationsNone,
     PermContactCalendar,
     ExitToApp
@@ -21,7 +21,7 @@ import { useGetProjectsByFilterQuery } from '../../../store/api'
 import { ProgressOverlay } from '../../ProgressOverlay/components/ProgressOverlay.jsx'
 
 export const MenuAppBar = () => {
-    const { lastName, firstName, userId } = useSelector(loginSelector)
+    const { lastName, firstName, avatar, userId } = useSelector(loginSelector)
 
     const navigate = useNavigate()
 
@@ -30,7 +30,7 @@ export const MenuAppBar = () => {
 
     const dispatch = useDispatch()
 
-    const { data: projects, isFetching } = useGetProjectsByFilterQuery('К согласованию')
+    const { data: projects, isFetching } = useGetProjectsByFilterQuery('status=К согласованию')
 
     const projectsForConsideration = React.useMemo(
         () => {
@@ -162,7 +162,13 @@ export const MenuAppBar = () => {
 
                 <Button
                     variant='outlined'
-                    startIcon={<AccountCircle />}
+                    startIcon={
+                        <Avatar
+                            alt='Avatar'
+                            sx={{ width: '30px', height: '30px' }}
+                            src={avatar}
+                        />
+                    }
                     onClick={handleClickPersonalAreaMenu}
                     sx={{ borderRadius: 20 }}
                 >

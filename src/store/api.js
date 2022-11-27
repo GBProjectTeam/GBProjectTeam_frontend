@@ -33,6 +33,17 @@ const baseQueryWithReauth = async (
                 api,
                 extraOptions,
             )
+        case '/users/avatar':
+            return baseQuery(
+                {
+                    ...args,
+                    headers: {
+                        'Authorization': `Bearer ${loginState.token}`,
+                    },
+                },
+                api,
+                extraOptions,
+            )
         default:
             return baseQuery(
                 {
@@ -164,8 +175,8 @@ export const api = createApi({
             providesTags: ['Project'],
         }),
         getProjectsByFilter: builder.query({
-            query: (status) => ({
-                url: `/projects/filter?status=${status}`,
+            query: (queryString) => ({
+                url: `/projects/filter?${queryString}`,
                 method: 'GET',
             }),
 
@@ -175,6 +186,13 @@ export const api = createApi({
             query: (referenceEnum) => ({
                 url: `/reference/enums/${referenceEnum}`,
                 method: 'GET',
+            })
+        }),
+        updateAvatar: builder.mutation({
+            query: (avatar) => ({
+                url: '/users/avatar',
+                method: 'POST',
+                body: avatar,
             })
         }),
         changeStatus: builder.mutation({
@@ -221,6 +239,7 @@ export const {
     useCreateProjectMutation,
     useCreateDocumentMutation,
     useUpdateProjectMutation,
+    useUpdateAvatarMutation,
     useGetProjectsQuery,
     useGetProjectByIdQuery,
     useGetReferenceEnumQuery,

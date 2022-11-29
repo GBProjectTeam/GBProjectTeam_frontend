@@ -1,6 +1,6 @@
 import React from 'react'
 import './utils/reset.sass'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { Routes } from './Routes'
 import { MainLayout } from './layouts'
 import { CssBaseline } from '@mui/material'
@@ -11,12 +11,12 @@ import { store, persistor } from './store/store'
 export const App = () => (
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-            <BrowserRouter>
+            <HashRouter>
                 <CssBaseline />
                 <MainLayout>
                     <Routes />
                 </MainLayout>
-            </BrowserRouter>
+            </HashRouter>
         </PersistGate>
     </Provider>
 )

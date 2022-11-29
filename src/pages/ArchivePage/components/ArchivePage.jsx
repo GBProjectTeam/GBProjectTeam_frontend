@@ -89,7 +89,7 @@ export const ArchivePage = () => {
                 }}
                 getCellClassName={(params) => {
                     if (params.field === 'status' && params.value !== null) {
-                        return params.value === 'Согласован' ? 'status-agreed' : 'status-not-agreed'
+                        return params.value === 'Согласовано' ? 'status-agreed' : 'status-not-agreed'
                     }
                     return ''
                 }}

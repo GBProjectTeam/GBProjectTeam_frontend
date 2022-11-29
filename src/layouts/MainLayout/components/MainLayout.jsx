@@ -23,7 +23,7 @@ export const MainLayout = ({ children }) => {
 
     const isRegistrationPage = location.pathname === '/registration'
 
-    const isApprovalPage = location.pathname.includes('/approval')
+    const isApprovalPage = location.pathname.includes('/approval/')
 
     const isProjectsPage = location.pathname === '/projects'
 
@@ -33,7 +33,7 @@ export const MainLayout = ({ children }) => {
 
     const isUpdateProjectPage = location.pathname.includes('/edit-project/')
 
-    const isPersonalPage = location.pathname === '/personal'
+    const isPersonalPage = location.pathname.includes('/profile/')
 
     const bgGradient =
     'linear-gradient(135deg, rgba(105,35,255,1) 0%, rgba(127,77,232,1) 50%, rgba(144,112,211,1) 100%)'

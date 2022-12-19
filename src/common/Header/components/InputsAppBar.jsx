@@ -25,6 +25,7 @@ export const InputsAppBar = () => {
 
     const [open, setOpen] = React.useState(false)
     const [options, setOptions] = React.useState([])
+    const [circular, setCircular] = React.useState(false)
 
     const loading = open && options.length === 0
 
@@ -38,6 +39,7 @@ export const InputsAppBar = () => {
         (async () => {
             if (active) {
                 setOptions([...projects])
+                setCircular(false)
             }
         })()
 
@@ -85,6 +87,7 @@ export const InputsAppBar = () => {
                 open={open}
                 onOpen={() => {
                     setOpen(true)
+                    setCircular(true)
                 }}
                 onClose={() => {
                     setOpen(false)
@@ -93,6 +96,7 @@ export const InputsAppBar = () => {
                 options={options}
                 loading={loading}
                 noOptionsText='Не найдено'
+                loadingText={options?.length === 0 && !circular ? 'Нет доступных проектов' : 'Загрузка...'}
                 renderOption={(props, option) => (
                     <ListItemButton
                         {...props}
@@ -111,7 +115,7 @@ export const InputsAppBar = () => {
                             ...params.InputProps,
                             endAdornment: (
                                 <>
-                                    {loading ? <CircularProgress color='inherit' size={20} /> : null}
+                                    {circular ? <CircularProgress color='inherit' size={20} /> : null}
                                     {params.InputProps.endAdornment}
                                 </>
                             ),
